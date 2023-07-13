@@ -39,7 +39,7 @@ public class AddressDAOImp implements AddressDAO {
             pstmt = c.prepareStatement(
                     "insert into userportal_addresses(addressid, userid, houseno, street, city, state, country, zipcode, landmark, postaladdress) values(?,?,?,?,?,?,?,?,?,?)");
 
-            pstmt.setString(1, address.getAddId()); //only one address for each user as of now... im yet to add the multiple address feature
+            pstmt.setInt(1, Integer.parseInt(address.getAddId())); //only one address for each user as of now... im yet to add the multiple address feature
             pstmt.setInt(2, userId);
             pstmt.setString(3, address.getAddHouseNo());
             pstmt.setString(4, address.getAddStreet()); //this is basically the value of 'STREET' from the registration .sp

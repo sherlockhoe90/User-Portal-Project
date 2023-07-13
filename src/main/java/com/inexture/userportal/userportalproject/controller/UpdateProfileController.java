@@ -68,7 +68,7 @@ public class UpdateProfileController extends HttpServlet {
 //            }
 
             /* to set the updated values */
-            // user part
+            /* user part */
             user.setUserFirstname(request.getParameter("firstname"));
             user.setUserMiddlename(request.getParameter("middlename"));
             user.setUserLastname(request.getParameter("lastname"));
@@ -79,20 +79,25 @@ public class UpdateProfileController extends HttpServlet {
             user.setUserHobbies(request.getParameter("hobbies"));
 
             int id = service.updateProfile(user);
+            user.setUserId(id); //cuz we were still getting the userId = 0 even after setting it in CurrentUser during Login etc.. so Why not? lol
 
-            // address part
+
+
+            /* address part */
+
             String addrId[] = new String[addList.size()];
             for (int i = 0; i < addList.size(); i++) { //getting the IDs of addresses in database
                 addrId[i] = addList.get(i).getAddId();
             }
+
             // getting the IDs of addresses on edit jsp page
             String[] addressId = request.getParameterValues("addressId[]");
-            // if addressIdList of edit jsp addresses doesnt contain an addressID from database, remove that address from the database
             List<String> addressIdList = Arrays.asList(addressId);
+            // if addressIdList of edit jsp addresses doesnt contain an addressID from database, remove that address from the database
             String remove = "";
             for (int i = 0; i < addrId.length; i++) {
                 if (!addressIdList.contains(addrId[i])) {
-                    remove += addrId[i] + "";
+                    remove += addrId[i] + " ";
                 }
             }
 
@@ -150,9 +155,10 @@ public class UpdateProfileController extends HttpServlet {
 
             for (int i = 0; i < newHouseno.length; i++) {
                 if (addressId[i].equals("")) {
-                    Address newAddress = new Address();
-                    lastNonEmptyId++;
-                    newAddress.setAddId(String.valueOf(lastNonEmptyId));
+                    Address newAddress = new Address(); //no
+//                    lastNonEmptyId++;
+                    newAddress.setAddId(String.valueOf(++lastNonEmptyId));
+                    newAddress.setAddUserID(id);
                     newAddress.setAddHouseNo(newHouseno[i]);
                     newAddress.setAddStreet(newStreet[i]);
                     newAddress.setAddLandmark(newLandmark[i]);
@@ -182,6 +188,7 @@ public class UpdateProfileController extends HttpServlet {
 
                 // to set the updated values
                 address.setAddId(addressId[count]);
+                address.setAddUserID(id);
                 address.setAddHouseNo(houseno[count]);
                 address.setAddStreet(street[count]);
                 address.setAddLandmark(landmark[count]);
