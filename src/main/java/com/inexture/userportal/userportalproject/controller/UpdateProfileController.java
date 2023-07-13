@@ -152,83 +152,78 @@ public class UpdateProfileController extends HttpServlet {
                     lastNonEmptyId++;
                     newAddress.setAddId(String.valueOf(lastNonEmptyId));
                     newAddress.setAddHouseNo(newHouseno[i]);
-                    if (i < newStreet.length) {
-                        newAddress.setAddStreet(newStreet[i]);
+                    newAddress.setAddStreet(newStreet[i]);
+                    newAddress.setAddLandmark(newLandmark[i]);
+                    newAddress.setAddCity(newCity[i]);
+                    newAddress.setAddState(newState[i]);
+                    newAddress.setAddZipcode(newZipcode[i]);
+                    newAddress.setAddCountry(newCountry[i]);
+                    newAddress.setAddPostalAdd(newPostaladdress[i]);
 
-                        address.setAddLandmark(newLandmark[i]);
-                        if (i < newCity.length) {
-                            address.setAddCity(newCity[i]);
-                        }
-                        if (i < newState.length) {
-                            address.setAddState(newState[i]);
-                        }
-                        if (i < newZipcode.length) {
-                            address.setAddZipcode(newZipcode[i]);
-                        }
-                        address.setAddCountry(newCountry[i]);
-                        address.setAddPostalAdd(newPostaladdress[i]);
-
-                        addservice.addAddress(id, newAddress);
-                    }
+                    addservice.addAddress(id, newAddress);
                 }
+            }
 
 
-                // to get the updated values
-                String[] houseno = request.getParameterValues("houseno[]");
-                String[] street = request.getParameterValues("address[]");
-                String[] landmark = request.getParameterValues("landmark[]");
-                String[] zipcode = request.getParameterValues("zipcode[]");
-                String[] city = request.getParameterValues("city[]");
-                String[] state = request.getParameterValues("state[]");
-                String[] country = request.getParameterValues("country[]");
-                String[] postaladdress = request.getParameterValues("postaladdress[]");
+            // to get the updated values
+            String[] houseno = request.getParameterValues("houseno[]");
+            String[] street = request.getParameterValues("address[]");
+            String[] landmark = request.getParameterValues("landmark[]");
+            String[] zipcode = request.getParameterValues("zipcode[]");
+            String[] city = request.getParameterValues("city[]");
+            String[] state = request.getParameterValues("state[]");
+            String[] country = request.getParameterValues("country[]");
+            String[] postaladdress = request.getParameterValues("postaladdress[]");
 
-                int count = 0;
-                while (count < street.length) {
+            int count = 0;
+            while (count < street.length) {
 
-                    // to set the updated values
-                    address.setAddId(addressId[count]);
-                    address.setAddHouseNo(houseno[count]);
-                    address.setAddStreet(street[count]);
-                    address.setAddLandmark(landmark[count]);
-                    address.setAddCity(city[count]);
-                    address.setAddState(state[count]);
-                    address.setAddZipcode(zipcode[count]);
-                    address.setAddCountry(country[count]);
-                    address.setAddPostalAdd(postaladdress[count]);
-                    address.setRemoveAddressId(remove);
+                // to set the updated values
+                address.setAddId(addressId[count]);
+                address.setAddHouseNo(houseno[count]);
+                address.setAddStreet(street[count]);
+                address.setAddLandmark(landmark[count]);
+                address.setAddCity(city[count]);
+                address.setAddState(state[count]);
+                address.setAddZipcode(zipcode[count]);
+                address.setAddCountry(country[count]);
+                address.setAddPostalAdd(postaladdress[count]);
+                address.setRemoveAddressId(remove);
 
-                    // update address function called
-                    addservice.updateAddress(address, id);
-                    logger.info("address values inside update servlet" + address);
-                    count++;
-                }
+                // update address function called
+                addservice.updateAddress(address, id);
+                logger.info("address values inside update servlet" + address);
+                count++;
+            }
 
-                String uName = (String) session.getAttribute("userName"); //gets this from the JS code on top of registration.jsp
-                if (uName.equals("adminEdit")) {
-                    response.sendRedirect("adminHomePage.jsp");
-                } else if (uName.equals("userEdit")) {
-                    User userList = service.displaySpecificUser(user);
-                    session.setAttribute("specificUserData", userList);
-                    List<Address> listAddress = addservice.getAllAddress(id);
-                    session.setAttribute("AddressList", listAddress);
-                    // session.setAttribute("CurrentUser", user);
-                    // response.sendRedirect("UserHomePage.jsp");
-                    RequestDispatcher req = request.getRequestDispatcher("userHomePage.jsp");
-                    req.include(request, response);
-                } else if (uName.equals("admin")) {
-                    List<User> adminList = service.displayAdmin(user);
-                    session.setAttribute("adminList", adminList);
-                    List<Address> listAddress = addservice.getAllAddress(id);
-                    session.setAttribute("AddressList", listAddress);
-                    response.sendRedirect("adminHomePage.jsp");
-
-                }
+            String uName = (String) session.getAttribute("userName"); //gets this from the JS code on top of registration.jsp
+            if (uName.equals("adminEdit")) {
+                response.sendRedirect("adminHomePage.jsp");
+            } else if (uName.equals("userEdit")) {
+                User userList = service.displaySpecificUser(user);
+                session.setAttribute("specificUserData", userList);
+                List<Address> listAddress = addservice.getAllAddress(id);
+                session.setAttribute("AddressList", listAddress);
+                // session.setAttribute("CurrentUser", user);
+                // response.sendRedirect("UserHomePage.jsp");
+                RequestDispatcher req = request.getRequestDispatcher("userHomePage.jsp");
+                req.include(request, response);
+            } else if (uName.equals("admin")) {
+                List<User> adminList = service.displayAdmin(user);
+                session.setAttribute("adminList", adminList);
+                List<Address> listAddress = addservice.getAllAddress(id);
+                session.setAttribute("AddressList", listAddress);
+                response.sendRedirect("adminHomePage.jsp");
 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
+
+    } catch(
+    SQLException e)
+
+    {
+        e.printStackTrace();
     }
+
+}
 }

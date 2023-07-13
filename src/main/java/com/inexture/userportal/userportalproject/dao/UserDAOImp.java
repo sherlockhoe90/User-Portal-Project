@@ -272,6 +272,7 @@ public class UserDAOImp implements UserDAO {
 
         while (rs.next()) {
             User user = new User();
+            user.setUserId(rs.getInt("id"));
             user.setUserFirstname(rs.getString("firstname"));
             user.setUserMiddlename(rs.getString("middlename"));
             user.setUserLastname(rs.getString("lastname"));
@@ -280,12 +281,12 @@ public class UserDAOImp implements UserDAO {
             user.setUserAge(rs.getInt("age"));
             user.setUserUsername(rs.getString("username"));
             user.setUserPassword(rs.getString("password"));
-            Blob blob = rs.getBlob("profile_img");
-
-            byte[] photo = blob.getBytes(1, (int) blob.length());
-            String base64Image = Base64.getEncoder().encodeToString(photo);
-            user.setBase64Image(base64Image);
-            user.setUserHobbies(rs.getString("hobbies"));
+//            Blob blob = rs.getBlob("profile_img");
+//
+//            byte[] photo = blob.getBytes(1, (int) blob.length());
+//            String base64Image = Base64.getEncoder().encodeToString(photo);
+//            user.setBase64Image(base64Image);
+//            user.setUserHobbies(rs.getString("hobbies"));
             list.add(user);
         }
         return list;

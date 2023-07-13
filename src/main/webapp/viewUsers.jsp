@@ -142,8 +142,11 @@
                     <%--                         width="100" height="100"></td>--%>
                 <td>${user.userDOB}</td>
                 <td>${user.userAge}</td>
-                <td><a href="AdminEdit?user=adminEdit&userId=${user.userId}"><i
+                <td>
+                    <%--edit icon--%>
+                    <a href="AdminEdit?user=adminEdit&userId=${user.userId}"><i
                         class="fa fa-pencil-square-o fa-lg " aria-hidden="true"></i></a>
+                    <%--delete icon--%>
                     &nbsp;&nbsp;<a id="${user.userId}" class="delete"><i
                             class="fa fa-trash fa-lg " aria-hidden="true"></i></a></td>
                     <%--here lies the extra TD in root--%>
@@ -170,6 +173,10 @@
 
             var rowToDelete = this;
             var userId = +this.id;
+            //THIS CAN ALSO BE DONE WITH URL REWRITING
+            // CALLING DeleteUserController Servlet with href="DeleteUserController?userId="+userId;
+            //But using this above URL rewriting method would send the data as a GET request,
+            // and there's no hidden form for a POST method request
             $.ajax({
                 url: "DeleteUser",
                 type: "post",

@@ -1,4 +1,11 @@
 <%--<%@ page language="java" contentType="text/html" pageEncoding="utf-8"%>--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%--getting the parameter 'user' and saving it in the variable 'profile'--%>
+<c:set var="profile" scope="request"
+       value='<%=request.getParameter("user")%>'/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +44,16 @@
             <% if (showRegistrationLink) { %>
             <a class="header-text" href="registration.jsp">Registration</a>
             <% } %>
+
+                <c:choose>
+                    <c:when test="${(profile == 'admin') || (profile == 'adminEdit')}">
+                        <a class="header-text" href="adminHomePage.jsp">Admin Home</a>
+                    </c:when>
+                    <c:when test="${(profile == 'userEdit')}">
+                        <a class="header-text" href="userHomePage.jsp">User Home</a>
+                    </c:when>
+                </c:choose>
+
             <a class="navbar-brand content-center col-sm-0 d-md-none d-sm-none headerprojectname">Portal Project</a>
         </div>
 
