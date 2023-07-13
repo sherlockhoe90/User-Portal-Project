@@ -1,0 +1,111 @@
+@import
+	url("https://fonts.googleapis.com/css?family=Maven+Pro:400,500,600,700,800,900&display=swap")
+	;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins Regular", sans-serif, "Maven Pro";
+}
+
+.wrapper {
+	height: 100vh;
+}
+
+.myColor {
+	background-image: linear-gradient(to right, #f83600 50%, #f9d423 150%);
+}
+
+.myShadow {
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.myBtn {
+	border-radius: 50px;
+	font-weight: bold;
+	font-size: 20px;
+	background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+	border: none;
+}
+
+.myBtn:hover {
+	background-image: linear-gradient(to right, #495aff 0%, #0acffe 100%);
+}
+
+.myHr {
+	height: 2px;
+	border-radius: 100px;
+}
+
+.myLinkBtn {
+	border-radius: 100px;
+	width: 50%;
+	border: 2px solid #fff;
+}
+
+@media ( max-width : 720px) {
+	.wrapper {
+		margin: 2px;
+	}
+}
+
+/*css for the header project title*/
+@media ( min-width : 776px) {
+	.headerprojectname {
+		display: inline;
+	}
+}
+@media only screen and (max-device-width: 775px) {
+	/* styles for mobile browsers smaller than 480px; (iPhone) */
+	.headerprojectname {
+		display: none;
+	}
+}
+
+/* custom css  */
+.btn-margin {
+	margin: 50px 0;
+}
+
+.address-border {
+	border: 1px solid black;
+	border-radius: 2px;
+}
+
+.address_label_margin {
+	margin-top: 30px;
+}
+
+.all_page_background {
+	/*background-color: rgba(134, 191, 219, 0.651);*/
+}
+
+.bg_custom_color {
+	/*background-color: rgba(134, 191, 219, 0.651) !important;*/
+}
+
+.icon_size {
+	font-size: 20px;
+}
+
+.table_css {
+	width: 100%;
+	font-size: 17px;
+}
+
+.margin_top_file {
+	margin-bottom: 30px;
+}
+
+.btn_hide {
+	display: none;
+}
+
+.submit_btn {
+	margin-bottom: 30px;
+}
+
+.viewUsersTable {
+	margin-bottom: 500px;
+}

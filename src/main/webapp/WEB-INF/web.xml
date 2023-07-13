@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!-- welcome file list-->
+    <!--the welcome file is always in the webapp folder (not inside the views folder)-->
+    <!--views is used for storing files referenced by the other servlets and classes-->
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+
+
+    <!--this Deprecated_controller is now out of service/deprecated-->
+    <servlet>
+        <servlet-name>controllerMapping</servlet-name>
+        <servlet-class>com.inexture.userportal.userportalproject.controller.Deprecated_controller</servlet-class>
+    </servlet>    <!--this Deprecated_controller is now out of service/deprecated-->
+    <servlet-mapping>    <!--this Deprecated_controller is now out of service/deprecated-->
+        <servlet-name>controllerMapping</servlet-name>
+        <url-pattern>/controller</url-pattern>
+    </servlet-mapping>    <!--this Deprecated_controller is now out of service/deprecated-->
+
+
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>com.inexture.userportal.userportalproject.controller.UserLoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/UserLogin</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <display-name>UserRegister</display-name>
+        <servlet-name>UserRegister</servlet-name>
+        <servlet-class>com.inexture.userportal.userportalproject.controller.UserRegisterController</servlet-class>
+<!--        <multipart-config>-->
+<!--            <location>"D:/Java/InextureSolutionsTraining_Images/"</location> &lt;!&ndash; Specify the location to save uploaded files &ndash;&gt;-->
+<!--            <max-file-size>10485769</max-file-size> &lt;!&ndash; Maximum file size allowed (in bytes) &ndash;&gt;-->
+<!--            <max-request-size>20971540</max-request-size> &lt;!&ndash; Maximum request size (in bytes) &ndash;&gt;-->
+<!--            <file-size-threshold>0</file-size-threshold> &lt;!&ndash; Size threshold for buffering data (0 means always save to disk) &ndash;&gt;-->
+<!--        </multipart-config>-->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserRegister</servlet-name>
+        <url-pattern>/UserRegister</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <display-name>ForLogout</display-name>
+        <servlet-name>ForLogout</servlet-name>
+        <servlet-class>com.inexture.userportal.userportalproject.controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ForLogout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>ViewUserDetails</display-name>
+        <servlet-name>ViewUserDetails</servlet-name>
+        <servlet-class>com.inexture.userportal.userportalproject.controller.ViewUserDetailsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewUserDetails</servlet-name>
+        <url-pattern>/viewuserdetails</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>UpdateProfile</display-name>
+        <servlet-name>UpdateProfile</servlet-name>
+        <servlet-class>com.inexture.userportal.userportalproject.controller.UpdateProfileController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProfile</servlet-name>
+        <url-pattern>/UpdateProfile</url-pattern>
+    </servlet-mapping>
+
+    <!--    &lt;!&ndash;view resolver mapping for /views/ folder&ndash;&gt;-->
+    <!--    &lt;!&ndash;views is used for storing files referenced by the other servlets and classes&ndash;&gt;-->
+    <!--    <jsp-config>-->
+    <!--        <jsp-property-group>-->
+    <!--            <url-pattern>*.jsp</url-pattern>-->
+    <!--            <include-prelude>/WEB-INF/views</include-prelude>-->
+    <!--        </jsp-property-group>-->
+    <!--        <jsp-property-group>-->
+    <!--            <url-pattern>*.html</url-pattern>-->
+    <!--            <include-prelude>/WEB-INF/views</include-prelude>-->
+    <!--        </jsp-property-group>-->
+    <!--        <jsp-property-group>-->
+    <!--            <url-pattern>*.htm</url-pattern>-->
+    <!--            <include-prelude>/WEB-INF/views</include-prelude>-->
+    <!--        </jsp-property-group>-->
+    <!--    </jsp-config>-->
+
+    <filter>
+        <filter-name>NoCacheFilter</filter-name>
+        <filter-class>com.inexture.userportal.userportalproject.security.NoCacheFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>NoCacheFilter</filter-name>
+        <url-pattern>/userHomePage</url-pattern>
+    </filter-mapping>
+
+</web-app>
