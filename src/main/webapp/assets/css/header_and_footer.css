@@ -1,0 +1,47 @@
+body {
+	color:orange;
+	background-color: #2b542c;
+}
+.footer_margin {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background-color: black;
+	color: white;
+	padding: 10px 30px;
+	margin-top: 30px;
+	width: 100%;
+}
+
+.top-nav-centered {
+	position: relative;
+}
+
+.container8 {
+	position: fixed;
+	top: 0;
+	background-color: #faf7f7; /*header background*/
+	color: white;
+	padding: 10px 30px;
+	width: 100%;
+	text-align: center;
+}
+
+.content-center {
+	float: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: auto;
+	color: deepskyblue; /*header text colour*/
+}
+
+.img-logo {
+	max-height: 7em;
+	max-width: 15em;
+}
+
+.header-text {
+	color: deepskyblue; /*header text colour*/
+}

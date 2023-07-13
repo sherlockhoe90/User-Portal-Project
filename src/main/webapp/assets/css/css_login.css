@@ -1,0 +1,19 @@
+body {
+    background: linear-gradient(90deg, #1f8adc 0%,#07c4f8 50%, #0ad4fb 100%);
+    height: 120vh;
+}
+
+h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.btn {
+    background-color: crimson;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+}
+
+form {
+    margin-top: 60px;
+}
