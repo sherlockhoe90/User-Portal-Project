@@ -155,7 +155,11 @@ public class UserDAOImp implements UserDAO {
 
     @Override
     public void deleteUser(String userId) throws SQLException {
-        PreparedStatement pstmt = c.prepareStatement("delete from userportal_users where id=?");
+//        PreparedStatement pstmt = c.prepareStatement("delete from userportal_users where id=?");
+//        pstmt.setString(1, userId);
+//        pstmt.execute();
+        /*commenting the above code as we are supposed to use SQL TRIGGERS to perform the delete operation */
+        PreparedStatement pstmt = c.prepareStatement("UPDATE userportal_users SET role = 'deleted' where id = ?");
         pstmt.setString(1, userId);
         pstmt.execute();
     }

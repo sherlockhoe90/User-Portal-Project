@@ -155,12 +155,14 @@
         </tbody>
     </table>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
 <%--js for cr in root--%>
 <script>
     $(document).ready(function () {
@@ -176,10 +178,10 @@
             //THIS CAN ALSO BE DONE WITH URL REWRITING
             // CALLING DeleteUserController Servlet with href="DeleteUserController?userId="+userId;
             //But using this above URL rewriting method would send the data as a GET request,
-            // and there's no hidden form for a POST method request
+            // and there's no hidden form for a POST method request... eg. href="DeleteUserController?userId=$ [ user.userId ]"
             $.ajax({
                 url: "DeleteUser",
-                type: "post",
+                type: "POST",
                 data: ({
                     userId: userId,
                 }),

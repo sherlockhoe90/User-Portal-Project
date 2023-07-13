@@ -89,6 +89,17 @@
         <servlet-name>AdminEdit</servlet-name>
         <url-pattern>/AdminEdit</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <display-name>DeleteUser</display-name>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>com.inexture.userportal.userportalproject.controller.DeleteUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/DeleteUser</url-pattern>
+    </servlet-mapping>
+
     <!--    &lt;!&ndash;view resolver mapping for /views/ folder&ndash;&gt;-->
     <!--    &lt;!&ndash;views is used for storing files referenced by the other servlets and classes&ndash;&gt;-->
     <!--    <jsp-config>-->
