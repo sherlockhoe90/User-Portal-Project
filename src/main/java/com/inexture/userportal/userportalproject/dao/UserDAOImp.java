@@ -17,7 +17,7 @@ public class UserDAOImp implements UserDAO {
     Connection c;
 
     public UserDAOImp() {
-        if(c == null) {
+        if (c == null) {
             c = DatabaseManager.getConnection();
         }
     }
@@ -37,7 +37,7 @@ public class UserDAOImp implements UserDAO {
                 // unrelated to login procedure
                 // determining the role of the person
                 user.setUserRole(String.valueOf(role));
-                if (user.getUserRole().equals("1")){ //setting it to true : ADMIN
+                if (user.getUserRole().equals("1")) { //setting it to true : ADMIN
                     user.setUserStatus(true);
                 } else if (user.getUserRole().equals("0")) { // setting it to false NORMAL USER
                     user.setUserStatus(false);
@@ -83,7 +83,7 @@ public class UserDAOImp implements UserDAO {
             pstmt.setString(10, user.getUserHobbies());
 //            pstmt.setBlob(11, user.getUserProfile()); /*dont forget to add the field name back to the pstmt statement above*/
 
-            logger.info("some of the values received in userDAOImp are : " + user.getUserFirstname() + user.getUserLastname() + user.getUserEmailID() + " " + user.getUserAge() );
+            logger.info("some of the values received in userDAOImp are : " + user.getUserFirstname() + user.getUserLastname() + user.getUserEmailID() + " " + user.getUserAge());
 
             pstmt.executeUpdate();
             PreparedStatement stmt = c.prepareStatement("select id from userportal_users");
@@ -155,13 +155,26 @@ public class UserDAOImp implements UserDAO {
 
     @Override
     public void deleteUser(String userId) throws SQLException {
-//        PreparedStatement pstmt = c.prepareStatement("delete from userportal_users where id=?");
-//        pstmt.setString(1, userId);
-//        pstmt.execute();
-        /*commenting the above code as we are supposed to use SQL TRIGGERS to perform the delete operation */
-        PreparedStatement pstmt = c.prepareStatement("UPDATE userportal_users SET role = 'deleted' where id = ?");
+        PreparedStatement pstmt = c.prepareStatement("delete from userportal_users where id=?");
         pstmt.setString(1, userId);
         pstmt.execute();
+        /*
+        * the trigger i used for the above code is as follows:
+        *
+        * DELIMITER //
+        * CREATE TRIGGER deleteUserTrigger AFTER DELETE ON userportal_users
+        * FOR EACH ROW
+        * BEGIN
+        * DELETE FROM userportal_addresses WHERE userid = OLD.id;
+        * END //
+        * DELIMITER ;
+        */
+
+        /*commenting the below code as we are supposed to use SQL TRIGGERS and Stored PROCEDURES to perform the delete operation */
+        /* but when doing it by UPDATING values, it creates errors like : Can't update table 'userportal_users' in stored function/trigger because it is already used by statement which invoked this stored function/trigger. */
+//        PreparedStatement pstmt = c.prepareStatement("UPDATE userportal_users SET role = 'deleted' where id = ?");
+//        pstmt.setString(1, userId);
+//        pstmt.execute();
     }
 
 
@@ -285,12 +298,12 @@ public class UserDAOImp implements UserDAO {
             user.setUserAge(rs.getInt("age"));
             user.setUserUsername(rs.getString("username"));
             user.setUserPassword(rs.getString("password"));
+            user.setUserHobbies(rs.getString("hobbies"));
 //            Blob blob = rs.getBlob("profile_img");
 //
 //            byte[] photo = blob.getBytes(1, (int) blob.length());
 //            String base64Image = Base64.getEncoder().encodeToString(photo);
 //            user.setBase64Image(base64Image);
-//            user.setUserHobbies(rs.getString("hobbies"));
             list.add(user);
         }
         return list;
