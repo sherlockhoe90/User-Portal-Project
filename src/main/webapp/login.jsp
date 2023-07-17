@@ -15,7 +15,7 @@
     <title>Login Page for Users</title>
     <link rel="icon" href="assets/images/inexture-favicon-purple.png" type="image/x-icon">
     <link rel="stylesheet" href="./assets/css/header_and_footer.css"> <%--custom css for login--%>
-    <link rel="stylesheet" href="./assets/css/maxcdn.bootstrapcdn.com_bootstrap_3.4.1_css_bootstrap.min.css"> <%--bootstrap css--%>
+    <link rel="stylesheet" href="./assets/css/CDN/bootstrap_3.3.7.css"> <%--bootstrap css--%>
     <link rel="stylesheet" href="./assets/css/css_login.css"> <%--custom css for login--%>
     <script type="text/javascript" src="assets/js/loginValidation.js"></script>
     <script>
@@ -54,6 +54,10 @@
         </div>
         <p class="text-center">New user? You can
         <a href="registration.jsp">Register here!</a>
+        </p>
+        <br>
+        <p class="text-center">Forgot Password? You can get a new one
+            <a href="forgotPassword.jsp">here!</a>
         </p>
 
     </form>

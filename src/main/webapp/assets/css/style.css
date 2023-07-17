@@ -2,6 +2,28 @@
 	url("https://fonts.googleapis.com/css?family=Maven+Pro:400,500,600,700,800,900&display=swap")
 	;
 
+@font-face {
+	font-family: "Maven Pro";
+	src: url(../fonts/MavenPro-Regular.ttf);
+}
+
+@font-face {
+	font-family: "Poppins Regular";
+	src: url("../fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+	font-family: "Poppins Regular";
+	src: url("../fonts/Poppins-Regular.woff");
+}
+
+@font-face {
+	font-family: "Roboto";
+	src: url("../fonts/Roboto.css");
+}
+
+
+
 * {
 	margin: 0;
 	padding: 0;
@@ -108,4 +130,9 @@
 
 .viewUsersTable {
 	margin-bottom: 500px;
+}
+
+.userSpecificHomeLinkOnHeader {
+	/*margin-left: 5000px;*/
+	/*display: none;*/
 }

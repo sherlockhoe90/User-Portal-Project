@@ -16,10 +16,12 @@
     <meta charset="ISO-8859-1">
     <title>View Users</title>
     <link rel="icon" href="./assets/images/inexture-favicon-purple.png" type="image/x-icon">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link href="./assets/css/CDN/bootstrap_4.5.3.css">
     <!-- <link href="https://cdn.datatables.net/responsive/2.2.9/css/dataTables.responsive.css"> -->
-    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="./assets/js/CDNs/dataTables.responsive.js">
+<%--    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">--%>
+    <link rel="stylesheet" href="./assets/css/CDN/font_awesome_free.css">
+    <link rel="stylesheet" href="./assets/css/CDN/font_awesome_pro.css">
     <link href="./assets/css/style.css" rel="stylesheet">
     <style type="text/css">
         .switch {
@@ -155,13 +157,20 @@
         </tbody>
     </table>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="./assets/js/CDNs/jquery_3.6.0.js"></script>
+<script src="./assets/js/CDNs/code.jquery.com_jquery-1.12.4.js"></script>
+<script src="./assets/js/CDNs/jquery_3.5.1.js"></script>
+<script src="./assets/js/CDNs/dataTables.responsive.js"></script>
+<script src="./assets/js/CDNs/datatables.js"></script>
+<script src="./assets/js/CDNs/dataTables.bootstrap4.js"></script>
+<script src="./assets/js/CDNs/bootstrap_3.3.7.js"></script>
+<%--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--%>
+<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>--%>
+<%--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>--%>
+<%--<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>--%>
+<%--<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>--%>
+<%--<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>--%>
+<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>--%>
 
 <%--js for cr in root--%>
 <script>

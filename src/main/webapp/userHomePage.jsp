@@ -37,7 +37,9 @@
     <title>User Home-Page</title>
     <link rel="icon" href="assets/images/inexture-favicon-purple.png" type="image/x-icon">
     <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+          href="./assets/css/CDN/bootstrap_3.3.7.css">
+<%--    <link rel="stylesheet"--%>
+<%--          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">--%>
     <link rel="stylesheet"
           href="./assets/css/searchjquery.dataTables.min.css">
     <link rel="stylesheet" href="assets/css/style.css">

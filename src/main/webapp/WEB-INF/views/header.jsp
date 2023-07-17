@@ -47,14 +47,14 @@
 
                 <c:choose>
                     <c:when test="${(profile == 'admin') || (profile == 'adminEdit')}">
-                        <a class="header-text" href="adminHomePage.jsp">Admin Home</a>
+                        <a class="header-text userSpecificHomeLinkOnHeader" href="adminHomePage.jsp">Admin Home</a>
                     </c:when>
                     <c:when test="${(profile == 'userEdit')}">
-                        <a class="header-text" href="userHomePage.jsp">User Home</a>
+                        <a class="header-text userSpecificHomeLinkOnHeader" href="userHomePage.jsp">User Home</a>
                     </c:when>
                 </c:choose>
 
-            <a class="navbar-brand content-center col-sm-0 d-md-none d-sm-none headerprojectname">Portal Project</a>
+            <a class="navbar-brand content-center col-sm-0 d-md-none d-sm-none headerprojectname" href="login.jsp">Portal Project</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
