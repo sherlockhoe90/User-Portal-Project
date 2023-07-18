@@ -540,7 +540,7 @@ $(document).ready(function () {
 
 
     $("#registration_form").submit(function () {
-        firstname_error = false;
+        firstname_error = true;
         middlename_error = false;
         lastname_error = false;
         email_error = false;

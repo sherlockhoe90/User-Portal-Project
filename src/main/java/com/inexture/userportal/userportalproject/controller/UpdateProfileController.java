@@ -80,11 +80,13 @@ public class UpdateProfileController extends HttpServlet {
 
             int id = service.updateProfile(user);
 
-            // address part
+            /* address part */
+            // addrId contains the addresses existing in the database
             String addrId[] = new String[addList.size()];
             for (int i = 0; i < addList.size(); i++) {
                 addrId[i] = addList.get(i).getAddId();
             }
+            // addressId contains the newly gotten addresses from the frontend
             String[] addressId = request.getParameterValues("addressId[]");
             List<String> addressIdList = Arrays.asList(addressId);
             String remove = "";

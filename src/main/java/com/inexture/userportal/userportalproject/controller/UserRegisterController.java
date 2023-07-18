@@ -93,7 +93,7 @@ public class UserRegisterController extends HttpServlet {
         //printing the user details that i've got
         user.toString();
 
-        id = service.userRegister(user);
+        id = service.userRegister(user); /*this line submits the code into the database, and returns the userID*/
         String[] houseno = request.getParameterValues("houseno[]");
         String[] street = request.getParameterValues("address[]");
         String[] landmark = request.getParameterValues("landmark[]");

@@ -176,7 +176,7 @@ and whether he/she wants to edit/add information --%>
                                                     class="form-control" id="username" placeholder="Enter Username"
                                                     name="username" value="${user.userUsername}"/>
                     <span
-                            id="username_error"></span>
+                                        id="username_error"></span>
                 </div>
 
             </div>
@@ -213,14 +213,15 @@ and whether he/she wants to edit/add information --%>
 
 
             <!-- confirm password -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="cpwd">Confirm Password:</label> <input
-                        type="password" class="form-control text-width" id="cpwd"
-                        name="cpwd" placeholder="Confirm-Password"/> <span
-                        id="confirm_password_error"></span>
-                </div>
-            </div>
+            <%--commenting cuz its read-only and hence causes errors when submitting after UPDATE/EDIT--%>
+<%--            <div class="col-md-6">--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="cpwd">Confirm Password:</label> <input--%>
+<%--                        type="password" class="form-control text-width" id="cpwd"--%>
+<%--                        name="cpwd" placeholder="Confirm-Password"/> <span--%>
+<%--                        id="confirm_password_error"></span>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
         </div>
 
@@ -772,8 +773,6 @@ and whether he/she wants to edit/add information --%>
 <script src="./assets/js/CDNs/code.jquery.com_jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<%--    Custom Validation JS --%>
-<script src="./assets/js/customValidation.js"></script>
 <script src="./assets/js/CDNs/popper_1.14.7.js"></script>
 <script src="./assets/js/CDNs/bootstrap_4.3.1.bundle.js"></script>
 <script src="./assets/js/CDNs/bootstrap-datepicker_1.6.4.min.js"></script>
@@ -782,6 +781,8 @@ and whether he/she wants to edit/add information --%>
 <script src="./assets/js/CDNs/ckeditor.js"></script>
 <script src="./assets/js/CDNs/ckeditorstyles.js.js"></script>
 <script src="assets/js/plugin.js" type="text/javascript"></script>
+<%--    Custom Validation JS --%>
+<script src="./assets/js/customValidation.js"></script>
 
 <script type="text/javascript">
     var parsed = new URL(location);

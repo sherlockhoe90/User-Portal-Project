@@ -8,7 +8,7 @@
     <!--the welcome file is always in the webapp folder (not inside the views folder)-->
     <!--views is used for storing files referenced by the other servlets and classes-->
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>websiteHome1.jsp</welcome-file>
     </welcome-file-list>
 
 
