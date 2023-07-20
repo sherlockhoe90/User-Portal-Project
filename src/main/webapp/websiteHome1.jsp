@@ -78,8 +78,8 @@
 
     <!-- facility of our marriage house starts here  -->
     <div class="content3" id="facilities">
-        <div class="images">
-            <img src="./assets/images/marriage-img.png">
+        <div class="images tennisimg">
+            <img src="./assets/images/tennis-img.png">
         </div>
         <div class="content3-heading">
             <h2>FACILITIES OF OUR PREMISES</h2>

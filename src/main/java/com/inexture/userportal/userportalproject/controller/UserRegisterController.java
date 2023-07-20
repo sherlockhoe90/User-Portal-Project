@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 //import java.util.logging.Logger;
+import com.inexture.userportal.userportalproject.utility.PasswordEncryption;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -23,6 +24,7 @@ import com.inexture.userportal.userportalproject.services.UserService;
 import com.inexture.userportal.userportalproject.services.UserServiceImp;
 import com.inexture.userportal.userportalproject.utility.AgeCalculator;
 import com.inexture.userportal.userportalproject.utility.DatabaseManager;
+import sun.security.krb5.EncryptedData;
 
 //@WebServlet(name = "UserRegisterController", value = "/UserRegisterController")
 @MultipartConfig
@@ -85,7 +87,9 @@ public class UserRegisterController extends HttpServlet {
         user.setUserLastname(request.getParameter("lastname"));
         user.setUserEmailID(request.getParameter("emailid"));
         user.setUserUsername(request.getParameter("username"));
-        user.setUserPassword(request.getParameter("pwd"));
+        // encrpyting the password before setting it and saving it into the database
+        String EncryptedPassword = PasswordEncryption.encrypt(request.getParameter("pwd"));
+        user.setUserPassword(EncryptedPassword);
         user.setUserDOB(request.getParameter("dob"));
         user.setUserAge(AgeCalculator.calculateAge(user.getUserDOB()));
         user.setUserHobbies(request.getParameter("hobbies"));

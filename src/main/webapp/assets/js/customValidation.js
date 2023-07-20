@@ -261,7 +261,7 @@ $(document).ready(function () {
             $(selector + " #pincode").css("border-bottom", "4px solid #F90A0A");
             pincode_error = true;
         } else if (!pattern.test(pincode)) {
-            $(selector + " #pincode_error").html("Pincode contain only numbers").css("color", "red");
+            $(selector + " #pincode_error").html("Pincode contain only numbers and letters").css("color", "red");
             $(selector + " #pincode_error").show();
             $(selector + " #pincode").css("border-bottom", "4px solid #F90A0A");
             pincode_error = true;

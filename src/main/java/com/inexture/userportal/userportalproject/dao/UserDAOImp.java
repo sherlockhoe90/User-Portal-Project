@@ -159,16 +159,16 @@ public class UserDAOImp implements UserDAO {
         pstmt.setString(1, userId);
         pstmt.execute();
         /*
-        * the trigger i used for the above code is as follows:
-        *
-        * DELIMITER //
-        * CREATE TRIGGER deleteUserTrigger AFTER DELETE ON userportal_users
-        * FOR EACH ROW
-        * BEGIN
-        * DELETE FROM userportal_addresses WHERE userid = OLD.id;
-        * END //
-        * DELIMITER ;
-        */
+         * the trigger i used for the above code is as follows:
+         *
+         * DELIMITER //
+         * CREATE TRIGGER deleteUserTrigger AFTER DELETE ON userportal_users
+         * FOR EACH ROW
+         * BEGIN
+         * DELETE FROM userportal_addresses WHERE userid = OLD.id;
+         * END //
+         * DELIMITER ;
+         */
 
         /*commenting the below code as we are supposed to use SQL TRIGGERS and Stored PROCEDURES to perform the delete operation */
         /* but when doing it by UPDATING values, it creates errors like : Can't update table 'userportal_users' in stored function/trigger because it is already used by statement which invoked this stored function/trigger. */
@@ -280,6 +280,7 @@ public class UserDAOImp implements UserDAO {
     }
 
 
+
     @Override
     public List<User> getUserDetails(String userId) throws SQLException {
         List<User> list = new ArrayList<User>();
@@ -309,4 +310,23 @@ public class UserDAOImp implements UserDAO {
         return list;
     }
 
+    /**
+     * @param emailid
+     * @return
+     */
+    @Override
+    public boolean checkEmail(String emailid) {
+        PreparedStatement pstmt;
+        try {
+            pstmt = c.prepareStatement("select emailid from userportal_users where emailid=?");
+            pstmt.setString(1, emailid);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

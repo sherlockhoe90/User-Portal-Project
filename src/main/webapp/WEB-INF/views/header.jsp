@@ -54,7 +54,7 @@
                     </c:when>
                 </c:choose>
 
-            <a class="navbar-brand content-center col-sm-0 d-md-none d-sm-none headerprojectname" href="login.jsp">Portal Project</a>
+            <a class="navbar-brand content-center col-sm-0 d-md-none d-sm-none headerprojectname" href="websiteHome1.jsp">Portal Project</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

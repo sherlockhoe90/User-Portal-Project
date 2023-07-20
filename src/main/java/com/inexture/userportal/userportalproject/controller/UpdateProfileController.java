@@ -89,6 +89,8 @@ public class UpdateProfileController extends HttpServlet {
             // addressId contains the newly gotten addresses from the frontend
             String[] addressId = request.getParameterValues("addressId[]");
             List<String> addressIdList = Arrays.asList(addressId);
+            // takes the addresses from the frontend, and checks if it consists of the addresses present in the database,
+            //if not, it removes those addresses from the database, that are not found in the frontend
             String remove = "";
             for (int i = 0; i < addrId.length; i++) {
                 if (!addressIdList.contains(addrId[i])) {
@@ -218,7 +220,6 @@ public class UpdateProfileController extends HttpServlet {
                 response.sendRedirect("adminHomePage.jsp");
 
             }
-
 
     } catch(
     SQLException e)

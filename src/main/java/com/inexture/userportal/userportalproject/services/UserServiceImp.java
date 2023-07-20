@@ -83,5 +83,13 @@ public class UserServiceImp implements UserService {
         return list;
     }
 
-
+    /**
+     * @param emailid
+     * @return
+     */
+    @Override
+    public boolean checkEmail(String emailid) {
+        boolean obj = userDAOobject.checkEmail(emailid);
+        return obj;
+    }
 }

@@ -6,8 +6,10 @@ import com.inexture.userportal.userportalproject.services.AddressService;
 import com.inexture.userportal.userportalproject.services.AddressServiceImp;
 import com.inexture.userportal.userportalproject.services.UserService;
 import com.inexture.userportal.userportalproject.services.UserServiceImp;
+import com.inexture.userportal.userportalproject.utility.PasswordEncryption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sun.security.krb5.EncryptedData;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -42,8 +44,9 @@ public class UserLoginController extends HttpServlet {
         response.setContentType("text/html");
 
         user.setUserEmailID(request.getParameter("emailid_from_login"));
-        user.setUserPassword(request.getParameter("password_from_login"));
-
+        String EncryptedPassword = PasswordEncryption.encrypt(request.getParameter("password_from_login"));
+        user.setUserPassword(EncryptedPassword);
+        // checking if the encrypted password matches with the encrypted password in the databsse
         boolean isValid = service.compareUserLogin(user);
 
         List<User> list1; /*for admin*/
@@ -71,6 +74,7 @@ public class UserLoginController extends HttpServlet {
                     e.printStackTrace();
                     logger.error(e.getMessage());
                 }
+
                 logger.info("UserLoginController: ADMIN has logged in");
             } else { // if FALSE i.e. NORMAL USER
                 try {

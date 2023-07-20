@@ -51,7 +51,7 @@ public class LogoutController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher req = request.getRequestDispatcher("/login.jsp");
         req.forward(request, response);
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("/login.jsp");
     }
 
 }

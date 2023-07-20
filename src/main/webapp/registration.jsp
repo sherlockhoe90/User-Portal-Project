@@ -134,11 +134,12 @@ and whether he/she wants to edit/add information --%>
                 <!-- First Name -->
                 <div class="form-group">
                     <label for="firstname">Firstname:</label> <input type="text"
-                                                                     class="form-control text-width" id="firstname"
+                                                                     class="form-control text-width firstname"
+                                                                     id="firstname"
                                                                      name="firstname"
                                                                      placeholder="Enter your firstname"
-                                                                     value="${user.userFirstname}"/><span
-                        id="firstname_error"></span>
+                                                                     value="${user.userFirstname}" pattern="^[a-zA-Z\s]*$" required/><span
+                        class="firstname_error" id="firstname_error"></span>
                 </div>
             </div>
             <div class="col-md-6">
@@ -146,10 +147,10 @@ and whether he/she wants to edit/add information --%>
                 <!-- Lastname -->
                 <div class="form-group">
                     <label>Lastname:</label> <input type="text"
-                                                    class="form-control" id="lastname" placeholder="Lastname"
-                                                    name="lastname" value="${user.userLastname}"/>
+                                                    class="form-control lastname" id="lastname" placeholder="Lastname"
+                                                    name="lastname" value="${user.userLastname} pattern="^[a-zA-Z\s]*$" required"/>
                     <span
-                            id="lastname_error"></span>
+                            class="lastname_error" id="lastname_error"></span>
                 </div>
 
             </div>
@@ -160,12 +161,12 @@ and whether he/she wants to edit/add information --%>
                 <!-- Middle Name -->
                 <div class="form-group">
                     <label for="middlename">Middlename:</label> <input type="text"
-                                                                       class="form-control text-width"
+                                                                       class="form-control text-width middlename"
                                                                        id="middlename"
                                                                        name="middlename"
                                                                        placeholder="Enter your middlename"
-                                                                       value="${user.userMiddlename}"/><span
-                        id="middlename_error"></span>
+                                                                       value="${user.userMiddlename}" pattern="^[a-zA-Z\s]*$"/><span
+                        class="middlename_error" id="middlename_error"></span>
                 </div>
             </div>
             <div class="col-md-6">
@@ -173,10 +174,11 @@ and whether he/she wants to edit/add information --%>
                 <!-- Username -->
                 <div class="form-group">
                     <label>Username:</label> <input type="text"
-                                                    class="form-control" id="username" placeholder="Enter Username"
-                                                    name="username" value="${user.userUsername}"/>
+                                                    class="form-control username" id="username"
+                                                    placeholder="Enter Username"
+                                                    name="username" value="${user.userUsername}" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:<>.?~-\s]*$" required/>
                     <span
-                                        id="username_error"></span>
+                            class="username_error" id="username_error"></span>
                 </div>
 
             </div>
@@ -187,24 +189,24 @@ and whether he/she wants to edit/add information --%>
                 <!-- Email  -->
                 <div class="form-group">
                     <label for="emailid">Email:</label> <input type="text"
-                                                               class="form-control text-width"
+                                                               class="form-control text-width emailid"
                                                                id="emailid"
                                                                placeholder="Email-id" name="emailid"
-                                                               value="${user.userEmailID}"/>
-                    <span
-                            id="email_error"></span><br>
-                    <span id="result"></span>
+                                                               value="${user.userEmailID}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required/>
+                    <span class="email_error"
+                          id="email_error"></span><br>
+                    <span class="result" id="result"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <!-- password -->
                 <div class="form-group">
                     <label for="pwd">Password:</label> <input type="password"
-                                                              class="form-control text-width" id="pwd"
+                                                              class="form-control text-width pwd" id="pwd"
                                                               placeholder="Password"
                                                               name="pwd"
-                                                              value="${user.userPassword}"/> <span
-                        id="password_error"></span>
+                                                              value="${user.userPassword}" required/> <span
+                        class="password_error" id="password_error"></span>
                 </div>
             </div>
         </div>
@@ -213,15 +215,15 @@ and whether he/she wants to edit/add information --%>
 
 
             <!-- confirm password -->
-            <%--commenting cuz its read-only and hence causes errors when submitting after UPDATE/EDIT--%>
-<%--            <div class="col-md-6">--%>
-<%--                <div class="form-group">--%>
-<%--                    <label for="cpwd">Confirm Password:</label> <input--%>
-<%--                        type="password" class="form-control text-width" id="cpwd"--%>
-<%--                        name="cpwd" placeholder="Confirm-Password"/> <span--%>
-<%--                        id="confirm_password_error"></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
+                <%--commenting cuz its read-only and hence causes errors when submitting after UPDATE/EDIT--%>
+                <%--            <div class="col-md-6">--%>
+                <%--                <div class="form-group">--%>
+                <%--                    <label for="cpwd">Confirm Password:</label> <input--%>
+                <%--                        type="password" class="form-control text-width" id="cpwd"--%>
+                <%--                        name="cpwd" placeholder="Confirm-Password"/> <span--%>
+                <%--                        id="confirm_password_error"></span>--%>
+                <%--                </div>--%>
+                <%--            </div>--%>
 
         </div>
 
@@ -231,19 +233,20 @@ and whether he/she wants to edit/add information --%>
                 <!-- hobbies -->
                 <div class="form-group">
                     <label for="hobbies">Hobby:</label> <input type="text"
-                                                               class="form-control text-width" id="hobbies"
+                                                               class="form-control text-width hobbies" id="hobbies"
                                                                placeholder="Hobbies"
                                                                name="hobbies"
-                                                               value="${user.userHobbies}"/> <span
-                        id="hobbies_error"></span>
+                                                               value="${user.userHobbies}" pattern="^[a-zA-Z\s]*$" required/> <span
+                        class="hobbies_error" id="hobbies_error"></span>
                 </div>
                 <div class="">
                     <!-- image upload -->
                     <div class="form-group">
                         <label for="dob">Date Of Birth:</label> <input type="date"
-                                                                       class="form-control text-width" id="dob"
+                                                                       class="form-control text-width dob" id="dob"
                                                                        name="dob" min="1900-01-01"
-                                                                       max="" value="${user.userDOB}"/>
+                                                                       max="2023-07-19" value="${user.userDOB}" required/>
+                        <span class="dob_error" id="dob_error"></span>
                             <%--                            <p style="display: none">${user.userDOB}</p> --%>
                             <%--printed this 'p' tag before i fixed the visible date format on the edit page, changing it from dd-mm-yyyy to yyyy-mm-dd. but as of after adding the datepicker, teh default input format is yyyy-mm-dd-%>
                         <span id="dob_error"></span>
@@ -281,11 +284,11 @@ and whether he/she wants to edit/add information --%>
                                 <!-- First Name -->
                                 <div class="form-group">
                                     <label for="firstname">Firstname:</label> <input type="text"
-                                                                                     class="form-control text-width"
+                                                                                     class="form-control text-width firstname"
                                                                                      id="firstname"
                                                                                      name="firstname"
-                                                                                     placeholder="Enter your firstname"/><span
-                                        id="firstname_error"></span>
+                                                                                     placeholder="Enter your firstname" pattern="^[a-zA-Z\s]*$" required/><span
+                                        class="firstname_error" id="firstname_error"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -293,10 +296,10 @@ and whether he/she wants to edit/add information --%>
                                 <!-- Lastname -->
                                 <div class="form-group">
                                     <label>Lastname:</label> <input type="text"
-                                                                    class="form-control" id="lastname"
+                                                                    class="form-control lastname" id="lastname"
                                                                     placeholder="Lastname"
-                                                                    name="lastname"/> <span
-                                        id="lastname_error"></span>
+                                                                    name="lastname" pattern="^[a-zA-Z\s]*$" required/> <span
+                                        class="lastname_error" id="lastname_error"></span>
                                 </div>
 
                             </div>
@@ -307,11 +310,11 @@ and whether he/she wants to edit/add information --%>
                                 <!-- Middle Name -->
                                 <div class="form-group">
                                     <label for="middlename">Middlename:</label> <input type="text"
-                                                                                       class="form-control text-width"
+                                                                                       class="form-control text-width middlename"
                                                                                        id="middlename"
                                                                                        name="middlename"
-                                                                                       placeholder="Enter your middlename"/><span
-                                        id="middlename_error"></span>
+                                                                                       placeholder="Enter your middlename" pattern="^[a-zA-Z\s]*$"/><span
+                                        class="middlename" id="middlename_error"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -319,10 +322,10 @@ and whether he/she wants to edit/add information --%>
                                 <!-- Username -->
                                 <div class="form-group">
                                     <label>Username:</label> <input type="text"
-                                                                    class="form-control" id="username"
+                                                                    class="form-control username" id="username"
                                                                     placeholder="Enter Username"
-                                                                    name="username"/> <span
-                                        id="username_error"></span>
+                                                                    name="username" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:<>.?~-\s]*$" required/> <span
+                                        class="username_error" id="username_error"></span>
                                 </div>
 
                             </div>
@@ -333,23 +336,24 @@ and whether he/she wants to edit/add information --%>
                                 <!-- Email  -->
                                 <div class="form-group">
                                     <label for="emailid">Email:</label> <input type="text"
-                                                                               class="form-control text-width"
+                                                                               class="form-control text-width emailid"
                                                                                id="emailid"
                                                                                placeholder="Email-id"
-                                                                               name="emailid"/>
+                                                                               name="emailid" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required/>
                                     <span
-                                            id="email_error"></span><br>
-                                    <span id="result"></span>
+                                            class="email_error" id="email_error"></span><br>
+                                    <span class="result" id="result"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <!-- password -->
                                 <div class="form-group">
                                     <label for="pwd">Password:</label> <input type="password"
-                                                                              class="form-control text-width" id="pwd"
+                                                                              class="form-control text-width pwd"
+                                                                              id="pwd"
                                                                               placeholder="Password"
                                                                               name="pwd"/> <span
-                                        id="password_error"></span>
+                                        class="password_error" id="password_error"></span>
                                 </div>
                             </div>
                         </div>
@@ -361,9 +365,9 @@ and whether he/she wants to edit/add information --%>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="cpwd">Confirm Password:</label> <input
-                                        type="password" class="form-control text-width" id="cpwd"
-                                        name="cpwd" placeholder="Confirm-Password"/> <span
-                                        id="confirm_password_error"></span>
+                                        type="password" class="form-control text-width cpwd" id="cpwd"
+                                        name="cpwd" placeholder="Confirm-Password" required/> <span
+                                        class="confirm_password_error" id="confirm_password_error"></span>
                                 </div>
                             </div>
                         </div>
@@ -374,21 +378,21 @@ and whether he/she wants to edit/add information --%>
                                 <!-- hobbies -->
                                 <div class="form-group">
                                     <label for="hobbies">Hobby:</label> <input type="text"
-                                                                               class="form-control text-width"
+                                                                               class="form-control text-width hobbies"
                                                                                id="hobbies"
                                                                                placeholder="Hobbies"
-                                                                               name="hobbies"/> <span
-                                        id="hobbies_error"></span>
+                                                                               name="hobbies" pattern="^[a-zA-Z0-9\s]*$" required/> <span
+                                        class="hobbies_error" id="hobbies_error"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <!-- image upload -->
                                     <div class="form-group">
                                         <label for="dob">Date Of Birth:</label> <input type="date"
-                                                                                       class="form-control text-width"
+                                                                                       class="form-control text-width dob"
                                                                                        id="dob"
                                                                                        name="dob" min="1900-01-01"
-                                                                                       max=""/> <span
-                                            id="dob_error"></span>
+                                                                                       max="2023-07-19" required/> <span
+                                            class="dob_error" id="dob_error"></span>
                                     </div>
                                 </div>
                             </div>
@@ -411,7 +415,7 @@ and whether he/she wants to edit/add information --%>
                                                         <div class="panel-body">
                                                             <div class="panel-body">
                                                                 <input type="hidden" name="addressId[]"
-                                                                       value="${address.addId}">
+                                                                       value="${address.addId}" required>
 
                                                                 <div class="row">
                                                                     <div class="col-sm-12 col-md-4 cold-lg-2 col-xs-2">
@@ -420,10 +424,11 @@ and whether he/she wants to edit/add information --%>
                                                                                    for="address_line_one_0">House
                                                                                 No.</label>
                                                                             <input type="text" id="houseno"
-                                                                                   class="form-control"
+                                                                                   class="form-control houseno"
                                                                                    name="houseno[]" maxlength="10"
-                                                                                   value="${address.addHouseNo}">
-                                                                            <span id="houseno_error"></span>
+                                                                                   value="${address.addHouseNo}" required>
+                                                                            <span class="houseno_error"
+                                                                                  id="houseno_error"></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -433,10 +438,11 @@ and whether he/she wants to edit/add information --%>
                                                                             <label class="control-label"
                                                                                    for="address_line_one_0">Street</label>
                                                                             <input type="text" id="address"
-                                                                                   class="form-control"
+                                                                                   class="form-control address"
                                                                                    name="address[]" maxlength="20"
-                                                                                   value="${address.addStreet}"/>
-                                                                            <span id="street_error"></span>
+                                                                                   value="${address.addStreet}" required/>
+                                                                            <span class="street_error"
+                                                                                  id="street_error"></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-12 col-md-4 cold-lg-2 col-xs-2">
@@ -444,9 +450,10 @@ and whether he/she wants to edit/add information --%>
                                                                             <label class="control-label"
                                                                                    for="address_line_two_0">Landmark</label>
                                                                             <input type="text" id="landmark"
-                                                                                   class="form-control"
+                                                                                   class="form-control landmark"
                                                                                    name="landmark[]" maxlength="50"
-                                                                                   value="${address.addLandmark}"> <span
+                                                                                   value="${address.addLandmark}" required> <span
+                                                                                class="landmark_error"
                                                                                 id="landmark_error"></span>
                                                                         </div>
                                                                     </div>
@@ -455,9 +462,10 @@ and whether he/she wants to edit/add information --%>
                                                                             <label class="control-label"
                                                                                    for="address_line_two_0">Zipcode</label>
                                                                             <input type="text" id="pincode"
-                                                                                   class="form-control"
+                                                                                   class="form-control pincode"
                                                                                    name="zipcode[]" maxlength="10"
-                                                                                   value="${address.addZipcode}"> <span
+                                                                                   value="${address.addZipcode}" pattern="^[a-zA-Z0-9_]*$" required> <span
+                                                                                class="pincode_error"
                                                                                 id="pincode_error"></span>
                                                                         </div>
                                                                     </div>
@@ -469,9 +477,10 @@ and whether he/she wants to edit/add information --%>
                                                                             <div class="form-group">
                                                                                 <label class="control-label"
                                                                                        for="city_0">City</label> <select
-                                                                                    class="form-control" name="city[]"
+                                                                                    class="form-control city"
+                                                                                    name="city[]"
                                                                                     id="city"
-                                                                                    style="height: auto;">
+                                                                                    style="height: auto;" required>
                                                                                 <option value="0">Select City</option>
                                                                                 <option value="Ahmedabad"
                                                                                     ${item  eq 'Ahmedabad' ? 'selected' : ''}>
@@ -493,7 +502,8 @@ and whether he/she wants to edit/add information --%>
                                                                                     ${address.addCity  eq 'Vadodara' ? 'selected' : ''}>
                                                                                     Vadodara
                                                                                 </option>
-                                                                            </select> <span id="city_error"></span>
+                                                                            </select> <span class="city_error"
+                                                                                            id="city_error"></span>
                                                                             </div>
                                                                         </div>
                                                                     </c:forEach>
@@ -504,10 +514,10 @@ and whether he/she wants to edit/add information --%>
                                                                             <div class="form-group">
                                                                                 <label class="control-label"
                                                                                        for="state_0">State</label>
-                                                                                <select class="form-control"
+                                                                                <select class="form-control state"
                                                                                         name="state[]"
                                                                                         id="state"
-                                                                                        style="height: auto;">
+                                                                                        style="height: auto;" required>
                                                                                     <option value="0">Select State
                                                                                     </option>
                                                                                     <option value="Gujarat"
@@ -530,7 +540,8 @@ and whether he/she wants to edit/add information --%>
                                                                                         ${item  eq 'Assam' ? 'selected' : ''}>
                                                                                         Assam
                                                                                     </option>
-                                                                                </select> <span id="state_error"></span>
+                                                                                </select> <span class="state_error"
+                                                                                                id="state_error"></span>
                                                                             </div>
                                                                         </div>
                                                                     </c:forEach>
@@ -541,10 +552,11 @@ and whether he/she wants to edit/add information --%>
                                                                         <div class="form-group">
                                                                             <label class="control-label" for="country">Country</label>
                                                                             <input type="text" id="country"
-                                                                                   class="form-control"
+                                                                                   class="form-control country"
                                                                                    name="country[]" maxlength="255"
-                                                                                   value="${address.addCountry}">
-                                                                            <span id="country_error"></span>
+                                                                                   value="${address.addCountry}" pattern="^[a-zA-Z\s]$" required>
+                                                                            <span class="country_error"
+                                                                                  id="country_error"></span>
                                                                         </div>
                                                                         <div class="col-sm-6">
                                                                             <div class="form-group">
@@ -552,11 +564,12 @@ and whether he/she wants to edit/add information --%>
                                                                                        for="postaladdress">Postal
                                                                                     Address</label>
                                                                                 <input type="text" id="postaladdress"
-                                                                                       class="form-control"
+                                                                                       class="form-control postaladdress"
                                                                                        name="postaladdress[]"
                                                                                        maxlength="250"
-                                                                                       value="${address.addPostalAdd}">
-                                                                                <span id="postaladdress_error"></span>
+                                                                                       value="${address.addPostalAdd}" required>
+                                                                                <span class="postaladdress_error"
+                                                                                      id="postaladdress_error"></span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -596,9 +609,10 @@ and whether he/she wants to edit/add information --%>
                                                                                for="address_line_one_0">House
                                                                             No.</label>
                                                                         <input type="text" id="houseno"
-                                                                               class="form-control"
-                                                                               name="houseno[]" maxlength="10">
-                                                                        <span id="houseno_error"></span>
+                                                                               class="form-control houseno"
+                                                                               name="houseno[]" maxlength="10" required>
+                                                                        <span class="houseno_error"
+                                                                              id="houseno_error"></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -608,9 +622,10 @@ and whether he/she wants to edit/add information --%>
                                                                         <label class="control-label"
                                                                                for="address_line_one_0">Street</label>
                                                                         <input type="text" id="street"
-                                                                               class="form-control"
-                                                                               name="address[]" maxlength="20">
-                                                                        <span id="street_error"></span>
+                                                                               class="form-control street"
+                                                                               name="address[]" maxlength="20" required>
+                                                                        <span class="street_error"
+                                                                              id="street_error"></span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-12 col-md-4 cold-lg-2 col-xs-2">
@@ -618,8 +633,9 @@ and whether he/she wants to edit/add information --%>
                                                                         <label class="control-label"
                                                                                for="address_line_two_0">Landmark</label>
                                                                         <input type="text" id="landmark"
-                                                                               class="form-control"
+                                                                               class="form-control landmark"
                                                                                name="landmark[]" maxlength="50"> <span
+                                                                            class="landmark_error"
                                                                             id="landmark_error"></span>
                                                                     </div>
                                                                 </div>
@@ -628,8 +644,9 @@ and whether he/she wants to edit/add information --%>
                                                                         <label class="control-label"
                                                                                for="address_line_two_0">Zipcode</label>
                                                                         <input type="text" id="pincode"
-                                                                               class="form-control"
-                                                                               name="zipcode[]" maxlength="10"> <span
+                                                                               class="form-control pincode"
+                                                                               name="zipcode[]" maxlength="10" pattern="^[a-zA-Z0-9_]*$" required> <span
+                                                                            class="pincode_error"
                                                                             id="pincode_error"></span>
                                                                     </div>
                                                                 </div>
@@ -640,15 +657,17 @@ and whether he/she wants to edit/add information --%>
                                                                     <div class="form-group">
                                                                         <label class="control-label"
                                                                                for="city">City</label> <select
-                                                                            class="form-control" name="city[]" id="city"
-                                                                            style="height: auto;">
+                                                                            class="form-control city" name="city[]"
+                                                                            id="city"
+                                                                            style="height: auto;" required>
                                                                         <option value="0">Select City</option>
                                                                         <option value="Ahmedabad">Ahmedabad</option>
                                                                         <option value="Junagadh">Junagadh</option>
                                                                         <option value="Mumbai">Mumbai</option>
                                                                         <option value="Surat">Surat</option>
                                                                         <option value="Vadodara">Vadodara</option>
-                                                                    </select> <span id="city_error"></span>
+                                                                    </select> <span class="city_error"
+                                                                                    id="city_error"></span>
                                                                     </div>
                                                                 </div>
 
@@ -657,16 +676,17 @@ and whether he/she wants to edit/add information --%>
                                                                     <div class="form-group">
                                                                         <label class="control-label"
                                                                                for="state">State</label> <select
-                                                                            class="form-control" name="state[]"
+                                                                            class="form-control state" name="state[]"
                                                                             id="state"
-                                                                            style="height: auto;">
+                                                                            style="height: auto;" required>
                                                                         <option value="0">Select State</option>
                                                                         <option value="Gujarat">Gujarat</option>
                                                                         <option value="Maharashtra">Maharashtra</option>
                                                                         <option value="Goa">Goa</option>
                                                                         <option value="Punjab">Punjab</option>
                                                                         <option value="Assam">Assam</option>
-                                                                    </select> <span id="state_error"></span>
+                                                                    </select> <span class="state_error"
+                                                                                    id="state_error"></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -675,9 +695,10 @@ and whether he/she wants to edit/add information --%>
                                                                     <div class="form-group">
                                                                         <label class="control-label" for="country">Country</label>
                                                                         <input type="text" id="country"
-                                                                               class="form-control"
-                                                                               name="country[]" maxlength="255">
-                                                                        <span id="country_error"></span>
+                                                                               class="form-control country"
+                                                                               name="country[]" maxlength="255" required>
+                                                                        <span class="country_error"
+                                                                              id="country_error"></span>
                                                                     </div>
                                                                     <div class="col-sm-12 col-md-4 cold-lg-2 col-xs-2">
                                                                         <div class="form-group">
@@ -685,10 +706,11 @@ and whether he/she wants to edit/add information --%>
                                                                                    for="postaladdress">Postal
                                                                                 Address</label>
                                                                             <input type="text" id="postaladdress"
-                                                                                   class="form-control"
+                                                                                   class="form-control postaladdress"
                                                                                    name="postaladdress[]"
-                                                                                   maxlength="250">
-                                                                            <span id="postaladdress_error"></span>
+                                                                                   maxlength="250"  required>
+                                                                            <span class="postaladdress_error"
+                                                                                  id="postaladdress_error"></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -850,9 +872,10 @@ and whether he/she wants to edit/add information --%>
             "max-width": "170px",
             "max-width": "170px"
         });
-// $(".cancel").attr("href", "adminHomePage.jsp")
+
+        // $(".cancel").attr("href", "adminHomePage.jsp")
         $(".cancel").click(function () {
-// window.history.back();
+            // window.history.back();
             window.location.href = "adminHomePage.jsp";
             return false; // Prevents the default link behavior, and doesn't navigate to the link's href attribute value.
         });
@@ -883,7 +906,9 @@ and whether he/she wants to edit/add information --%>
 
 
 </body>
+<%--the include tag for footer is at the end of the document, waaaay below the commented code--%>
 </html>
+
 
 
 <%--<body class="bg-info bg_custom_color">--%>

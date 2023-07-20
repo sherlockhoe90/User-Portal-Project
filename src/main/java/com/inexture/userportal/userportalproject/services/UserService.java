@@ -82,4 +82,12 @@ public interface UserService {
      */
     List<User> getUserDetails(String userId) throws SQLException;
 
+    /**
+     *
+     * @param emailid
+     * @return
+     */
+    boolean checkEmail(String emailid);
+
+
 }
