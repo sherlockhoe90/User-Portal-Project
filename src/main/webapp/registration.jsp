@@ -30,7 +30,7 @@
     if (userRole != null) {
         /*only if the user or admin are logged in, will it even check for the parameter, rest all of the times,
         it'll show the 'otherwise' code*/
-        if (userRole.equals("user") || userRole.equals("user")) {
+        if (userRole.equals("user") || userRole.equals("admin")) {
 %>
         <%-- getting the parameter 'user' and saving it in the variable 'profile' --%>
         <c:set var="profile" scope="request" value='<%=request.getParameter("user")%>'/>
