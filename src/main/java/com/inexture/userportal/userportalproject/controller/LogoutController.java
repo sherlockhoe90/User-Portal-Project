@@ -45,9 +45,12 @@ public class LogoutController extends HttpServlet {
         HttpSession session = request.getSession(false);
         response.setHeader("Cache-Control", "no-cache");
         response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setDateHeader("Expires", 0);
         response.setHeader("Pragma", "no-cache");
-        session.invalidate();
+        session.setAttribute("userRole", null); //login.jsp checks for this
+        logger.info("value of userRole : " + session.getAttribute("userRole"));
+        session.invalidate(); //removes session from the registry
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher req = request.getRequestDispatcher("/login.jsp");
         req.forward(request, response);

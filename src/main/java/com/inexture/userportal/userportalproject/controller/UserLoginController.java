@@ -53,19 +53,19 @@ public class UserLoginController extends HttpServlet {
         // List<User> list2; /*for user*/
         List<Address> listAddress;
 
-
-
-
-
-        if (isValid) {
-            if (user.getUserStatus()) { //if TRUE i.e. ADMIN
+        if (isValid) { // if TRUE i.e. the account exists in db
+            if (user.getUserStatus()) { // if TRUE i.e. ADMIN
                 try {
+                    //setting the type of user, so that they'll be redirected to the appropriate homepage when they go bak to login after logging in
+                    session.setAttribute("userRole", "admin");
+
                     list1 = service.displayAdmin(user);
 //                    int id = list1.get(0).getUserId();
                     int id = user.getUserId();
                     listAddress = addservice.getAllAddress(id);
                     session.setAttribute("adminList", list1);
                     session.setAttribute("CurrentUser", user);
+
                     session.setAttribute("AddressList", listAddress);
 
                     RequestDispatcher req = request.getRequestDispatcher("/adminHomePage.jsp");
@@ -78,6 +78,9 @@ public class UserLoginController extends HttpServlet {
                 logger.info("UserLoginController: ADMIN has logged in");
             } else { // if FALSE i.e. NORMAL USER
                 try {
+                    //setting the type of user, so that they'll be redirected to the appropriate homepage when they go bak to login after logging in
+                    session.setAttribute("userRole", "user");
+
                     User list2 = service.displaySpecificUser(user);
                     System.out.println("UserLoginController: user value GOT......" + list2.toString());
                     // int id = list2.get(0).getUserId();

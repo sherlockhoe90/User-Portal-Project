@@ -1,4 +1,5 @@
-<jsp:useBean id="specificUserData" scope="session" type="com.inexture.userportal.userportalproject.model.User"/>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%--<jsp:useBean id="specificUserData" scope="session" type="com.inexture.userportal.userportalproject.model.User"/>--%>
 <%--
   Created by IntelliJ IDEA.
   User: ND
@@ -6,13 +7,31 @@
   Time: 14:24
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="com.inexture.userportal.userportalproject.model.User"%>
-<%@ page import="com.inexture.userportal.userportalproject.model.Address"%>
+<%@ page import="com.inexture.userportal.userportalproject.model.User" %>
+<%@ page import="com.inexture.userportal.userportalproject.model.Address" %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="WEB-INF/views/header.jsp"></jsp:include>
 
+<%--RELOAD every single time the page is opened, to prevent using a CACHED COPY--%>
+<%--<script>--%>
+<%--    setTimeout(function() {--%>
+<%--        window.location.reload(true); // Reload the page from the server--%>
+<%--    }, 1000); // 1000 milliseconds = 1 second--%>
+<%--</script>--%>
+
+<%--using this JAVA code to not let someone in unless they're logged in as a user and the session is valid--%>
+<%
+    String userRole = (String) session.getAttribute("userRole");
+    if (userRole == null) {
+        // If the session attribute is not set, redirect the user to the login page
+        response.sendRedirect("login.jsp");
+    }   // If the session attribute is set, show the appropriate homepage
+        else if (userRole.equals("user")) {
+            // Show user homepage content
+%>
+<jsp:useBean id="specificUserData" scope="session" type="com.inexture.userportal.userportalproject.model.User"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,23 +42,14 @@
     </script>  -->
     <%--CODE FOR NOT LETTING THEM GO BACK TO THIS PAGE AFTER USER/ADMIN HAS LOGGED OUT--%>
     <%--MOST IMPORTANT--%>
-    <script>
-        // Check if the page is loaded from the cache
-        const navigationEntries = window.performance.getEntriesByType("navigation");
-        if (navigationEntries.length && navigationEntries[0].type === "back_forward") {
-            // Page is loaded from the cache, redirect to the login page
-            window.location.href = "login.jsp";
-        }
-
-    </script>
 
     <meta charset="ISO-8859-1">
     <title>User Home-Page</title>
     <link rel="icon" href="assets/images/inexture-favicon-purple.png" type="image/x-icon">
     <link rel="stylesheet"
           href="./assets/css/CDN/bootstrap_3.3.7.css">
-<%--    <link rel="stylesheet"--%>
-<%--          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">--%>
+    <%--    <link rel="stylesheet"--%>
+    <%--          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">--%>
     <link rel="stylesheet"
           href="./assets/css/searchjquery.dataTables.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -67,8 +77,8 @@
 </head>
 
 <body class="bg_custom_color">
- 	<c:set var="user" scope="session" value="${sessionScope.specificUserData}" />
-    <nav class="navbar navbar-inverse">
+<c:set var="user" scope="session" value="${sessionScope.specificUserData}"/>
+<nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed"
@@ -106,11 +116,12 @@
             <td>Firstname</td>
             <td>${specificUserData.userFirstname}</td>
         </tr
-        ><tr>
+        >
+        <tr>
             <td>Middlename</td>
             <td>${specificUserData.userMiddlename}</td>
         </tr>
-            <tr>
+        <tr>
             <td>Lastname</td>
             <td>${specificUserData.userLastname}</td>
         </tr>
@@ -119,7 +130,7 @@
             <td>Email-ID</td>
             <td>${specificUserData.userEmailID}</td>
         </tr>
-            <tr>
+        <tr>
 
             <td>Username</td>
             <td>${specificUserData.userUsername}</td>
@@ -137,7 +148,8 @@
         <tr>
             <td>Date of Birth</td>
             <td>${specificUserData.userDOB}</td>
-        </tr><tr>
+        </tr>
+        <tr>
             <td>Age</td>
             <td>${specificUserData.userAge}</td>
         </tr>
@@ -149,7 +161,7 @@
                 <td>Address ${count.index + 1} <br/><br/>
                     House No. : ${address.addHouseNo} <br/>
                     Street : ${address.addStreet} <br/>
-                    Landmark :  ${address.addLandmark} <br/>
+                    Landmark : ${address.addLandmark} <br/>
                     City : ${address.addCity} <br/>
                     State: ${address.addState} <br/>
                     Pincode : ${address.addZipcode} <br/>
@@ -168,3 +180,20 @@
 <script type="text/javascript" rel="script" src="./assets/js/searchjquery.dataTables.min.js"></script>
 </body>
 </html>
+<%
+        } else if (userRole.equals("admin")) {
+            // the user is not a 'user' so they have no business snooping around userHomePage
+            response.sendRedirect("login.jsp");
+        }
+
+%>
+
+<%--PREVENT BACK BUTTON every single time the page is opened, to prevent using a CACHED COPY--%>
+<%--<script>--%>
+<%--    function disableBackButton() {--%>
+<%--        window.history.replaceState(null, "", window.location.href);--%>
+<%--        window.onpopstate = function (event) {--%>
+<%--            window.history.go(1);--%>
+<%--        };--%>
+<%--    }--%>
+<%--</script>--%>

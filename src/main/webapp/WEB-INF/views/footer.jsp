@@ -11,8 +11,6 @@
     <!-- bootstrap 3.3.7 cdn -->
     <link rel="stylesheet"
           href="./assets/css/Bootstrap_3.3.7_maxcdn.bootstrapcdn.com_bootstrap_3.3.7_css_bootstrap.min.css">
-
-
 </head>
 <body>
 

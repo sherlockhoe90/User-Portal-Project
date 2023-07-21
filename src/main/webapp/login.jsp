@@ -7,6 +7,22 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
+
+<%--using this JAVA code to not let them go to the Login.jsp page when they're logged in and the session is valid--%>
+<%
+    String userRole = (String) session.getAttribute("userRole");
+    if (userRole != null) {
+        // If the session attribute is set, redirect the user to the appropriate homepage
+        if (userRole.equals("user")) {
+            response.sendRedirect("userHomePage.jsp");
+        } else if (userRole.equals("admin")) {
+            response.sendRedirect("adminHomePage.jsp");
+        }
+    }
+%>
+
+<!-- Your regular login page content goes here -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +41,17 @@
             window.location.href = 'login.jsp';
         }
     </script>
+    <%--PREVENT BACK BUTTON every single time the page is opened, to prevent using a CACHED COPY--%>
+    <head>
+<%--        <script>--%>
+<%--            function disableBackButton() {--%>
+<%--                window.history.replaceState(null, "", window.location.href);--%>
+<%--                window.onpopstate = function (event) {--%>
+<%--                    window.history.go(1);--%>
+<%--                };--%>
+<%--            }--%>
+<%--        </script>--%>
+    </head>
 </head>
 <body>
 

@@ -15,13 +15,29 @@
 
 <%@ page import="com.inexture.userportal.userportalproject.model.User" %>
 <%@ page import="com.inexture.userportal.userportalproject.model.Address" %>
+<c:set var="profile" scope="request" value=""/> <%--initializing 'profile' just in case the if-else userRole blocks dont run due to false conditions --%>
 
 <%
     User user = (User) session.getAttribute("CurrentUser");
     String userName = request.getParameter("user"); //only this and the next line is useful
     session.setAttribute("userName", userName); // this one. this is used when Updating values from UpdateProfileController
 %>
-
+<%--using this JAVA code to not let them go to the Login.jsp page when they're logged in and the session is valid--%>
+<%
+    String userRole = (String) session.getAttribute("userRole");
+    /*using this code below in order to decide whether to show the user or admin
+     * depending on if they're logged in or not */
+    if (userRole != null) {
+        /*only if the user or admin are logged in, will it even check for the parameter, rest all of the times,
+        it'll show the 'otherwise' code*/
+        if (userRole.equals("user") || userRole.equals("user")) {
+%>
+        <%-- getting the parameter 'user' and saving it in the variable 'profile' --%>
+        <c:set var="profile" scope="request" value='<%=request.getParameter("user")%>'/>
+<%
+}
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +77,9 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/CDN/select2_3.3.2.min.css">
     <link rel="stylesheet" type="text/css"
           href="./assets/css/CDN/bootstrap-select_1.13.18.css">
-
+    <%--font awesome--%>
+    <link rel="stylesheet"
+          href="./assets/css/CDN/http_cdnjs.cloudflare.com_ajax_libs_font-awesome_4.7.0_css_font-awesome.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="./assets/css/CDN/bootstrap_4.0.0.css">
     <link href="./assets/css/CDN/bootstrap_5.1.3.css" rel="stylesheet">
@@ -78,13 +96,19 @@
             window.location.href = "login.jsp";
         }
     </script>
+<%--    <script>--%>
+<%--        function disableBackButton() {--%>
+<%--            window.history.replaceState(null, "", window.location.href);--%>
+<%--            window.onpopstate = function (event) {--%>
+<%--                window.history.go(1);--%>
+<%--            };--%>
+<%--        }--%>
+<%--    </script>--%>
+
+
 </head>
 
 <body class="bg-info bg_custom_color">
-
-<%--getting the parameter 'user' and saving it in the variable 'profile'--%>
-<c:set var="profile" scope="request"
-       value='<%=request.getParameter("user")%>'/>
 
 <%--check whether the user is admin or normal user
 and whether he/she wants to edit/add information --%>
@@ -138,7 +162,8 @@ and whether he/she wants to edit/add information --%>
                                                                      id="firstname"
                                                                      name="firstname"
                                                                      placeholder="Enter your firstname"
-                                                                     value="${user.userFirstname}" pattern="^[a-zA-Z\s]*$" required/><span
+                                                                     value="${user.userFirstname}"
+                                                                     pattern="^[a-zA-Z\s]*$" required/><span
                         class="firstname_error" id="firstname_error"></span>
                 </div>
             </div>
@@ -148,7 +173,8 @@ and whether he/she wants to edit/add information --%>
                 <div class="form-group">
                     <label>Lastname:</label> <input type="text"
                                                     class="form-control lastname" id="lastname" placeholder="Lastname"
-                                                    name="lastname" value="${user.userLastname} pattern="^[a-zA-Z\s]*$" required"/>
+                                                    name="lastname" value="${user.userLastname}" pattern="^[a-zA-Z\s]*$"
+                                                    required/>
                     <span
                             class="lastname_error" id="lastname_error"></span>
                 </div>
@@ -165,7 +191,8 @@ and whether he/she wants to edit/add information --%>
                                                                        id="middlename"
                                                                        name="middlename"
                                                                        placeholder="Enter your middlename"
-                                                                       value="${user.userMiddlename}" pattern="^[a-zA-Z\s]*$"/><span
+                                                                       value="${user.userMiddlename}"
+                                                                       pattern="^[a-zA-Z\s]*$"/><span
                         class="middlename_error" id="middlename_error"></span>
                 </div>
             </div>
@@ -176,7 +203,8 @@ and whether he/she wants to edit/add information --%>
                     <label>Username:</label> <input type="text"
                                                     class="form-control username" id="username"
                                                     placeholder="Enter Username"
-                                                    name="username" value="${user.userUsername}" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:<>.?~-\s]*$" required/>
+                                                    name="username" value="${user.userUsername}"
+                                                    pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:<>.?~-\s]*$" required/>
                     <span
                             class="username_error" id="username_error"></span>
                 </div>
@@ -192,7 +220,9 @@ and whether he/she wants to edit/add information --%>
                                                                class="form-control text-width emailid"
                                                                id="emailid"
                                                                placeholder="Email-id" name="emailid"
-                                                               value="${user.userEmailID}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required/>
+                                                               value="${user.userEmailID}"
+                                                               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                                               required/>
                     <span class="email_error"
                           id="email_error"></span><br>
                     <span class="result" id="result"></span>
@@ -236,7 +266,8 @@ and whether he/she wants to edit/add information --%>
                                                                class="form-control text-width hobbies" id="hobbies"
                                                                placeholder="Hobbies"
                                                                name="hobbies"
-                                                               value="${user.userHobbies}" pattern="^[a-zA-Z\s]*$" required/> <span
+                                                               value="${user.userHobbies}" pattern="^[a-zA-Z0-9\s]*$"
+                                                               required/> <span
                         class="hobbies_error" id="hobbies_error"></span>
                 </div>
                 <div class="">
@@ -245,7 +276,8 @@ and whether he/she wants to edit/add information --%>
                         <label for="dob">Date Of Birth:</label> <input type="date"
                                                                        class="form-control text-width dob" id="dob"
                                                                        name="dob" min="1900-01-01"
-                                                                       max="2023-07-19" value="${user.userDOB}" required/>
+                                                                       max="2023-07-19" value="${user.userDOB}"
+                                                                       required/>
                         <span class="dob_error" id="dob_error"></span>
                             <%--                            <p style="display: none">${user.userDOB}</p> --%>
                             <%--printed this 'p' tag before i fixed the visible date format on the edit page, changing it from dd-mm-yyyy to yyyy-mm-dd. but as of after adding the datepicker, teh default input format is yyyy-mm-dd-%>
@@ -287,7 +319,9 @@ and whether he/she wants to edit/add information --%>
                                                                                      class="form-control text-width firstname"
                                                                                      id="firstname"
                                                                                      name="firstname"
-                                                                                     placeholder="Enter your firstname" pattern="^[a-zA-Z\s]*$" required/><span
+                                                                                     placeholder="Enter your firstname"
+                                                                                     pattern="^[a-zA-Z\s]*$"
+                                                                                     required/><span
                                         class="firstname_error" id="firstname_error"></span>
                                 </div>
                             </div>
@@ -298,8 +332,9 @@ and whether he/she wants to edit/add information --%>
                                     <label>Lastname:</label> <input type="text"
                                                                     class="form-control lastname" id="lastname"
                                                                     placeholder="Lastname"
-                                                                    name="lastname" pattern="^[a-zA-Z\s]*$" required/> <span
-                                        class="lastname_error" id="lastname_error"></span>
+                                                                    name="lastname" pattern="^[a-zA-Z\s]*$" required/>
+                                    <span
+                                            class="lastname_error" id="lastname_error"></span>
                                 </div>
 
                             </div>
@@ -313,7 +348,8 @@ and whether he/she wants to edit/add information --%>
                                                                                        class="form-control text-width middlename"
                                                                                        id="middlename"
                                                                                        name="middlename"
-                                                                                       placeholder="Enter your middlename" pattern="^[a-zA-Z\s]*$"/><span
+                                                                                       placeholder="Enter your middlename"
+                                                                                       pattern="^[a-zA-Z\s]*$"/><span
                                         class="middlename" id="middlename_error"></span>
                                 </div>
                             </div>
@@ -324,7 +360,9 @@ and whether he/she wants to edit/add information --%>
                                     <label>Username:</label> <input type="text"
                                                                     class="form-control username" id="username"
                                                                     placeholder="Enter Username"
-                                                                    name="username" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:<>.?~-\s]*$" required/> <span
+                                                                    name="username"
+                                                                    pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:<>.?~-\s]*$"
+                                                                    required/> <span
                                         class="username_error" id="username_error"></span>
                                 </div>
 
@@ -339,7 +377,9 @@ and whether he/she wants to edit/add information --%>
                                                                                class="form-control text-width emailid"
                                                                                id="emailid"
                                                                                placeholder="Email-id"
-                                                                               name="emailid" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required/>
+                                                                               name="emailid"
+                                                                               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                                                               required/>
                                     <span
                                             class="email_error" id="email_error"></span><br>
                                     <span class="result" id="result"></span>
@@ -381,7 +421,8 @@ and whether he/she wants to edit/add information --%>
                                                                                class="form-control text-width hobbies"
                                                                                id="hobbies"
                                                                                placeholder="Hobbies"
-                                                                               name="hobbies" pattern="^[a-zA-Z0-9\s]*$" required/> <span
+                                                                               name="hobbies" pattern="^[a-zA-Z0-9\s]*$"
+                                                                               required/> <span
                                         class="hobbies_error" id="hobbies_error"></span>
                                 </div>
                                 <div class="col-md-6">
@@ -426,7 +467,8 @@ and whether he/she wants to edit/add information --%>
                                                                             <input type="text" id="houseno"
                                                                                    class="form-control houseno"
                                                                                    name="houseno[]" maxlength="10"
-                                                                                   value="${address.addHouseNo}" required>
+                                                                                   value="${address.addHouseNo}"
+                                                                                   required>
                                                                             <span class="houseno_error"
                                                                                   id="houseno_error"></span>
                                                                         </div>
@@ -440,7 +482,8 @@ and whether he/she wants to edit/add information --%>
                                                                             <input type="text" id="address"
                                                                                    class="form-control address"
                                                                                    name="address[]" maxlength="20"
-                                                                                   value="${address.addStreet}" required/>
+                                                                                   value="${address.addStreet}"
+                                                                                   required/>
                                                                             <span class="street_error"
                                                                                   id="street_error"></span>
                                                                         </div>
@@ -452,7 +495,8 @@ and whether he/she wants to edit/add information --%>
                                                                             <input type="text" id="landmark"
                                                                                    class="form-control landmark"
                                                                                    name="landmark[]" maxlength="50"
-                                                                                   value="${address.addLandmark}" required> <span
+                                                                                   value="${address.addLandmark}"
+                                                                                   required> <span
                                                                                 class="landmark_error"
                                                                                 id="landmark_error"></span>
                                                                         </div>
@@ -464,9 +508,11 @@ and whether he/she wants to edit/add information --%>
                                                                             <input type="text" id="pincode"
                                                                                    class="form-control pincode"
                                                                                    name="zipcode[]" maxlength="10"
-                                                                                   value="${address.addZipcode}" pattern="^[a-zA-Z0-9_]*$" required> <span
-                                                                                class="pincode_error"
-                                                                                id="pincode_error"></span>
+                                                                                   value="${address.addZipcode}"
+                                                                                   pattern="^[a-zA-Z0-9]*$" required>
+                                                                            <span
+                                                                                    class="pincode_error"
+                                                                                    id="pincode_error"></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -554,7 +600,8 @@ and whether he/she wants to edit/add information --%>
                                                                             <input type="text" id="country"
                                                                                    class="form-control country"
                                                                                    name="country[]" maxlength="255"
-                                                                                   value="${address.addCountry}" pattern="^[a-zA-Z\s]$" required>
+                                                                                   value="${address.addCountry}"
+                                                                                   pattern="^[a-zA-Z0-9\s]*$" required>
                                                                             <span class="country_error"
                                                                                   id="country_error"></span>
                                                                         </div>
@@ -567,7 +614,8 @@ and whether he/she wants to edit/add information --%>
                                                                                        class="form-control postaladdress"
                                                                                        name="postaladdress[]"
                                                                                        maxlength="250"
-                                                                                       value="${address.addPostalAdd}" required>
+                                                                                       value="${address.addPostalAdd}"
+                                                                                       required>
                                                                                 <span class="postaladdress_error"
                                                                                       id="postaladdress_error"></span>
                                                                             </div>
@@ -645,7 +693,8 @@ and whether he/she wants to edit/add information --%>
                                                                                for="address_line_two_0">Zipcode</label>
                                                                         <input type="text" id="pincode"
                                                                                class="form-control pincode"
-                                                                               name="zipcode[]" maxlength="10" pattern="^[a-zA-Z0-9_]*$" required> <span
+                                                                               name="zipcode[]" maxlength="10"
+                                                                               pattern="^[a-zA-Z0-9]*$" required> <span
                                                                             class="pincode_error"
                                                                             id="pincode_error"></span>
                                                                     </div>
@@ -696,7 +745,8 @@ and whether he/she wants to edit/add information --%>
                                                                         <label class="control-label" for="country">Country</label>
                                                                         <input type="text" id="country"
                                                                                class="form-control country"
-                                                                               name="country[]" maxlength="255" required>
+                                                                               name="country[]" maxlength="255"
+                                                                               required>
                                                                         <span class="country_error"
                                                                               id="country_error"></span>
                                                                     </div>
@@ -708,7 +758,7 @@ and whether he/she wants to edit/add information --%>
                                                                             <input type="text" id="postaladdress"
                                                                                    class="form-control postaladdress"
                                                                                    name="postaladdress[]"
-                                                                                   maxlength="250"  required>
+                                                                                   maxlength="250" required>
                                                                             <span class="postaladdress_error"
                                                                                   id="postaladdress_error"></span>
                                                                         </div>
@@ -908,7 +958,6 @@ and whether he/she wants to edit/add information --%>
 </body>
 <%--the include tag for footer is at the end of the document, waaaay below the commented code--%>
 </html>
-
 
 
 <%--<body class="bg-info bg_custom_color">--%>

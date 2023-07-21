@@ -11,7 +11,7 @@
 <head>
     <%--<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">--%>
     <link rel="icon" href="./assets/images/inexture-favicon-purple.png" type="favicon">
-    <link rel="stylesheet" href="../../assets/css/header_and_footer.css">
+    <link rel="stylesheet" href="./assets/css/header_and_footer.css">
     <!-- bootstrap 3.3.7 cdn -->
     <link rel="stylesheet" href="./assets/css/maxcdn.bootstrapcdn.com_bootstrap_3.4.1_css_bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -64,6 +64,6 @@
 </nav>
 
 <script
-        src="../../assets/js/CDNs/maxcdn.bootstrapcdn.com_bootstrap_3.3.7_js_bootstrap.min.js"></script>
+        src="./assets/js/CDNs/bootstrap_3.3.7.js"></script>
 </body>
 </html>

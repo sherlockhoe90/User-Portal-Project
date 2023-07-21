@@ -10,6 +10,16 @@
 
 <jsp:include page="WEB-INF/views/header.jsp"/>
 
+<%
+    String userRole = (String) session.getAttribute("userRole");
+    if (userRole != null) {
+        // If the session attribute is set, redirect the user to the appropriate homepage
+        if (!userRole.equals("admin")) {
+            response.sendRedirect("login.jsp");
+        }
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +32,7 @@
 <%--    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">--%>
     <link rel="stylesheet" href="./assets/css/CDN/font_awesome_free.css">
     <link rel="stylesheet" href="./assets/css/CDN/font_awesome_pro.css">
+    <link rel="stylesheet" href="./assets/css/CDN/http_cdnjs.cloudflare.com_ajax_libs_font-awesome_4.7.0_css_font-awesome.css">
     <link href="./assets/css/style.css" rel="stylesheet">
     <style type="text/css">
         .switch {
@@ -84,6 +95,15 @@
         }
     </style>
 
+    <%--PREVENT BACK BUTTON every single time the page is opened, to prevent using a CACHED COPY--%>
+<%--    <script>--%>
+<%--        function disableBackButton() {--%>
+<%--            window.history.replaceState(null, "", window.location.href);--%>
+<%--            window.onpopstate = function (event) {--%>
+<%--                window.history.go(1);--%>
+<%--            };--%>
+<%--        }--%>
+<%--    </script>--%>
 
 </head>
 <body class="all_page_background">

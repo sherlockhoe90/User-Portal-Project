@@ -2,6 +2,7 @@ package com.inexture.userportal.userportalproject.dao;
 
 import com.inexture.userportal.userportalproject.model.User;
 import com.inexture.userportal.userportalproject.utility.DatabaseManager;
+import com.inexture.userportal.userportalproject.utility.PasswordEncryption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -211,6 +212,7 @@ public class UserDAOImp implements UserDAO {
     @Override
     public void updatePassword(User user) throws SQLException {
         PreparedStatement pstmt = c.prepareStatement("UPDATE userportal_users SET password = ? WHERE emailid = ?");
+        user.setUserPassword(PasswordEncryption.encrypt(user.getUserPassword())); //encrypt the password before storing in the db
         pstmt.setString(1, user.getUserPassword());
         pstmt.setString(2, user.getUserEmailID());
         pstmt.executeUpdate();

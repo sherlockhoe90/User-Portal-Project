@@ -5,11 +5,29 @@
   Time: 17:46
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
 <jsp:include page="WEB-INF/views/header.jsp"/>
 
 <%@ page import="com.inexture.userportal.userportalproject.model.User" %>
 <%@ page import="com.inexture.userportal.userportalproject.model.Address" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%--using this JAVA code to not let someone in unless they're logged in as a user and the session is valid--%>
+<%
+    String userRole = (String) session.getAttribute("userRole");
+    if (userRole == null) {
+        // If the session attribute is not set, redirect the user to the login page
+        response.sendRedirect("login.jsp");
+    } else {
+        // If the session attribute is set, show the appropriate homepage
+        if (userRole.equals("user")) {
+            // Show user homepage content
+            response.sendRedirect("login.jsp");
+
+        } else if (userRole.equals("admin")) {
+            // Show admin homepage content
+%>
 
 <!DOCTYPE html>
 <html>
@@ -21,9 +39,21 @@
     <link href="./assets/css/CDN/datatables.css" type="text/css">
     <link rel="stylesheet" href="./assets/css/CDN/font_awesome_free.css" type="text/css">
     <link rel="stylesheet" href="./assets/css/CDN/font_awesome_pro.css" type="text/css">
+<%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">--%>
+    <link rel="stylesheet" href="./assets/css/CDN/http_cdnjs.cloudflare.com_ajax_libs_font-awesome_4.7.0_css_font-awesome.css">
     <link rel="stylesheet" href="./assets/css/CDN/bootstrap_3.3.7.css" type="text/css">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
     <link rel="stylesheet" href="assets/css/header_and_footer.css" type="text/css">
+
+    <%--PREVENT BACK BUTTON every single time the page is opened, to prevent using a CACHED COPY--%>
+<%--    <script>--%>
+<%--        function disableBackButton() {--%>
+<%--            window.history.replaceState(null, "", window.location.href);--%>
+<%--            window.onpopstate = function (event) {--%>
+<%--                window.history.go(1);--%>
+<%--            };--%>
+<%--        }--%>
+<%--    </script>--%>
 </head>
 
 <body class=" bg_custom_color
@@ -118,3 +148,7 @@
     <jsp:include page="WEB-INF/views/footer.jsp"/>
     </body>
 </html>
+<%
+}
+}
+%>
