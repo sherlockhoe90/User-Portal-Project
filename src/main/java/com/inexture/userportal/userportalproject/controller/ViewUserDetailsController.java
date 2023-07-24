@@ -8,12 +8,10 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-//@WebServlet(name = "ViewUserDetailsController", value = "/ViewUserDetailsController")
 public class ViewUserDetailsController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

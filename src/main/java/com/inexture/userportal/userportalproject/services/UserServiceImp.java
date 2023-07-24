@@ -27,11 +27,11 @@ public class UserServiceImp implements UserService {
         return id;
     }
 
-//    @Override
-//    public User showUser(User user) throws SQLException {
-//        user = userDAOobject.showUser(user);
-//        return user;
-//    }
+    @Override
+    public User showUser(User user) throws SQLException {
+        user = userDAOobject.showUser(user);
+        return user;
+    }
 
 
     @Override

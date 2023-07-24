@@ -14,17 +14,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import javax.xml.stream.events.Comment;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
-import java.util.Objects;
 
-//@WebServlet(name = "UpdateProfileController", value = "/UpdateProfileController")
 @MultipartConfig
 public class UpdateProfileController extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -48,7 +42,7 @@ public class UpdateProfileController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             // to get address list
-            List<Address> addList = (List<Address>) session.getAttribute("AddressList");
+            List<Address> addressesInSession = (List<Address>) session.getAttribute("AddressList");
             UserService service = new UserServiceImp();
             AddressService addservice = new AddressServiceImp();
             // User user = new User();
@@ -68,7 +62,7 @@ public class UpdateProfileController extends HttpServlet {
 //            }
 
             /* to set the updated values */
-            // user part
+            /* user part */
             user.setUserFirstname(request.getParameter("firstname"));
             user.setUserMiddlename(request.getParameter("middlename"));
             user.setUserLastname(request.getParameter("lastname"));
@@ -81,55 +75,28 @@ public class UpdateProfileController extends HttpServlet {
             int id = service.updateProfile(user);
 
             /* address part */
-            // addrId contains the addresses existing in the database
-            String addrId[] = new String[addList.size()];
-            for (int i = 0; i < addList.size(); i++) {
-                addrId[i] = addList.get(i).getAddId();
+            // addressIdFromDatabase contains the addresses existing in the database
+            String addressIdFromDatabase[] = new String[addressesInSession.size()];
+            for (int i = 0; i < addressesInSession.size(); i++) {
+                addressIdFromDatabase[i] = addressesInSession.get(i).getAddId();
             }
-            // addressId contains the newly gotten addresses from the frontend
+            // addressId contains the newly gotten addresses IDs from the frontend
             String[] addressId = request.getParameterValues("addressId[]");
-            List<String> addressIdList = Arrays.asList(addressId);
+            List<String> addressIdListFromFrontend = Arrays.asList(addressId);
             // takes the addresses from the frontend, and checks if it consists of the addresses present in the database,
             //if not, it removes those addresses from the database, that are not found in the frontend
             String remove = "";
-            for (int i = 0; i < addrId.length; i++) {
-                if (!addressIdList.contains(addrId[i])) {
-                    remove += addrId[i] + " ";
+            for (int i = 0; i < addressIdFromDatabase.length; i++) {
+                if (!addressIdListFromFrontend.contains(addressIdFromDatabase[i])) {
+                    remove += addressIdFromDatabase[i] + " ";
                 }
             }
 
-            // adding the new addresses that were added along with editing and removing addresses
+            // deleted the commented code for adding the new addresses that were added along with editing and removing addresses
             // from registration.jsp?adminEdit or userEdit, etc
-//            int addingNewAddCount = addrId.length + 1;
-//            for (int i = 0; i < addressId.length; i++) {
-//                if (Objects.equals(addressId[i], "")) {
-//                    String[] houseno = request.getParameterValues("houseno["+i+"]");
-//                    String[] street = request.getParameterValues("address["+i+"]");
-//                    String[] landmark = request.getParameterValues("landmark["+i+"]");
-//                    String[] zipcode = request.getParameterValues("zipcode["+i+"]");
-//                    String[] city = request.getParameterValues("city["+i+"]");
-//                    String[] state = request.getParameterValues("state["+i+"]");
-//                    String[] country = request.getParameterValues("country["+i+"]");
-//                    String[] postaladdress = request.getParameterValues("postaladdress["+i+"]");
-//
-//                    address.setAddId(addressId[addingNewAddCount]);
-//                    address.setAddHouseNo(houseno[addingNewAddCount]);
-//                    address.setAddStreet(street[addingNewAddCount]);
-//                    address.setAddLandmark(landmark[addingNewAddCount]);
-//                    address.setAddCity(city[addingNewAddCount]);
-//                    address.setAddState(state[addingNewAddCount]);
-//                    address.setAddZipcode(zipcode[addingNewAddCount]);
-//                    address.setAddCountry(country[addingNewAddCount]);
-//                    address.setAddPostalAdd(postaladdress[addingNewAddCount]);
-//
-//                    addservice.addAddress(user.getUserId(), address);
-//                    addingNewAddCount++;
-//                }
-//
-//            }
 
 
-// Add new addresses
+            /* Add new addresses */
             String[] newHouseno = request.getParameterValues("houseno[]");
             String[] newStreet = request.getParameterValues("address[]");
             String[] newLandmark = request.getParameterValues("landmark[]");
@@ -150,6 +117,7 @@ public class UpdateProfileController extends HttpServlet {
                 }
             }
 
+            /* getting the new addresses, and giving them the ID after the last non-empty addressID */
             for (int i = 0; i < newHouseno.length; i++) {
                 if (addressId[i].equals("")) {
                     Address newAddress = new Address();
@@ -167,7 +135,6 @@ public class UpdateProfileController extends HttpServlet {
                     addservice.addAddress(id, newAddress);
                 }
             }
-
 
             // to get the updated values
             String[] houseno = request.getParameterValues("houseno[]");
@@ -194,7 +161,7 @@ public class UpdateProfileController extends HttpServlet {
                 address.setAddPostalAdd(postaladdress[count]);
                 address.setRemoveAddressId(remove);
 
-                // update address function called
+                /* update address function called */
                 addservice.updateAddress(address, id);
                 logger.info("address values inside update servlet" + address);
                 count++;
@@ -218,15 +185,10 @@ public class UpdateProfileController extends HttpServlet {
                 List<Address> listAddress = addservice.getAllAddress(id);
                 session.setAttribute("AddressList", listAddress);
                 response.sendRedirect("adminHomePage.jsp");
-
             }
-
-    } catch(
-    SQLException e)
-
-    {
-        e.printStackTrace();
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
     }
-
-}
 }

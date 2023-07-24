@@ -18,6 +18,7 @@ public class AddressDAOImp implements AddressDAO {
     private static Logger logger = LogManager.getLogger("AddressDAOImp");
 
     Connection c;
+
     public AddressDAOImp() {
         c = DatabaseManager.getConnection();
     }
@@ -33,7 +34,6 @@ public class AddressDAOImp implements AddressDAO {
     public void addAddress(int userId, Address address) {
 
 //        System.out.println("yet to make the AddressDAOImp addAddress method function");
-
         try {
             logger.info("printing the value of the current user id in AddressDAOImp : " + userId);
             pstmt = c.prepareStatement(

@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-//@WebServlet(name = "UserLoginController", value = "/UserLoginController")
 public class UserLoginController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -50,7 +49,7 @@ public class UserLoginController extends HttpServlet {
         boolean isValid = service.compareUserLogin(user);
 
         List<User> list1; /*for admin*/
-        // List<User> list2; /*for user*/
+        // List<User> list2; /*for user*/ declared
         List<Address> listAddress;
 
         if (isValid) { // if TRUE i.e. the account exists in db

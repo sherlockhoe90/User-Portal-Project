@@ -15,29 +15,11 @@
 
 <%@ page import="com.inexture.userportal.userportalproject.model.User" %>
 <%@ page import="com.inexture.userportal.userportalproject.model.Address" %>
-<c:set var="profile" scope="request"
-       value=""/> <%--initializing 'profile' just in case the if-else userRole blocks dont run due to false conditions --%>
-
+<c:set var="profile" scope="request" value='<%=request.getParameter("user")%>'/>
 <%
     User user = (User) session.getAttribute("CurrentUser");
     String userName = request.getParameter("user"); //only this and the next line is useful
     session.setAttribute("userName", userName); // this one. this is used when Updating values from UpdateProfileController
-%>
-<%--using this JAVA code to not let them go to the Login.jsp page when they're logged in and the session is valid--%>
-<%
-    String userRole = (String) session.getAttribute("userRole");
-    /*using this code below in order to decide whether to show the user or admin
-     * depending on if they're logged in or not */
-    if (userRole != null) {
-        /*only if the user or admin are logged in, will it even check for the parameter, rest all of the times,
-        it'll show the 'otherwise' code*/
-        if (userRole.equals("user") || userRole.equals("admin")) {
-%>
-<%-- getting the parameter 'user' and saving it in the variable 'profile' --%>
-<c:set var="profile" scope="request" value='<%=request.getParameter("user")%>'/>
-<%
-        }
-    }
 %>
 <!DOCTYPE html>
 <html>

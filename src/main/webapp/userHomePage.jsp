@@ -21,28 +21,11 @@
 <%--    }, 1000); // 1000 milliseconds = 1 second--%>
 <%--</script>--%>
 
-<%--using this JAVA code to not let someone in unless they're logged in as a user and the session is valid--%>
-<%
-    String userRole = (String) session.getAttribute("userRole");
-    if (userRole == null) {
-        // If the session attribute is not set, redirect the user to the login page
-        response.sendRedirect("login.jsp");
-    }   // If the session attribute is set, show the appropriate homepage
-        else if (userRole.equals("user")) {
-            // Show user homepage content
-%>
+
 <jsp:useBean id="specificUserData" scope="session" type="com.inexture.userportal.userportalproject.model.User"/>
 <!DOCTYPE html>
 <html>
 <head>
-    <!--  <script type="text/javascript">
-       function preventBack(){window.history.forward();}
-        setTimeout("preventBack()", 0);
-        window.onunload=function(){null};
-    </script>  -->
-    <%--CODE FOR NOT LETTING THEM GO BACK TO THIS PAGE AFTER USER/ADMIN HAS LOGGED OUT--%>
-    <%--MOST IMPORTANT--%>
-
     <meta charset="ISO-8859-1">
     <title>User Home-Page</title>
     <link rel="icon" href="assets/images/inexture-favicon-purple.png" type="image/x-icon">
@@ -54,21 +37,11 @@
           href="./assets/css/searchjquery.dataTables.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        /*table {*/
-        /*    background-color: #626262 !important;*/
-        /*    color: white;*/
-        /*    font-size: 17px;*/
-        /*}*/
-
         table.table-bordered {
             border: 2px solid black;
             margin-top: 20px;
             margin-bottom: 100px;
         }
-
-        /*table.table-bordered>tbody>tr>td {*/
-        /*    border: 1px solid black;*/
-        /*}*/
 
         td, h2 {
             text-align: center;
@@ -109,9 +82,6 @@
 <div class="container mb-5">
     <h2>User Details</h2>
     <table class="table table-bordered table-striped table-dark table_border hover" id="myTable">
-
-        <%-- 			<c:forEach items="${specificUserData}"  var="specificUserData">
-         --%>
         <tr>
             <td>Firstname</td>
             <td>${specificUserData.userFirstname}</td>
@@ -153,8 +123,7 @@
             <td>Age</td>
             <td>${specificUserData.userAge}</td>
         </tr>
-        <%-- 								</c:forEach>
-         --%>
+
         <c:forEach var="address" items="${AddressList}" varStatus="count">
             <tr>
                 <td>Address</td>
@@ -180,20 +149,3 @@
 <script type="text/javascript" rel="script" src="./assets/js/searchjquery.dataTables.min.js"></script>
 </body>
 </html>
-<%
-        } else if (userRole.equals("admin")) {
-            // the user is not a 'user' so they have no business snooping around userHomePage
-            response.sendRedirect("login.jsp");
-        }
-
-%>
-
-<%--PREVENT BACK BUTTON every single time the page is opened, to prevent using a CACHED COPY--%>
-<%--<script>--%>
-<%--    function disableBackButton() {--%>
-<%--        window.history.replaceState(null, "", window.location.href);--%>
-<%--        window.onpopstate = function (event) {--%>
-<%--            window.history.go(1);--%>
-<%--        };--%>
-<%--    }--%>
-<%--</script>--%>

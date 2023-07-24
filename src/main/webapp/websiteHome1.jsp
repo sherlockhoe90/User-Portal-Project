@@ -125,13 +125,10 @@
             </div>
         </div>
     </div>
-
-
     <!-- facility of marriage house ends here  -->
 
 
     <!-- blog starts here -->
-
     <div class="content4">
         <div id="reviews">
             <h2 class="content4-heading">Reviews</h2>
@@ -160,7 +157,6 @@
         </div>
 
         <div class="feb2">
-
             <div class="feb6-text">
                 <h2>Emily Chargin, USA</h2>
                 Working with Inexture was a great experience. They listened to our needs,
@@ -230,7 +226,6 @@
         </div>
     </div>
     <!-- news section end -->
-
 
     <!-- footer section start -->
     <div class="footer_section">

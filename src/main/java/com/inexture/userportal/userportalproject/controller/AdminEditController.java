@@ -14,9 +14,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-//@WebServlet(name = "AdminEditController", value = "/AdminEditController")
-
-
 public class AdminEditController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -28,10 +25,6 @@ public class AdminEditController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
-//		HttpSession session = request.getSession();
-//		session.removeAttribute("CurrentUser");
-//		RequestDispatcher req = request.getRequestDispatcher("UserRegister.jsp?user=ADD");
-//		req.forward(request, response);
 
     }
 
@@ -40,15 +33,16 @@ public class AdminEditController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         // String uName = (String) session.getAttribute("userName");
-        String userId = request.getParameter("userId");
         UserService service = new UserServiceImp();
         AddressService addService = new AddressServiceImp();
+
+        String userId = request.getParameter("userId");
 
         try {
             // to get details of a particular user
             List<User> userData = service.getUserDetails(userId);
-            User user = userData.get(0);
-            session.setAttribute("CurrentUser", user);
+            User user = userData.get(0); //getting the details of the user in the object
+            session.setAttribute("CurrentUser", user); // setting the object into the session
             List<Address> listAddress = addService.getAllAddress(Integer.parseInt(userId));
             session.setAttribute("AddressList", listAddress);
             RequestDispatcher req = request.getRequestDispatcher("registration.jsp?user=adminEdit");

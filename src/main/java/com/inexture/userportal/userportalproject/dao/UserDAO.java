@@ -22,12 +22,12 @@ public interface UserDAO {
      */
     int userRegister(User user);
 
-//    /**
-//     *
-//     * @param user
-//     * @return
-//     */
-//    User showUser (User user) throws SQLException;
+    /**
+     *
+     * @param user
+     * @return
+     */
+    User showUser (User user) throws SQLException;
 
     /**
      *

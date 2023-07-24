@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 public class UserDAOImp implements UserDAO {
@@ -44,16 +43,6 @@ public class UserDAOImp implements UserDAO {
                     user.setUserStatus(false);
                 }
                 logger.info("UserDAOImp: Setting the userStatus =  " + user.getUserRole() + " and : " + user.getUserStatus());
-                //commenting the unnecessary stuff
-//                user.setUserId(rs.getInt("id"));
-//                user.setUserFirstname(rs.getString("firstname"));
-//                user.setUserMiddlename(rs.getString("middlename"));
-//                user.setUserLastname(rs.getString("lastname"));
-//                user.setUserPassword(rs.getString("password"));
-//                user.setUserHobbies(rs.getString("hobbies"));
-//                user.setUserDOB(rs.getString("dob"));
-//                user.setUserAge(rs.getInt("age"));
-
                 return true;
             } else {
                 return false;
@@ -99,25 +88,25 @@ public class UserDAOImp implements UserDAO {
 
     }
 
-//    @Override
-//    public User showUser(User user) throws SQLException {
-//
-//        PreparedStatement pstmt = c.prepareStatement(
-//                "select * from userportal_users where emailid=?");
-//        pstmt.setString(1, user.getUserEmailID());
-//        ResultSet rs = pstmt.executeQuery();
-//        if(rs.next()) {
-//            user.setUserId(rs.getInt("id"));
-//            user.setUserFirstname(rs.getString("firstname"));
-//            user.setUserMiddlename(rs.getString("middlename"));
-//            user.setUserLastname(rs.getString("lastname"));
-//            user.setUserHobbies(rs.getString("hobbies"));
-//            user.setUserAge(rs.getInt("age"));
-//            user.setUserDOB(rs.getString("dob"));
-//        }
-//
-//        return user;
-//    }
+    @Override
+    public User showUser(User user) throws SQLException {
+
+        PreparedStatement pstmt = c.prepareStatement(
+                "select * from userportal_users where emailid=?");
+        pstmt.setString(1, user.getUserEmailID());
+        ResultSet rs = pstmt.executeQuery();
+        if(rs.next()) {
+            user.setUserId(rs.getInt("id"));
+            user.setUserFirstname(rs.getString("firstname"));
+            user.setUserMiddlename(rs.getString("middlename"));
+            user.setUserLastname(rs.getString("lastname"));
+            user.setUserHobbies(rs.getString("hobbies"));
+            user.setUserAge(rs.getInt("age"));
+            user.setUserDOB(rs.getString("dob"));
+        }
+
+        return user;
+    }
 
 
     // display user details on admin side

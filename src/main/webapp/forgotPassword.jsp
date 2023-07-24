@@ -53,17 +53,6 @@
 <body>
 <%--adding the HEADER file here--%>
 <div class="container center-div">
-    <%--    <h2 class="text-center">Enter you e-mail id:</h2>--%>
-    <%--    <p class="text-center">You'll be sent a code that you'll have to enter here.</p>--%>
-    <%--    <form action="${pageContext.request.contextPath}/ForgotPassword" method="post">--%>
-    <%--        <input type="hidden" id="pageIdentification" value="comingFromForgotPassword"> &lt;%&ndash;hidden field&ndash;%&gt;--%>
-    <%--        <div class="row justify-content-center text-white">--%>
-    <%--            <div class="form-group col-sm-4 col-sm-offset-4 ">--%>
-    <%--                <input type="text" class="form-control col-sm" id="emailid_from_login"--%>
-    <%--                       name="emailid_from_forgotpassword" placeholder="Email-ID">--%>
-    <%--                <span id="email_error"></span>--%>
-    <%--            </div>--%>
-    <%--        </div>--%>
     <c:choose> <%--initially the <otherwise> code block will get executed --%>
     <c:when test="${(emailStatus == 'exists')}"> <%--execute when it is found that email exists, enter the verification code--%>
     <h2 class="text-center">Enter the Verification Code :</h2>

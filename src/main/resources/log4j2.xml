@@ -1,10 +1,15 @@
+<!--
+        location where Tomcat stores its logs
+        C:\Users\ND\AppData\Local\JetBrains\IntelliJIdea2022.2\tomcat\a7dce7ae-daf8-4dd5-b930-907316892409
+-->
+
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <!-- Define custom levels before using them for filtering below. -->
     <CustomLevels>
-        <CustomLevel name="DIAG" intLevel="350" />
-        <CustomLevel name="NOTICE" intLevel="450" />
-        <CustomLevel name="VERBOSE" intLevel="550" />
+        <CustomLevel name="DIAG" intLevel="350"/>
+        <CustomLevel name="NOTICE" intLevel="450"/>
+        <CustomLevel name="VERBOSE" intLevel="550"/>
     </CustomLevels>
 
     <Properties>
@@ -23,8 +28,8 @@
             <!-- Only events at DIAG level or more specific are sent to the console. -->
 
             <!--<AppenderRef ref="Console" level="diag" />-->
-            <AppenderRef ref="Console" level="trace" />
-            <AppenderRef ref="MyFile" level="trace" />
+            <AppenderRef ref="Console" level="trace"/>
+            <AppenderRef ref="MyFile" level="trace"/>
         </Root>
     </Loggers>
 </Configuration>

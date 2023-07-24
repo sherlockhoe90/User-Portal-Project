@@ -10,16 +10,6 @@
 
 <jsp:include page="WEB-INF/views/header.jsp"/>
 
-<%
-    String userRole = (String) session.getAttribute("userRole");
-    if (userRole != null) {
-        // If the session attribute is set, redirect the user to the appropriate homepage
-        if (!userRole.equals("admin")) {
-            response.sendRedirect("login.jsp");
-        }
-    }
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,83 +17,22 @@
     <title>View Users</title>
     <link rel="icon" href="./assets/images/inexture-favicon-purple.png" type="image/x-icon">
     <link href="./assets/css/CDN/bootstrap_4.5.3.css">
-    <!-- <link href="https://cdn.datatables.net/responsive/2.2.9/css/dataTables.responsive.css"> -->
     <link href="./assets/js/CDNs/dataTables.responsive.js">
-<%--    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">--%>
     <link rel="stylesheet" href="./assets/css/CDN/font_awesome_free.css">
     <link rel="stylesheet" href="./assets/css/CDN/font_awesome_pro.css">
     <link rel="stylesheet" href="./assets/css/CDN/http_cdnjs.cloudflare.com_ajax_libs_font-awesome_4.7.0_css_font-awesome.css">
     <link href="./assets/css/style.css" rel="stylesheet">
-    <style type="text/css">
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 25px;
-        }
-
+    <style>
         .switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
 
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 4px;
-            bottom: 3px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
         input:focus + .slider {
             box-shadow: 0 0 1px #2196F3;
         }
-
-        input:checked + .slider:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
-        }
-
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
     </style>
-
-    <%--PREVENT BACK BUTTON every single time the page is opened, to prevent using a CACHED COPY--%>
-<%--    <script>--%>
-<%--        function disableBackButton() {--%>
-<%--            window.history.replaceState(null, "", window.location.href);--%>
-<%--            window.onpopstate = function (event) {--%>
-<%--                window.history.go(1);--%>
-<%--            };--%>
-<%--        }--%>
-<%--    </script>--%>
 
 </head>
 <body class="all_page_background">
@@ -184,14 +113,6 @@
 <script src="./assets/js/CDNs/datatables.js"></script>
 <script src="./assets/js/CDNs/dataTables.bootstrap4.js"></script>
 <script src="./assets/js/CDNs/bootstrap_3.3.7.js"></script>
-<%--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--%>
-<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>--%>
-<%--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>--%>
-<%--<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>--%>
-<%--<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>--%>
-<%--<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>--%>
-<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>--%>
-
 <%--js for cr in root--%>
 <script>
     $(document).ready(function () {

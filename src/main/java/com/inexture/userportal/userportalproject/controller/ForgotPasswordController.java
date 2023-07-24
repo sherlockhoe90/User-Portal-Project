@@ -8,22 +8,10 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.math.*;
 import java.sql.SQLException;
-import java.util.Objects;
 
-//@WebServlet(name = "ForgotPasswordController", value = "/ForgotPasswordController")
-
-
-
-
-
-
-
-
-/*USE HIDDEN INPUT FIELDS TO CONTROL WHAT METHOD THIS GOES INTO .....
+/* USING HIDDEN INPUT FIELDS TO CONTROL WHAT METHOD THIS GOES INTO .....
  * IF THE PARAMETER IS EQUAL TO comingFromExists THEN IT WON'T CHECK THE EMAIL AGAIN,
  * IT'LL GO STRAIGHT TO VERIFYING THE VERIFICATION CODE */
 
@@ -40,15 +28,17 @@ public class ForgotPasswordController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        /*retrieve the current session, and ONLY if one doesn't exist yet, create it*/
+        session = request.getSession(false);
         if (session == null) {
-            session = request.getSession();
+            session = request.getSession(); //basically the same as request.getSession() or rq.getSess(true)
         }
         //random number between 0 and 1 is generated, then multiplied manually by 10^6 to get a six digit number
         if (RandomNumber == 0) {
             RandomNumber = (int) Math.floor((Math.random()) * Math.pow(10, 6)); //for verification code
         }
         String emailid = request.getParameter("emailid");
-        String pageIdentification = request.getParameter("pageIdentification");
+        String pageIdentification = request.getParameter("pageIdentification"); /* hidden field */
 
         //check if email exists, if it does, send the verification codes
         if (pageIdentification.equals("emailDoesntExist") || pageIdentification.equals("getVerificationCode")) {
@@ -88,11 +78,12 @@ public class ForgotPasswordController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        /*getting the hidden field's value*/
         String pageIdentification = request.getParameter("pageIdentification");
 
         try {
         if (pageIdentification.equals("sendingNewPassword")) {
+            /*getting the new password from frontend*/
             String newPassword = request.getParameter("newpassword");
             user.setUserPassword(newPassword);
             service.updatePassword(user);
