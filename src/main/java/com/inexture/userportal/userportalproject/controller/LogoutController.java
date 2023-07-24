@@ -43,6 +43,7 @@ public class LogoutController extends HttpServlet {
 
         session.setAttribute("userRole", null); //login.jsp checks for this
         logger.info("value of userRole : " + session.getAttribute("userRole"));
+        session.removeAttribute("userRole");
         session.invalidate(); //removes session from the registry
 
         response.setContentType("text/html;charset=UTF-8");

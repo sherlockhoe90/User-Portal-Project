@@ -6,7 +6,24 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%--using this JAVA code to not let them go to the Login.jsp page when they're logged in and the session is valid--%>
+<%
+    String userRole = (String) session.getAttribute("userRole");
+    if (userRole != null) {
+        // If the session attribute is set, redirect the user to the appropriate homepage
+        if (userRole.equals("user")) {
+            response.sendRedirect("userHomePage.jsp");
+        } else if (userRole.equals("admin")) {
+            response.sendRedirect("adminHomePage.jsp");
+        }
+    }
+%>
+<%
+    // Set cache control directives to prevent caching of the page
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setHeader("Expires", "0"); // Proxies
+%>
 <!-- Your regular login page content goes here -->
 <!DOCTYPE html>
 <html lang="en">

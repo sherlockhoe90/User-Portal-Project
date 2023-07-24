@@ -1,8 +1,3 @@
-<!--
-        location where Tomcat stores its logs
-        C:\Users\ND\AppData\Local\JetBrains\IntelliJIdea2022.2\tomcat\a7dce7ae-daf8-4dd5-b930-907316892409
--->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <!-- Define custom levels before using them for filtering below. -->
@@ -33,3 +28,7 @@
         </Root>
     </Loggers>
 </Configuration>
+        <!--
+                location where Tomcat stores its logs
+                C:\Users\ND\AppData\Local\JetBrains\IntelliJIdea2022.2\tomcat\a7dce7ae-daf8-4dd5-b930-907316892409
+        -->

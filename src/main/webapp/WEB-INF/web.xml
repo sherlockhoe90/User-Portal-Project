@@ -12,15 +12,16 @@
     </welcome-file-list>
 
 
-    <!--this Deprecated_controller is now out of service/deprecated-->
-    <servlet>
-        <servlet-name>controllerMapping</servlet-name>
-        <servlet-class>com.inexture.userportal.userportalproject.controller.Deprecated_controller</servlet-class>
-    </servlet>    <!--this Deprecated_controller is now out of service/deprecated-->
-    <servlet-mapping>    <!--this Deprecated_controller is now out of service/deprecated-->
-        <servlet-name>controllerMapping</servlet-name>
-        <url-pattern>/controller</url-pattern>
-    </servlet-mapping>    <!--this Deprecated_controller is now out of service/deprecated-->
+<!--    <error-page>-->
+<!--        <error-code>500</error-code>-->
+<!--        <location>/errorPage.jsp</location>-->
+<!--    </error-page>-->
+    <error-page>
+<!--        <exception-type>java.lang.Exception</exception-type>-->
+        <location>/errorPage.jsp</location>
+    </error-page>
+
+
 
 
     <servlet>
@@ -31,7 +32,6 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>/UserLogin</url-pattern>
     </servlet-mapping>
-
 
     <servlet>
         <display-name>UserRegister</display-name>
@@ -110,22 +110,22 @@
         <url-pattern>/ForgotPassword</url-pattern>
     </servlet-mapping>
 
-    <!--    &lt;!&ndash;view resolver mapping for /views/ folder&ndash;&gt;-->
-    <!--    &lt;!&ndash;views is used for storing files referenced by the other servlets and classes&ndash;&gt;-->
-    <!--    <jsp-config>-->
-    <!--        <jsp-property-group>-->
-    <!--            <url-pattern>*.jsp</url-pattern>-->
-    <!--            <include-prelude>/WEB-INF/views</include-prelude>-->
-    <!--        </jsp-property-group>-->
-    <!--        <jsp-property-group>-->
-    <!--            <url-pattern>*.html</url-pattern>-->
-    <!--            <include-prelude>/WEB-INF/views</include-prelude>-->
-    <!--        </jsp-property-group>-->
-    <!--        <jsp-property-group>-->
-    <!--            <url-pattern>*.htm</url-pattern>-->
-    <!--            <include-prelude>/WEB-INF/views</include-prelude>-->
-    <!--        </jsp-property-group>-->
-    <!--    </jsp-config>-->
+        <!--view resolver mapping for /views/ folder-->
+        <!--views is used for storing files referenced by the other servlets and classes-->
+        <!-- <jsp-config>
+            <jsp-property-group>
+                <url-pattern>*.jsp</url-pattern>
+                <include-prelude>/WEB-INF/views</include-prelude>
+            </jsp-property-group>
+            <jsp-property-group>
+                <url-pattern>*.html</url-pattern>
+                <include-prelude>/WEB-INF/views</include-prelude>
+            </jsp-property-group>
+            <jsp-property-group>
+                <url-pattern>*.htm</url-pattern>
+                <include-prelude>/WEB-INF/views</include-prelude>
+            </jsp-property-group>
+        </jsp-config> -->
 
     <filter>
         <filter-name>NoCacheFilter</filter-name>
@@ -133,7 +133,8 @@
     </filter>
     <filter-mapping>
         <filter-name>NoCacheFilter</filter-name>
-        <url-pattern>/userHomePage</url-pattern>
+        <url-pattern>*</url-pattern>
     </filter-mapping>
+
 
 </web-app>

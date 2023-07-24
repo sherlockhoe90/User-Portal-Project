@@ -6,6 +6,26 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%
+    String userRole = (String) session.getAttribute("userRole");
+    if (userRole != null) {
+        // If the session attribute is set, redirect the user to the appropriate homepage
+        if (!userRole.equals("admin")) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+    } else {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+
+<%
+    // Set cache control directives to prevent caching of the page
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setHeader("Expires", "0"); // Proxies
+%>
 
 <jsp:include page="WEB-INF/views/header.jsp"/>
 

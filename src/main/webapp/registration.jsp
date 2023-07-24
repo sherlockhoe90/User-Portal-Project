@@ -7,6 +7,19 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
+<%
+    String userRole = (String) session.getAttribute("userRole");
+    /*the code is implemented below further inside this code file, all of it is written in scriptlets '< % % >'*/
+    /* when userRole is null, only the plain old registration fields will be shown */
+    /* when the userRole has a role logged in, it'll rely on the Filter in order to authorize access */
+%>
+<%
+    // Set cache control directives to prevent caching of the page
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setHeader("Expires", "0"); // Proxies
+%>
+
 <%@ page import="com.inexture.userportal.userportalproject.controller.UserRegisterController" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -60,7 +73,6 @@
     </script>
 
 
-
 </head>
 
 <body class="bg-info bg_custom_color">
@@ -87,7 +99,10 @@ and whether he/she wants to edit/add information --%>
         <c:choose>
         <c:when
                 test="${(profile == 'admin') || (profile == 'userEdit') || (profile == 'adminEdit')}">
+        <%
+            if (userRole != null) {
 
+        %>
         <div class="row form-row">
             <div class="col-md-6">
 
@@ -242,8 +257,15 @@ and whether he/she wants to edit/add information --%>
             </div>
         </div>
         <%--            ---------------------------------------------done-----------------------------------------------------------------------------------------------------------------------%>
+                                <%
+}
+%>
                         </c:when>
                         <c:otherwise>
+                                <%
+ if (userRole == null || userRole != null ) {
+
+%>
                         <div class="row form-row">
                             <div class="col-md-6">
 
@@ -392,9 +414,13 @@ and whether he/she wants to edit/add information --%>
                                     </div>
                                 </div>
                             </div>
+                                    <%
+}
+%>
                                 <%--                    -----------------------------done------------------------------------------------------------------------------------------------%>
                             </c:otherwise>
                             </c:choose>
+
                             <!-- jQuery plugin code -->
                             <label class="address_label_margin">Address:</label>
 
@@ -404,6 +430,9 @@ and whether he/she wants to edit/add information --%>
                                     <c:choose>
                                         <c:when
                                                 test="${(profile == 'admin') || (profile == 'userEdit') || (profile == 'adminEdit')}">
+<%
+if (userRole != null) {
+%>
                                             <div id="main-container">
                                                 <c:forEach items="${AddressList}" var="address"
                                                            varStatus="count">
@@ -598,9 +627,15 @@ and whether he/she wants to edit/add information --%>
                                                     Add address</a>
                                             </div>
                                             <%--          --------------------------------done-----------------------------------------------------------------------------------------------------------------------%>
+                                        <%
+                                            }
+                                        %>
                                         </c:when>
                                         <c:otherwise>
-                                            <div id="main-container">
+<%
+if(userRole == null || userRole != null ) {
+%>
+                                        <div id="main-container">
                                                 <div class="panel card container-item">
                                                     <div class="panel-body">
                                                         <div class="panel-body">
@@ -739,6 +774,9 @@ and whether he/she wants to edit/add information --%>
                                                    href="javascript:;" role="button"><i class="fa fa-plus"></i>
                                                     Add address</a>
                                             </div>
+                                            <%
+                                                }
+                                            %>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
@@ -746,8 +784,11 @@ and whether he/she wants to edit/add information --%>
 
                             <%--------------------------------------------------------done---------------------------------------------------------------------------------------------------------%>
                             <c:choose>
-                            <c:when
-                                    test="${profile == 'userEdit' || profile == 'adminEdit' || profile == 'admin' || profile == 'ADD'}">
+                                <c:when test="${profile == 'userEdit' || profile == 'adminEdit' || profile == 'admin' || profile == 'ADD'}">
+                                    <%
+if (userRole != null) {
+
+%>
                             <div class="row btn-margin form-row">
 
                                 <div class="col-sm-1  submit_btn">
@@ -759,9 +800,15 @@ and whether he/she wants to edit/add information --%>
                                     <a href="" class="btn btn-default btn-primary cancel">Cancel</a>
                                 </div>
                             </div>
-
+<%
+}
+%>
                             </c:when>
                             <c:otherwise>
+<%
+ if (userRole == null || userRole != null) {
+
+%>
                             <div class="row btn-margin form-row">
 
                                 <div class="col-sm-2  submit_btn">
@@ -775,7 +822,9 @@ and whether he/she wants to edit/add information --%>
                                        class="btn btn-default btn-primary btn_hide">Back to login</a>
                                 </div>
                             </div>
-
+<%
+}
+%>
                             </c:otherwise>
                             </c:choose>
     </form>
