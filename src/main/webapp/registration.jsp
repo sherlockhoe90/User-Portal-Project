@@ -15,7 +15,8 @@
 
 <%@ page import="com.inexture.userportal.userportalproject.model.User" %>
 <%@ page import="com.inexture.userportal.userportalproject.model.Address" %>
-<c:set var="profile" scope="request" value=""/> <%--initializing 'profile' just in case the if-else userRole blocks dont run due to false conditions --%>
+<c:set var="profile" scope="request"
+       value=""/> <%--initializing 'profile' just in case the if-else userRole blocks dont run due to false conditions --%>
 
 <%
     User user = (User) session.getAttribute("CurrentUser");
@@ -32,38 +33,17 @@
         it'll show the 'otherwise' code*/
         if (userRole.equals("user") || userRole.equals("admin")) {
 %>
-        <%-- getting the parameter 'user' and saving it in the variable 'profile' --%>
-        <c:set var="profile" scope="request" value='<%=request.getParameter("user")%>'/>
+<%-- getting the parameter 'user' and saving it in the variable 'profile' --%>
+<c:set var="profile" scope="request" value='<%=request.getParameter("user")%>'/>
 <%
-}
-}
+        }
+    }
 %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="ISO-8859-1">
     <title>Registration Form</title>
-    <%--    <link rel="icon" href="assets/images/inexture-favicon-purple.png" type="image/x-icon">--%>
-
-    <%--    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"--%>
-    <%--          rel="stylesheet"/>--%>
-    <%--    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">--%>
-    <%--    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">--%>
-    <%--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">--%>
-    <%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/minty/bootstrap.min.css">--%>
-    <%--    <link rel="stylesheet" type="text/css"--%>
-    <%--          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">--%>
-    <%--    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.css">--%>
-    <%--    <link rel="stylesheet" type="text/css"--%>
-    <%--          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.css">--%>
-
-    <%--    <!-- Bootstrap -->--%>
-    <%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">--%>
-    <%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">--%>
-    <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">--%>
-    <%--    <link href="./assets/css/" rel="stylesheet" type="text/css"/>--%>
-    <%--    <link href="assets/css/header_and_footer.css" rel="stylesheet" type="text/css"/>--%>
-    <%--    <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>--%>
     <link rel="icon" href="assets/images/inexture-favicon-purple.png" type="image/x-icon">
 
     <link href="./assets/fonts/Poppins-Regular.ttf" rel="script"/>
@@ -96,14 +76,7 @@
             window.location.href = "login.jsp";
         }
     </script>
-<%--    <script>--%>
-<%--        function disableBackButton() {--%>
-<%--            window.history.replaceState(null, "", window.location.href);--%>
-<%--            window.onpopstate = function (event) {--%>
-<%--                window.history.go(1);--%>
-<%--            };--%>
-<%--        }--%>
-<%--    </script>--%>
+
 
 
 </head>
@@ -825,25 +798,10 @@ and whether he/she wants to edit/add information --%>
                             </c:choose>
     </form>
 </div>
-
-<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>--%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>--%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>--%>
-<%--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--%>
-
-<%--&lt;%&ndash;    Custom Validation JS &ndash;%&gt;--%>
-<%--<script src="./assets/js/customValidation.js"></script>--%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>--%>
-<%--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>--%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>--%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.js"></script>--%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.js"></script>--%>
-<%--<script src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>--%>
-<%--<script src="assets/js/plugin.js" type="text/javascript"></script>--%>
 <script src="./assets/js/CDNs/jquery_1.9.1.js"></script>
 <script src="./assets/js/CDNs/code.jquery.com_jquery-3.4.1.js"></script>
 <script src="./assets/js/CDNs/code.jquery.com_jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./assets/js/CDNs/http_code.jquery.com_jquery-3.6.0.js"></script>
 
 <script src="./assets/js/CDNs/popper_1.14.7.js"></script>
 <script src="./assets/js/CDNs/bootstrap_4.3.1.bundle.js"></script>
@@ -851,7 +809,7 @@ and whether he/she wants to edit/add information --%>
 <script src="./assets/js/CDNs/select2_3.3.2.min.js"></script>
 <script src="./assets/js/CDNs/bootstrap-select_1.13.18.js"></script>
 <script src="./assets/js/CDNs/ckeditor.js"></script>
-<script src="./assets/js/CDNs/ckeditorstyles.js.js"></script>
+<script src="./assets/js/CDNs/ckeditorstyles.js"></script>
 <script src="assets/js/plugin.js" type="text/javascript"></script>
 <%--    Custom Validation JS --%>
 <script src="./assets/js/customValidation.js"></script>
@@ -881,9 +839,9 @@ and whether he/she wants to edit/add information --%>
             "max-width": "170px",
             "max-height": "170px"
         });
-// $(".cancel").attr("href", "adminHomePage.jsp")
+        // $(".cancel").attr("href", "adminHomePage.jsp")
         $(".cancel").click(function () {
-// window.history.back();
+            /*window.history.back();*/
             window.location.href = "adminHomePage.jsp";
             return false; // Prevents the default link behavior, and doesn't navigate to the link's href attribute value.
         });
@@ -901,9 +859,9 @@ and whether he/she wants to edit/add information --%>
             "max-width": "170px",
             "max-width": "170px"
         });
-// $(".cancel").attr("href", "userHomePage.jsp")
+        // $(".cancel").attr("href", "userHomePage.jsp")
         $(".cancel").click(function () {
-// window.history.back();
+            // window.history.back();
             window.location.href = "userHomePage.jsp";
             return false; // Prevents the default link behavior, and doesn't navigate to the link's href attribute value.
         });
@@ -932,437 +890,8 @@ and whether he/she wants to edit/add information --%>
 
     }
 
-    //BELOW IS VV IMPORTANT IF DATE FORMAT NOT RIGHT or Different
-    //setting the right DATE format WHILE EDITING
-    <%--if (uname === 'adminEdit' || uname === 'userEdit' || uname === 'admin') {--%>
-    <%--    $(document).ready(function () {--%>
-    <%--        // Input date in 'mm-dd-yyyy' format--%>
-    <%--        var inputDate = '${user.userDOB}';--%>
-
-    <%--        // Split the input date into day, month, and year--%>
-    <%--        var parts = inputDate.split('-');--%>
-    <%--        var day = parts[0];--%>
-    <%--        var month = parts[1];--%>
-    <%--        var year = parts[2];--%>
-
-    <%--        // Create a new date string in 'yyyy-mm-dd' format--%>
-    <%--        var formattedDate = year + '-' + month + '-' + day;--%>
-
-    <%--        // Set the formatted date as the value attribute of the date element--%>
-    <%--        document.getElementById('dob').value = formattedDate;--%>
-    <%--    });--%>
-    <%--}--%>
 </script>
-
-
 </body>
-<%--the include tag for footer is at the end of the document, waaaay below the commented code--%>
 </html>
-
-
-<%--<body class="bg-info bg_custom_color">--%>
-
-<%--<div class="container">--%>
-
-<%--    <form action="UserRegisterController" method="post" id="registration_form">--%>
-<%--        &lt;%&ndash;will need to add enctype ABOVE in form tag for letting the user add an image&ndash;%&gt;--%>
-<%--        <h3 style="text-align: center; font-family: Poppins;" class="margin_top_file header_tag">? Registration happens--%>
-<%--            right here! ?</h3>--%>
-<%--        &lt;%&ndash; cw &ndash;%&gt;--%>
-<%--        <div class="row form-row">--%>
-<%--            <div class="col-md-6">--%>
-
-<%--                <div class="form-group">--%>
-
-<%--                    <label for="img">Profile picture:</label> <input type="file"--%>
-<%--                                                                     id="img2" name="img"/> <img--%>
-<%--                        src="./assets/images/default_profile.jpg" name="default_img"--%>
-<%--                        style="width: 170px; height: 170px;" id="default_img2"><img--%>
-<%--                        src="data:image/jpg;base64,${user.base64Image}"--%>
-<%--                        id="image_preview2" style="display: none"/> <br/> <span--%>
-<%--                        id="image_error2"></span>--%>
-<%--                </div>--%>
-
-<%--            </div>--%>
-<%--        </div>--%>
-
-<%--        <div class="row form-row ">--%>
-<%--            <div class="col-md-6">--%>
-<%--                <!-- First Name -->--%>
-<%--                <div class="form-group">--%>
-<%--                    <label for="firstname">Firstname:</label> <input type="text"--%>
-<%--                                                                     class="form-control text-width" id="firstname"--%>
-<%--                                                                     name="firstname_from_registration"--%>
-<%--                                                                     placeholder="Enter your firstname"/><span--%>
-<%--                        id="firstname_error"></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-md-6">--%>
-
-<%--                <!-- Lastname -->--%>
-<%--                <div class="form-group">--%>
-<%--                    <label>Lastname:</label> <input type="text"--%>
-<%--                                                    class="form-control" id="lastname" placeholder="Lastname"--%>
-<%--                                                    name="lastname_from_registration"/> <span--%>
-<%--                        id="lastname_error"></span>--%>
-<%--                </div>--%>
-
-<%--            </div>--%>
-<%--        </div>--%>
-
-<%--        <div class="row form-row ">--%>
-<%--            <div class="col-md-6">--%>
-<%--                <!-- Middle Name -->--%>
-<%--                <div class="form-group">--%>
-<%--                    <label for="middlename">Middlename:</label> <input type="text"--%>
-<%--                                                                       class="form-control text-width" id="middlename"--%>
-<%--                                                                       name="middlename_from_registration"--%>
-<%--                                                                       placeholder="Enter your middlename"/><span--%>
-<%--                        id="middlename_error"></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-md-6">--%>
-
-<%--                <!-- Username -->--%>
-<%--                <div class="form-group">--%>
-<%--                    <label>Username:</label> <input type="text"--%>
-<%--                                                    class="form-control" id="username" placeholder="Enter Username"--%>
-<%--                                                    name="username_from_registration"/> <span--%>
-<%--                        id="username_error"></span>--%>
-<%--                </div>--%>
-
-<%--            </div>--%>
-<%--        </div>--%>
-
-<%--        <div class="row form-row">--%>
-<%--            <div class="col-md-6">--%>
-<%--                <!-- Email  -->--%>
-<%--                <div class="form-group">--%>
-<%--                    <label for="emailid">Email:</label> <input type="text"--%>
-<%--                                                               class="form-control text-width"--%>
-<%--                                                               id="emailid"--%>
-<%--                                                               placeholder="Email-id" name="emailid_from_registration"/>--%>
-<%--                    <span--%>
-<%--                            id="email_error"></span><br>--%>
-<%--                    <span id="result"></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-md-6">--%>
-<%--                <!-- password -->--%>
-<%--                <div class="form-group">--%>
-<%--                    <label for="pwd">Password:</label> <input type="password"--%>
-<%--                                                              class="form-control text-width" id="pwd"--%>
-<%--                                                              placeholder="Password"--%>
-<%--                                                              name="password_from_registration"/> <span--%>
-<%--                        id="password_error"></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-
-<%--        <div class="row form-row">--%>
-
-
-<%--            <!-- confirm password -->--%>
-<%--            <div class="col-md-6">--%>
-<%--                <div class="form-group">--%>
-<%--                    <label for="cpwd">Confirm Password:</label> <input--%>
-<%--                        type="password" class="form-control text-width" id="cpwd"--%>
-<%--                        name="cpassword" placeholder="Confirm-Password"/> <span--%>
-<%--                        id="confirm_password_error"></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-
-<%--        <div class="row form-row">--%>
-<%--            <div class="col-md-6">--%>
-
-<%--                <!-- Hobby -->--%>
-
-<%--                &lt;%&ndash;                temporarily commenting this&ndash;%&gt;--%>
-
-<%--                &lt;%&ndash;&lt;%&ndash;                <label>Hobby</label> <br/>&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                <div class="form-check">&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                    <input type="checkbox" class="form-check-input" id="check1"&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                           name="options" value="Sports"> <label&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                        class="form-check-label" for="check1">Sports</label>&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                </div>&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                <div class="form-check">&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                    <input type="checkbox" class="form-check-input" id="check2"&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                           name="options" value="Study"> <label&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                        class="form-check-label" for="check2">Study</label>&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                </div>&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                <div class="form-check">&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                    <input type="checkbox" class="form-check-input" id="check3"&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                           name="options" value="Dance"> <label&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                        class="form-check-label">Dance</label>&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                </div>&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                <div class="form-check">&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                    <input type="checkbox" class="form-check-input" id="check4"&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                           name="options" value="Music"> <label&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                        class="form-check-label">Music</label> <br/> <span&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                        id="check_error"></span>&ndash;%&gt;&ndash;%&gt;--%>
-<%--                &lt;%&ndash;&lt;%&ndash;                </div>&ndash;%&gt;&ndash;%&gt;--%>
-
-<%--                &lt;%&ndash;            </div>&ndash;%&gt;--%>
-
-<%--                <!-- hobbies -->--%>
-<%--                <div class="form-group">--%>
-<%--                    <label for="hobbies">Hobby:</label> <input type="text"--%>
-<%--                                                               class="form-control text-width" id="hobbies"--%>
-<%--                                                               placeholder="Hobbies"--%>
-<%--                                                               name="hobbies_from_registration"/> <span--%>
-<%--                        id="hobbies_error"></span>--%>
-<%--                </div>--%>
-<%--                <div class="col-md-6">--%>
-<%--                    <!-- image upload -->--%>
-<%--                    <div class="form-group">--%>
-<%--                        <label for="dob">Date Of Birth:</label> <input type="date"--%>
-<%--                                                                       class="form-control text-width" id="dob"--%>
-<%--                                                                       name="dob_from_registration" min="1900-01-01"--%>
-<%--                                                                       max=""/> <span--%>
-<%--                            id="dob_error"></span>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-
-<%--            </div>--%>
-<%--            &lt;%&ndash;  /cw &ndash;%&gt;--%>
-
-<%--            <!-- jQuery plugin code -->--%>
-<%--            <label class="address_label_margin">Address:</label>--%>
-
-<%--            <div class="margin-t-md">--%>
-<%--                <div class="customer-form">--%>
-<%--                    <div class="card"></div>--%>
-<%--                    &lt;%&ndash; cw &ndash;%&gt;--%>
-<%--                    <div id="main-container">--%>
-<%--                        <div class="panel card container-item">--%>
-<%--                            <div class="panel-body">--%>
-<%--                                <div class="panel-body">--%>
-<%--                                    <div class="row">--%>
-<%--                                        <div class="col-sm-4">--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label class="control-label" for="houseno">House No.</label>--%>
-<%--                                                <input type="text" id="houseno" class="form-control"--%>
-<%--                                                       name="houseno" maxlength="10">--%>
-<%--                                                <span id="houseno_error"></span>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="row">--%>
-<%--                                        <div class="col-sm-4">--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label class="control-label" for="street">Street</label>--%>
-<%--                                                <input type="text" id="street" class="form-control"--%>
-<%--                                                       name="address" maxlength="20">--%>
-<%--                                                <span id="street_error"></span>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="col-sm-4">--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label class="control-label" for="landmark">Landmark</label>--%>
-<%--                                                <input type="text" id="landmark" class="form-control"--%>
-<%--                                                       name="landmark" maxlength="50"> <span--%>
-<%--                                                    id="landmark_error"></span>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="col-sm-4">--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label class="control-label" for="pincode">Zipcode</label>--%>
-<%--                                                <input type="text" id="pincode" class="form-control"--%>
-<%--                                                       name="zipcode" maxlength="10"> <span--%>
-<%--                                                    id="pincode_error"></span>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="row">--%>
-
-<%--                                        <div class="col-sm-6">--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label class="control-label" for="city">City</label> <select--%>
-<%--                                                    class="form-control" name="city" id="city"--%>
-<%--                                                    style="height: auto;">--%>
-<%--                                                <option value="0">Select City</option>--%>
-<%--                                                <option value="Delhi">Delhi</option>--%>
-<%--                                                <option value="Bangalore">Bangalore</option>--%>
-<%--                                                <option value="Chennai">Chennai</option>--%>
-<%--                                                <option value="Ladakh">Ladakh</option>--%>
-<%--                                                <option value="Gandhinagar">Gandhinagar</option>--%>
-<%--                                            </select> <span id="city_error"></span>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-
-
-<%--                                        <div class="col-sm-6">--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label class="control-label" for="state">State</label> <select--%>
-<%--                                                    class="form-control" name="state" id="state"--%>
-<%--                                                    style="height: auto;">--%>
-<%--                                                <option value="0">Select State</option>--%>
-<%--                                                <option value="Punjab">Punjab</option>--%>
-<%--                                                <option value="Haryana">Haryana</option>--%>
-<%--                                                <option value="Karnataka">Karnataka</option>--%>
-<%--                                                <option value="Sikkim">Sikkim</option>--%>
-<%--                                                <option value="Maharashtra">Maharashtra</option>--%>
-<%--                                            </select> <span id="state_error"></span>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="row">--%>
-<%--                                        <div class="col-sm-6">--%>
-<%--                                            <div class="form-group">--%>
-<%--                                                <label class="control-label" for="country">Country</label>--%>
-<%--                                                <input type="text" id="country" class="form-control"--%>
-<%--                                                       name="country" maxlength="255">--%>
-<%--                                                <span id="country_error"></span>--%>
-<%--                                            </div>--%>
-<%--                                            <div class="col-sm-6">--%>
-<%--                                                <div class="form-group">--%>
-<%--                                                    <label class="control-label" for="postaladdress">Postal--%>
-<%--                                                        Address</label>--%>
-<%--                                                    <input type="text" id="postaladdress" class="form-control"--%>
-<%--                                                           name="postaladdress" maxlength="250">--%>
-<%--                                                    <span id="postaladdress_error"></span>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-
-<%--                                    <div class="row">--%>
-<%--                                        <div class="col-sm-12">--%>
-<%--                                            <div>--%>
-<%--                                                <a href="javascript:void(0)"--%>
-<%--                                                   class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div>--%>
-<%--                        <a class="btn btn-success btn-sm" id="add-more"--%>
-<%--                           href="javascript:;" role="button"><i class="fa fa-plus"></i>--%>
-<%--                            Add one more address</a>--%>
-<%--                    </div>--%>
-<%--                    &lt;%&ndash; /cw &ndash;%&gt;--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-
-<%--            &lt;%&ndash; cw &ndash;%&gt;--%>
-<%--            <div class="row btn-margin form-row" style="margin-bottom: 70px">--%>
-
-<%--                <div class="col-sm-1 submit_btn">--%>
-
-<%--                    <input type="submit"--%>
-<%--                           class="btn btn-default btn-primary register_btn" value="Submit">--%>
-<%--                </div>--%>
-<%--                <div class="col-sm-2">--%>
-
-<%--                    <a href="login.jsp"--%>
-<%--                       class="btn btn-default btn-primary btn_hide">Already have an account? LOGIN!</a>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-<%--            &lt;%&ndash; /cw &ndash;%&gt;--%>
-<%--    </form>--%>
-<%--</div>--%>
-
-<%--<!-- address code ends -->--%>
-
-<%--<script--%>
-<%--        src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">--%>
-
-<%--</script>--%>
-<%--<script--%>
-<%--        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>--%>
-<%--<script--%>
-<%--        src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>--%>
-
-<%--<script--%>
-<%--        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>--%>
-<%--<script--%>
-<%--        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>--%>
-<%--<script--%>
-<%--        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>--%>
-<%--<script--%>
-<%--        src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.js"></script>--%>
-<%--<script--%>
-<%--        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.js"></script>--%>
-<%--<script src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>--%>
-<%--<script src="assets/js/plugin.js" type="text/javascript"></script>--%>
-<%--<script type="text/javascript" src="assets/js/customValidation.js"></script>--%>
-
-<%--<script type="text/javascript">--%>
-<%--    var parsed = new URL(location);--%>
-<%--    var uname = parsed.searchParams.get("user");--%>
-<%--    if (uname === 'ADD') {--%>
-<%--        $(".btn_hide").hide();--%>
-<%--        $(".cancel").attr("href", "adminHomePage.jsp")--%>
-
-<%--    } else if (uname === 'adminEdit') {--%>
-<%--        $(".btn_hide").hide();--%>
-<%--        $("#default_img").hide();--%>
-<%--        $(".header_tag").text("Update Profile");--%>
-<%--        $(".register_btn").prop("value", "Update");--%>
-<%--        $("#registration_form").attr("action", "UpdateProfile");--%>
-<%--        $("#mail").attr("readonly", "readonly");--%>
-<%--        $("#pwd").attr("readonly", "readonly");--%>
-<%--        $("#cpwd").attr("readonly", "readonly");--%>
-<%--        $("#image_preview").css({--%>
-<%--            "display": "block",--%>
-<%--            "max-width": "170px",--%>
-<%--            "max-height": "170px"--%>
-<%--        });--%>
-<%--        $(".cancel").attr("href", "adminHomePage.jsp")--%>
-<%--    } else if (uname === 'userEdit') {--%>
-<%--        $(".btn_hide").hide();--%>
-<%--        $("#default_img").hide();--%>
-<%--        $(".header_tag").text("Update Profile");--%>
-<%--        $(".register_btn").prop("value", "Update");--%>
-<%--        $("#registration_form").attr("action", "UpdateProfile");--%>
-<%--        $("#mail").attr("readonly", "readonly");--%>
-<%--        $("#pwd").attr("readonly", "true");--%>
-<%--        $("#cpwd").attr("readonly", "true");--%>
-<%--        $("#image_preview").css({--%>
-<%--            "display": "block",--%>
-<%--            "max-width": "170px",--%>
-<%--            "max-width": "170px"--%>
-<%--        });--%>
-<%--        $(".cancel").attr("href", "UserHomePage.jsp")--%>
-
-<%--    } else if (uname === 'admin') {--%>
-<%--        $(".btn_hide").hide();--%>
-<%--        $("#default_img").hide();--%>
-<%--        $(".header_tag").text("Update Profile");--%>
-<%--        $(".register_btn").prop("value", "Update");--%>
-<%--        $("#registration_form").attr("action", "UpdateProfile");--%>
-<%--        $("#mail").attr("readonly", "readonly");--%>
-<%--        $("#pwd").attr("readonly", "true");--%>
-<%--        $("#cpwd").attr("readonly", "true");--%>
-<%--        $("#image_preview").css({--%>
-<%--            "display": "block",--%>
-<%--            "max-width": "170px",--%>
-<%--            "max-width": "170px"--%>
-<%--        });--%>
-<%--        $(".cancel").attr("href", "adminHomePage.jsp")--%>
-<%--    }--%>
-<%--</script>--%>
-
-<%--</body>--%>
-<%--</html>--%>
-
+<%--the include tag for footer is at the end of the document--%>
 <jsp:include page="./WEB-INF/views/footer.jsp"/>
-
-<%-- fiels for SIMPLE TRIAL FORM --%>
-<%--    <input type="text" id="firstname_from_registration" name="firstname_from_registration" placeholder="enter firstname">--%>
-<%--    <input type="text" id="middlename_from_registration" name="middlename_from_registration" placeholder="enter middlename">--%>
-<%--    <input type="text" id="lastname_from_registration" name="lastname_from_registration" placeholder="enter lastname">--%>
-<%--    <input type="text" id="emailid_from_registration" name="emailid_from_registration" placeholder="enter emailid">--%>
-<%--    <input type="text" id="dob_from_registration" name="dob_from_registration" placeholder="enter date of birth">--%>
-<%--    <input type="text" id="hobbies_from_registration" name="hobbies_from_registration" placeholder="enter hobbies">--%>
-<%--    <input type="text" id="username_from_registration" name="username_from_registration" placeholder="enter username">--%>
-<%--    <input type="text" id="password_from_registration" name="password_from_registration" placeholder="enter password">--%>
-<%--    <input type="hidden" id="pageIdentification" name="pageIdentification" value="comingFromRegistrationPage">--%>
-<%--    <input type="submit" value="submit">--%>
