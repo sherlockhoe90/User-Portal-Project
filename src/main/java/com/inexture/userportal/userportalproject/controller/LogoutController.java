@@ -34,7 +34,8 @@ public class LogoutController extends HttpServlet {
         logger.info("LogoutController.java : doPost was called in Sequence " + ++callSequence);
 
         // to invalidate the session
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false); //get the existing session
+        /* the following code doesnt really work in a servlet, but it does work when placed inside a JSP */
         response.setHeader("Cache-Control", "no-cache");
         response.setHeader("Cache-Control", "no-store");
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -44,12 +45,12 @@ public class LogoutController extends HttpServlet {
         session.setAttribute("userRole", null); //login.jsp checks for this
         logger.info("value of userRole : " + session.getAttribute("userRole"));
         session.removeAttribute("userRole");
+        logger.info("value of userRole : " + session.getAttribute("userRole"));
         session.invalidate(); //removes session from the registry
 
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher req = request.getRequestDispatcher("/login.jsp");
+        RequestDispatcher req = request.getRequestDispatcher("login.jsp");
         req.forward(request, response);
-        response.sendRedirect("/login.jsp");
     }
 }
 

@@ -36,8 +36,12 @@ public class ViewUserDetailsController extends HttpServlet {
             List<User> list = serviceObject.displayUser(user);
             HttpSession session = request.getSession();
             session.setAttribute("userList", list);
-            RequestDispatcher req = request.getRequestDispatcher("viewUsers.jsp");
-            req.forward(request, response);
+            /*
+             * using sendRedirect instead of RequestDispatcher, as the RD was enabling
+             * the user to go back to the viewUser Servlet instead of the viewUsers JSP,
+             * causing the session to get picked up again and get validated as an admin
+             */
+            response.sendRedirect("viewUsers.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error(e.getMessage());

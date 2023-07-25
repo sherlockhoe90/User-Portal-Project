@@ -8,7 +8,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%
     String userRole = (String) session.getAttribute("userRole");
+    System.out.println(" adminHomePage : value of userRole = " + userRole);
     if (userRole != null) {
+        System.out.println(" adminHomePage : value of userRole inside if-block = " + userRole);
         // If the session attribute is set, redirect the user to the appropriate homepage
         if (!userRole.equals("admin")) {
             response.sendRedirect("login.jsp");

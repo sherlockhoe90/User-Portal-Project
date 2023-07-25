@@ -186,7 +186,7 @@ and whether he/she wants to edit/add information --%>
             <div class="col-md-6">
                 <!-- Email  -->
                 <div class="form-group">
-                    <label for="emailid">Email:</label> <input type="text"
+                    <label for="emailid">Email:</label> <input type="email"
                                                                class="form-control text-width emailid"
                                                                id="emailid"
                                                                placeholder="Email-id" name="emailid"
@@ -350,7 +350,7 @@ and whether he/she wants to edit/add information --%>
                             <div class="col-md-6">
                                 <!-- Email  -->
                                 <div class="form-group">
-                                    <label for="emailid">Email:</label> <input type="text"
+                                    <label for="emailid">Email:</label> <input type="email"
                                                                                class="form-control text-width emailid"
                                                                                id="emailid"
                                                                                placeholder="Email-id"

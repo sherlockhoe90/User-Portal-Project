@@ -17,3 +17,8 @@ h2 {
 form {
     margin-top: 60px;
 }
+
+/*CSS for Error Page: errorPage.jsp */
+.redirectToLogin:hover {
+    cursor: pointer;
+}

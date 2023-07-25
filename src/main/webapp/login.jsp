@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%--using this JAVA code to not let them go to the Login.jsp page when they're logged in and the session is valid--%>
 <%
     String userRole = (String) session.getAttribute("userRole");
@@ -24,6 +26,7 @@
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
     response.setHeader("Expires", "0"); // Proxies
 %>
+<c:set var="authStatus" scope="request" value='<%=request.getParameter("authenticationStatus")%>'/>
 <!-- Your regular login page content goes here -->
 <!DOCTYPE html>
 <html lang="en">
@@ -42,19 +45,27 @@
 
 <%@ include file="./WEB-INF/views/header.jsp" %> <%--adding the HEADER file here--%>
 <div class="container center-div">
-    <h2 class="text-center">WELCOME from webapp!</h2>
+    <c:choose>
+    <c:when
+            test="${(authStatus == 'wrong')}">
+        <h2 class="text-center text-danger">The Email-ID or password you entered is wrong!</h2>
+    </c:when>
+    <c:otherwise>
+        <h2 class="text-center">WELCOME from webapp!</h2>
+    </c:otherwise>
+    </c:choose>
     <p class="text-center">Please login to access your account</p>
     <form action="${pageContext.request.contextPath}/UserLogin" method="post">
         <input type="hidden" id="pageIdentification" value="comingFromLoginPage"> <%--hidden field--%>
         <div class="row justify-content-center text-white">
             <div class="form-group col-sm-4 col-sm-offset-4 ">
-                <input type="text" class="form-control col-sm" id="emailid_from_login" name="emailid_from_login" placeholder="Email-ID">
+                <input type="email" class="form-control col-sm" id="emailid_from_login" name="emailid_from_login" placeholder="Email-ID" required>
                 <span id="email_error"></span>
             </div>
         </div>
         <div class="row justify-content-center text-white">
             <div class="form-group col-sm-4 col-sm-offset-4 ">
-                <input type="password" class="form-control col-sm" id="password_from_login" name="password_from_login" placeholder="Password">
+                <input type="password" class="form-control col-sm" id="password_from_login" name="password_from_login" placeholder="Password" required>
                 <span id="password_error"></span>
             </div>
         </div>

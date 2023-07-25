@@ -27,7 +27,7 @@ public class UserLoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         logger.info("hello from UserLoginController doGet");
-        doPost(request,response);
+        doPost(request, response);
     }
 
 
@@ -66,9 +66,12 @@ public class UserLoginController extends HttpServlet {
                     session.setAttribute("CurrentUser", user);
 
                     session.setAttribute("AddressList", listAddress);
-
-                    RequestDispatcher req = request.getRequestDispatcher("/adminHomePage.jsp");
-                    req.include(request, response);
+                    /*
+                     * using sendRedirect instead of RequestDispatcher, as the RD was enabling
+                     * the user to go back to the Login Servlet instead of the login JSP,
+                     * causing the session to get picked up again and get validated as an admin
+                     */
+                    response.sendRedirect("adminHomePage.jsp");
                 } catch (SQLException e) {
                     e.printStackTrace();
                     logger.error(e.getMessage());
@@ -91,36 +94,21 @@ public class UserLoginController extends HttpServlet {
                     logger.info("UserLoginController: listAddress value " + listAddress.toString());
                     session.setAttribute("AddressList", listAddress);
                     // session.setAttribute("user", user);
-                    RequestDispatcher req = request.getRequestDispatcher("/userHomePage.jsp");
-                    req.include(request, response);
+                    /*
+                     * using sendRedirect instead of RequestDispatcher, as the RD was enabling
+                     * the user to go back to the Login Servlet instead of the login JSP,
+                     * causing the session to get picked up again and get validated as a valid User
+                     */
+                    response.sendRedirect("userHomePage.jsp");
                 } catch (SQLException e) {
-                     e.printStackTrace();
+                    e.printStackTrace();
                     logger.error(e.toString());
                 }
             }
         } else {
-            RequestDispatcher req = request.getRequestDispatcher("login.jsp");
+            RequestDispatcher req = request.getRequestDispatcher("login.jsp?authenticationStatus=wrong");
             req.forward(request, response);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //        HttpSession session = request.getSession();
