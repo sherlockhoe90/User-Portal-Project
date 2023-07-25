@@ -96,6 +96,39 @@ public class UpdateProfileController extends HttpServlet {
             // from registration.jsp?adminEdit or userEdit, etc
 
 
+            // to get the updated values
+            String[] houseno = request.getParameterValues("houseno[]");
+            String[] street = request.getParameterValues("address[]");
+            String[] landmark = request.getParameterValues("landmark[]");
+            String[] zipcode = request.getParameterValues("zipcode[]");
+            String[] city = request.getParameterValues("city[]");
+            String[] state = request.getParameterValues("state[]");
+            String[] country = request.getParameterValues("country[]");
+            String[] postaladdress = request.getParameterValues("postaladdress[]");
+
+            int count = 0;
+            while (count < street.length) {
+
+                // to set the updated values
+                address.setAddId(addressId[count]);
+                address.setAddHouseNo(houseno[count]);
+                address.setAddStreet(street[count]);
+                address.setAddLandmark(landmark[count]);
+                address.setAddCity(city[count]);
+                address.setAddState(state[count]);
+                address.setAddZipcode(zipcode[count]);
+                address.setAddCountry(country[count]);
+                address.setAddPostalAdd(postaladdress[count]);
+                address.setRemoveAddressId(remove);
+
+                /* update address function called */
+                addservice.updateAddress(address, id);
+                logger.info("address values inside update servlet" + address);
+                count++;
+            }
+            /* end of updating existing addresses (included: deleting the removed addresses from the database.) */
+
+
             /* Add new addresses */
             String[] newHouseno = request.getParameterValues("houseno[]");
             String[] newStreet = request.getParameterValues("address[]");
@@ -135,37 +168,7 @@ public class UpdateProfileController extends HttpServlet {
                     addservice.addAddress(id, newAddress);
                 }
             }
-
-            // to get the updated values
-            String[] houseno = request.getParameterValues("houseno[]");
-            String[] street = request.getParameterValues("address[]");
-            String[] landmark = request.getParameterValues("landmark[]");
-            String[] zipcode = request.getParameterValues("zipcode[]");
-            String[] city = request.getParameterValues("city[]");
-            String[] state = request.getParameterValues("state[]");
-            String[] country = request.getParameterValues("country[]");
-            String[] postaladdress = request.getParameterValues("postaladdress[]");
-
-            int count = 0;
-            while (count < street.length) {
-
-                // to set the updated values
-                address.setAddId(addressId[count]);
-                address.setAddHouseNo(houseno[count]);
-                address.setAddStreet(street[count]);
-                address.setAddLandmark(landmark[count]);
-                address.setAddCity(city[count]);
-                address.setAddState(state[count]);
-                address.setAddZipcode(zipcode[count]);
-                address.setAddCountry(country[count]);
-                address.setAddPostalAdd(postaladdress[count]);
-                address.setRemoveAddressId(remove);
-
-                /* update address function called */
-                addservice.updateAddress(address, id);
-                logger.info("address values inside update servlet" + address);
-                count++;
-            }
+            /* end of adding new addresses */
 
             String uName = (String) session.getAttribute("userName"); //gets this from the JS code on top of registration.jsp
             if (uName.equals("adminEdit")) {
