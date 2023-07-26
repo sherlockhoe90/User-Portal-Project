@@ -136,3 +136,11 @@
 	/*margin-left: 5000px;*/
 	/*display: none;*/
 }
+
+/* colour for backend validation error list text */
+.backendValidationError {
+	color: #ef3636;
+	font-style: italic;
+	font-family: "Poppins Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: large;
+}

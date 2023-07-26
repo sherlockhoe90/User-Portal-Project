@@ -76,6 +76,16 @@
 </head>
 
 <body class="bg-info bg_custom_color">
+<!-- Display validation errors, if any -->
+<c:if test="${not empty errors}">
+    <ul>
+        <c:forEach items="${errors}" var="error">
+            <li class="backendValidationError">${error}</li>
+        </c:forEach>
+    </ul>
+    <%-- Remove the 'errors' attribute from the request scope --%>
+    <% request.removeAttribute("errors"); %>
+</c:if>
 
 <%--check whether the user is admin or normal user
 and whether he/she wants to edit/add information --%>

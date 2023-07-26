@@ -42,7 +42,7 @@ public class AddressDAOImp implements AddressDAO {
             pstmt.setInt(1, Integer.parseInt(address.getAddId())); //only one address for each user as of now... im yet to add the multiple address feature
             pstmt.setInt(2, userId);
             pstmt.setString(3, address.getAddHouseNo());
-            pstmt.setString(4, address.getAddStreet()); //this is basically the value of 'STREET' from the registration .sp
+            pstmt.setString(4, address.getAddStreet()); //this is basically the value of 'STREET' from the registration .jsp
             pstmt.setString(5, address.getAddCity());
             pstmt.setString(6, address.getAddState());
             pstmt.setString(7, address.getAddCountry());
