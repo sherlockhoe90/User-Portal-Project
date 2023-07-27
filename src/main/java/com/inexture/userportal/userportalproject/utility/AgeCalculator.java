@@ -7,7 +7,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public class AgeCalculator {
-    private static Logger logger = LogManager.getLogger("UserLoginController");
+    private static Logger logger = LogManager.getLogger("AgeCalculatorUtility");
 
     public static void main(String[] args) {}
 

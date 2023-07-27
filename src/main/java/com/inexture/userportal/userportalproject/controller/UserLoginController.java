@@ -84,7 +84,7 @@ public class UserLoginController extends HttpServlet {
                     session.setAttribute("userRole", "user");
 
                     User list2 = service.displaySpecificUser(user);
-                    System.out.println("UserLoginController: user value GOT......" + list2.toString());
+                    logger.info("UserLoginController: user value GOT......" + list2.toString());
                     // int id = list2.get(0).getUserId();
                     int id = list2.getUserId();
                     session.setAttribute("CurrentUser", user);

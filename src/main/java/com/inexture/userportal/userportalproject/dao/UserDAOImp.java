@@ -3,6 +3,7 @@ package com.inexture.userportal.userportalproject.dao;
 import com.inexture.userportal.userportalproject.model.User;
 import com.inexture.userportal.userportalproject.utility.DatabaseManager;
 import com.inexture.userportal.userportalproject.utility.PasswordEncryption;
+import com.inexture.userportal.userportalproject.utility.UserDAOUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -120,22 +121,11 @@ public class UserDAOImp implements UserDAO {
         ResultSet rs = pstmt.executeQuery();
         while (rs.next()) {
             user = new User();
-            user.setUserId(rs.getInt("id"));
-            user.setUserFirstname(rs.getString("firstname"));
-            user.setUserMiddlename(rs.getString("middlename"));
-            user.setUserLastname(rs.getString("lastname"));
-            user.setUserEmailID(rs.getString("emailid"));
-            user.setUserUsername(rs.getString("username"));
-            user.setUserPassword(rs.getString("password"));
-            user.setUserDOB(rs.getString("dob"));
-            user.setUserAge(rs.getInt("age"));
-            user.setUserHobbies(rs.getString("hobbies"));
-//            Blob blob = rs.getBlob("profile_img");
-//
-//            byte[] photo = blob.getBytes(1, (int) blob.length());
-//            String base64Image = Base64.getEncoder().encodeToString(photo);
-//            user.setBase64Image(base64Image);
-            System.out.println("User Data" + user); //printing the user to check all of the information that we've received
+
+            /*setting the database data inside the 'user' object*/
+            UserDAOUtility.SetResultSetWithinUserObject(user, rs);
+
+            logger.info("User Data" + user); //printing the user to check all of the information that we've received
 
             list.add(user);
         }
@@ -146,7 +136,7 @@ public class UserDAOImp implements UserDAO {
     @Override
     public void deleteUser(String userId) throws SQLException {
         PreparedStatement pstmt = c.prepareStatement("delete from userportal_users where id=?");
-        pstmt.setString(1, userId);
+        pstmt.setInt(1, Integer.parseInt(userId));
         pstmt.execute();
         /*
          * the trigger i used for the above code is as follows:
@@ -176,21 +166,9 @@ public class UserDAOImp implements UserDAO {
         ResultSet rs = pstmt.executeQuery();
         while (rs.next()) {
 //            user = new User();
-            user.setUserId(rs.getInt("id"));
-            user.setUserFirstname(rs.getString("firstname"));
-            user.setUserMiddlename(rs.getString("middlename"));
-            user.setUserLastname(rs.getString("lastname"));
-            user.setUserEmailID(rs.getString("emailid"));
-            user.setUserUsername(rs.getString("username"));
-            user.setUserPassword(rs.getString("password"));
-            user.setUserDOB(rs.getString("dob"));
-            user.setUserAge(rs.getInt("age"));
-            user.setUserHobbies(rs.getString("hobbies"));
-//            Blob blob = rs.getBlob("profile_img");
-//
-//            byte[] photo = blob.getBytes(1, (int) blob.length());
-//            String base64Image = Base64.getEncoder().encodeToString(photo);
-//            user.setBase64Image(base64Image);
+
+            /*setting the database data inside the 'user' object*/
+            UserDAOUtility.SetResultSetWithinUserObject(user, rs);
 
             list.add(user);
         }
@@ -219,22 +197,9 @@ public class UserDAOImp implements UserDAO {
         User us = new User();
         while (rs.next()) {
             // user = new User();
-            us.setUserId(rs.getInt("id"));
-            us.setUserFirstname(rs.getString("firstname"));
-            us.setUserMiddlename(rs.getString("middlename"));
-            us.setUserLastname(rs.getString("lastname"));
-            us.setUserEmailID(rs.getString("emailid"));
-            us.setUserUsername(rs.getString("username"));
-            us.setUserPassword(rs.getString("password"));
-            us.setUserDOB(rs.getString("dob"));
-            us.setUserAge(rs.getInt("age"));
-            us.setUserHobbies(rs.getString("hobbies"));
-//            Blob blob = rs.getBlob("profile_img");
 
-//            byte[] photo = blob.getBytes(1, (int) blob.length());
-//            String base64Image = Base64.getEncoder().encodeToString(photo);
-//            us.setBase64Image(base64Image);
-//			list.add(us);
+            /*setting the database data inside the 'user' object*/
+            UserDAOUtility.SetResultSetWithinUserObject(user, rs);
         }
         return us;
     }
@@ -281,21 +246,10 @@ public class UserDAOImp implements UserDAO {
 
         while (rs.next()) {
             User user = new User();
-            user.setUserId(rs.getInt("id"));
-            user.setUserFirstname(rs.getString("firstname"));
-            user.setUserMiddlename(rs.getString("middlename"));
-            user.setUserLastname(rs.getString("lastname"));
-            user.setUserEmailID(rs.getString("emailid"));
-            user.setUserDOB(rs.getString("dob"));
-            user.setUserAge(rs.getInt("age"));
-            user.setUserUsername(rs.getString("username"));
-            user.setUserPassword(rs.getString("password"));
-            user.setUserHobbies(rs.getString("hobbies"));
-//            Blob blob = rs.getBlob("profile_img");
-//
-//            byte[] photo = blob.getBytes(1, (int) blob.length());
-//            String base64Image = Base64.getEncoder().encodeToString(photo);
-//            user.setBase64Image(base64Image);
+
+            /*setting the database data inside the 'user' object*/
+            UserDAOUtility.SetResultSetWithinUserObject(user, rs);
+
             list.add(user);
         }
         return list;

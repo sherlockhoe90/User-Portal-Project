@@ -77,6 +77,8 @@ public class UpdateProfileController extends HttpServlet {
             user.setUserHobbies(request.getParameter("hobbies"));
 
             validationErrorsArrayList = ValidateOnServerSide.validateUser(user);
+            //removing the below error from the list as there's no Confirm-Password input on the Edit Page in the first place
+            validationErrorsArrayList.remove("Confirm password is either empty, or the passwords do not match.");
             if (validationErrorsArrayList.isEmpty()){
                 id = service.updateProfile(user);
             } else {
@@ -218,11 +220,10 @@ public class UpdateProfileController extends HttpServlet {
                 session.setAttribute("AddressList", listAddress);
                 if (!validationErrorsArrayList.isEmpty()){
                     request.setAttribute("errors", validationErrorsArrayList);
-                    request.getRequestDispatcher("/registration.jsp?user=userEdit").forward(request, response);
+                    request.getRequestDispatcher("/registration.jsp?user=admin").forward(request, response);
                     /*doubtful about putting userEdit on this link, check it again. 26/07/2023 today */
                 } else {
                     response.sendRedirect("adminHomePage.jsp");
-
                 }
             }
         } catch (

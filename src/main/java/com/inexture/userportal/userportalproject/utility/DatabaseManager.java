@@ -1,11 +1,15 @@
 package com.inexture.userportal.userportalproject.utility;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseManager {
+    private static Logger logger = LogManager.getLogger("AgeCalculatorUtility");
     private static final String url = "jdbc:mysql://localhost:3306/inexturesolutionstraining_27_06_23";
     private static final String username = "root";
     private static final String password = "root";
@@ -21,7 +25,8 @@ public class DatabaseManager {
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            System.out.println("class not found exception has occurred.");
+            logger.error("class not found exception has occurred.");
+            e.getMessage();
         }
     }
 
