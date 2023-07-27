@@ -17,14 +17,13 @@ public class UserServiceImp implements UserService {
 
     @Override
     public boolean compareUserLogin(User user) {
-        boolean obj = userDAOobject.compareUserLogin(user);
-        return obj;
+        return userDAOobject.compareUserLogin(user);
     }
 
     @Override
     public int userRegister(User user) {
-        int id = userDAOobject.userRegister(user);
-        return id;
+        /*returns the user ID*/
+        return userDAOobject.userRegister(user);
     }
 
     @Override
@@ -37,9 +36,7 @@ public class UserServiceImp implements UserService {
     @Override
     public List<User> displayUser(User user) throws SQLException {
         logger.info("inside user service imp");
-
-        List<User> list = userDAOobject.displayUser(user);
-        return list;
+        return userDAOobject.displayUser(user);
     }
 
     @Override
@@ -51,8 +48,7 @@ public class UserServiceImp implements UserService {
     @Override
     public List<User> displayAdmin(User user) throws SQLException {
         logger.info(" displayAdmin method called");
-        List<User> list = userDAOobject.displayAdmin(user);
-        return list;
+        return userDAOobject.displayAdmin(user);
     }
 
     @Override
@@ -72,15 +68,14 @@ public class UserServiceImp implements UserService {
 
     @Override
     public int updateProfile(User user) {
-        int id = userDAOobject.updateProfile(user);
-        return id;
+        /*return user ID*/
+        return userDAOobject.updateProfile(user);
     }
 
 
     @Override
     public List<User> getUserDetails(String userId) throws SQLException {
-        List<User> list = userDAOobject.getUserDetails(userId);
-        return list;
+        return userDAOobject.getUserDetails(userId);
     }
 
     /**

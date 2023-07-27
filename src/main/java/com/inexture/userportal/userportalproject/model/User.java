@@ -13,6 +13,7 @@ public class User {
     private String userEmailID;
     private String userUsername;
     private String userPassword;
+    private String userConfirmPassword;
 
     private int userAge;
     private String userDOB;
@@ -88,6 +89,14 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public String getUserConfirmPassword() {
+        return userConfirmPassword;
+    }
+
+    public void setUserConfirmPassword(String userConfirmPassword) {
+        this.userConfirmPassword = userConfirmPassword;
     }
 
     public int getUserAge() {

@@ -40,9 +40,11 @@ public class PasswordEncryption {
     public static String encrypt(String strToEnc) {
 //    public static String encrypt(String strToEnc, String sec) { /*the commented method declaration includes the secretKey 'sec' which can be used to encrypt and decrypt*/
         try {
-            String sec = "HastaLaVista"; //the key to encode with
-            setKey(sec); //setting the secret key
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); // use AES
+            if (secretkey == null || secretkey.toString().trim().isEmpty()) {
+                String sec = "HastaLaVista"; //the key to encode with
+                setKey(sec); //setting the secret key
+            }
+                        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); // use AES
             cipher.init(Cipher.ENCRYPT_MODE, secretkey); // initializing cipher in encrypt mode
 
             return Base64.getEncoder().encodeToString(cipher.doFinal(strToEnc.getBytes("UTF-8"))); // returning the encrypted string
@@ -56,8 +58,10 @@ public class PasswordEncryption {
     public static String decrypt(String strToDec) {
 //    public static String decrypt(String strToDec, String sec) { /*the commented method declaration includes the secretKey 'sec' which can be used to encrypt and decrypt
         try {
-            String sec = "HastaLaVista"; //the key to encode with
-            setKey(sec);
+            if (secretkey == null || secretkey.toString().trim().isEmpty()) {
+                String sec = "HastaLaVista"; //the key to encode with
+                setKey(sec); //setting the secret key
+            }
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); // use AEs
             cipher.init(Cipher.DECRYPT_MODE, secretkey); // initializing cipher in decrypt mode
 

@@ -8,6 +8,7 @@ import com.inexture.userportal.userportalproject.services.AddressServiceImp;
 import com.inexture.userportal.userportalproject.services.UserService;
 import com.inexture.userportal.userportalproject.services.UserServiceImp;
 import com.inexture.userportal.userportalproject.utility.AgeCalculator;
+import com.inexture.userportal.userportalproject.utility.ValidateOnServerSide;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,6 +50,8 @@ public class UpdateProfileController extends HttpServlet {
             // User user = new User();
             User user = (User) session.getAttribute("CurrentUser");
             Address address = new Address();
+            List<String> validationErrorsArrayList = new ArrayList<>(); // to be shown on registration.jsp
+            int id = 0;
 
 //            Part file = request.getPart("img");
 //            if (file.getSize() == 0) {
@@ -72,7 +76,14 @@ public class UpdateProfileController extends HttpServlet {
             user.setUserAge(AgeCalculator.calculateAge(request.getParameter("dob")));
             user.setUserHobbies(request.getParameter("hobbies"));
 
-            int id = service.updateProfile(user);
+            validationErrorsArrayList = ValidateOnServerSide.validateUser(user);
+            if (validationErrorsArrayList.isEmpty()){
+                id = service.updateProfile(user);
+            } else {
+                User tempUser = new User();
+                tempUser.setUserEmailID(user.getUserEmailID());
+                id = service.updateProfile(tempUser);
+            }
 
             /* address part */
             // addressIdFromDatabase contains the addresses existing in the database
@@ -121,9 +132,12 @@ public class UpdateProfileController extends HttpServlet {
                 address.setAddPostalAdd(postaladdress[count]);
                 address.setRemoveAddressId(remove);
 
-                /* update address function called */
-                addservice.updateAddress(address, id);
-                logger.info("address values inside update servlet" + address);
+                validationErrorsArrayList.addAll(ValidateOnServerSide.validateAddress(address));
+                if (validationErrorsArrayList.isEmpty()){
+                    /* update address function called */
+                    addservice.updateAddress(address, id);
+                    logger.info("address values inside update servlet" + address);
+                }
                 count++;
             }
             /* end of updating existing addresses (included: deleting the removed addresses from the database.) */
@@ -165,14 +179,24 @@ public class UpdateProfileController extends HttpServlet {
                     newAddress.setAddCountry(newCountry[i]);
                     newAddress.setAddPostalAdd(newPostaladdress[i]);
 
-                    addservice.addAddress(id, newAddress);
+                    validationErrorsArrayList.addAll(ValidateOnServerSide.validateAddress(newAddress));
+                    if (validationErrorsArrayList.isEmpty()){
+                        /* update address function called */
+                        addservice.addAddress(id, newAddress);
+                        logger.info("address values inside update servlet" + address);
+                    }
                 }
             }
             /* end of adding new addresses */
 
             String uName = (String) session.getAttribute("userName"); //gets this from the JS code on top of registration.jsp
             if (uName.equals("adminEdit")) {
-                response.sendRedirect("adminHomePage.jsp");
+                if (!validationErrorsArrayList.isEmpty()){
+                    request.setAttribute("errors", validationErrorsArrayList);
+                    request.getRequestDispatcher("/registration.jsp?user=adminEdit").forward(request, response);
+                } else {
+                    response.sendRedirect("adminHomePage.jsp");
+                }
             } else if (uName.equals("userEdit")) {
                 User userList = service.displaySpecificUser(user);
                 session.setAttribute("specificUserData", userList);
@@ -180,14 +204,26 @@ public class UpdateProfileController extends HttpServlet {
                 session.setAttribute("AddressList", listAddress);
                 // session.setAttribute("CurrentUser", user);
                 // response.sendRedirect("UserHomePage.jsp");
-                RequestDispatcher req = request.getRequestDispatcher("userHomePage.jsp");
-                req.include(request, response);
+                if (!validationErrorsArrayList.isEmpty()){
+                    request.setAttribute("errors", validationErrorsArrayList);
+                    request.getRequestDispatcher("/registration.jsp?user=userEdit").forward(request, response);
+                } else {
+                    RequestDispatcher req = request.getRequestDispatcher("userHomePage.jsp");
+                    req.include(request, response);
+                }
             } else if (uName.equals("admin")) {
                 List<User> adminList = service.displayAdmin(user);
                 session.setAttribute("adminList", adminList);
                 List<Address> listAddress = addservice.getAllAddress(id);
                 session.setAttribute("AddressList", listAddress);
-                response.sendRedirect("adminHomePage.jsp");
+                if (!validationErrorsArrayList.isEmpty()){
+                    request.setAttribute("errors", validationErrorsArrayList);
+                    request.getRequestDispatcher("/registration.jsp?user=userEdit").forward(request, response);
+                    /*doubtful about putting userEdit on this link, check it again. 26/07/2023 today */
+                } else {
+                    response.sendRedirect("adminHomePage.jsp");
+
+                }
             }
         } catch (
                 SQLException e) {
