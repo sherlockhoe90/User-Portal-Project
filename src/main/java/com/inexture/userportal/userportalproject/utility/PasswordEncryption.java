@@ -1,6 +1,7 @@
 package com.inexture.userportal.userportalproject.utility;
 
 /*AES - Advanced Encryption Standard */
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
@@ -15,8 +16,9 @@ public class PasswordEncryption {
     private static byte[] key;
 
     //setkey
-    public static void setKey(String myKey) {
-        try{
+    public static void setKey() {
+        try {
+            String myKey = "HastaLaVista";
             key = myKey.getBytes("UTF-8");
             /* Checksumn: error or integrity detection method*/
             /* hash ufunction: it is a function to produce checksum  */
@@ -40,11 +42,9 @@ public class PasswordEncryption {
     public static String encrypt(String strToEnc) {
 //    public static String encrypt(String strToEnc, String sec) { /*the commented method declaration includes the secretKey 'sec' which can be used to encrypt and decrypt*/
         try {
-            if (secretkey == null || secretkey.toString().trim().isEmpty()) {
-                String sec = "HastaLaVista"; //the key to encode with
-                setKey(sec); //setting the secret key
-            }
-                        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); // use AES
+            setKey(); //setting HastaLaVista as the key in this method
+
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); // use AES
             cipher.init(Cipher.ENCRYPT_MODE, secretkey); // initializing cipher in encrypt mode
 
             return Base64.getEncoder().encodeToString(cipher.doFinal(strToEnc.getBytes("UTF-8"))); // returning the encrypted string
@@ -58,10 +58,8 @@ public class PasswordEncryption {
     public static String decrypt(String strToDec) {
 //    public static String decrypt(String strToDec, String sec) { /*the commented method declaration includes the secretKey 'sec' which can be used to encrypt and decrypt
         try {
-            if (secretkey == null || secretkey.toString().trim().isEmpty()) {
-                String sec = "HastaLaVista"; //the key to encode with
-                setKey(sec); //setting the secret key
-            }
+            setKey(); //setting HastaLaVista as the key in this method
+
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); // use AEs
             cipher.init(Cipher.DECRYPT_MODE, secretkey); // initializing cipher in decrypt mode
 

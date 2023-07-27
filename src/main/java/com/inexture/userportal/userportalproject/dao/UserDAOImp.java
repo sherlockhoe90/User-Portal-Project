@@ -3,7 +3,6 @@ package com.inexture.userportal.userportalproject.dao;
 import com.inexture.userportal.userportalproject.model.User;
 import com.inexture.userportal.userportalproject.utility.DatabaseManager;
 import com.inexture.userportal.userportalproject.utility.PasswordEncryption;
-import com.inexture.userportal.userportalproject.utility.UserDAOUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -123,7 +122,7 @@ public class UserDAOImp implements UserDAO {
             user = new User();
 
             /*setting the database data inside the 'user' object*/
-            UserDAOUtility.SetResultSetWithinUserObject(user, rs);
+            user =  SetResultSetWithinUserObject(user, rs);
 
             logger.info("User Data" + user); //printing the user to check all of the information that we've received
 
@@ -142,7 +141,7 @@ public class UserDAOImp implements UserDAO {
          * the trigger i used for the above code is as follows:
          *
          * DELIMITER //
-         * CREATE TRIGGER deleteUserTrigger AFTER DELETE ON userportal_users
+         * CREATE TRIGGER deleteUserTrigger BEFORE DELETE ON userportal_users
          * FOR EACH ROW
          * BEGIN
          * DELETE FROM userportal_addresses WHERE userid = OLD.id;
@@ -161,14 +160,14 @@ public class UserDAOImp implements UserDAO {
     @Override
     public List<User> displayAdmin(User user) throws SQLException {
         List<User> list = new ArrayList<>();
-        PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where isAdmin=1 and emailid = ?");
+        PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where emailid = ?");
         pstmt.setString(1, user.getUserEmailID());
         ResultSet rs = pstmt.executeQuery();
         while (rs.next()) {
 //            user = new User();
 
             /*setting the database data inside the 'user' object*/
-            UserDAOUtility.SetResultSetWithinUserObject(user, rs);
+            user =  SetResultSetWithinUserObject(user, rs);
 
             list.add(user);
         }
@@ -190,16 +189,15 @@ public class UserDAOImp implements UserDAO {
 
 //		List<User> list = new ArrayList<User>();
 
-        PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where emailid = ? and password = ?");
+        PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where emailid = ?");
         pstmt.setString(1, user.getUserEmailID());
-        pstmt.setString(2, user.getUserPassword());
         ResultSet rs = pstmt.executeQuery();
-        User us = new User();
+        User us =null;
         while (rs.next()) {
             // user = new User();
 
             /*setting the database data inside the 'user' object*/
-            UserDAOUtility.SetResultSetWithinUserObject(user, rs);
+            us=  SetResultSetWithinUserObject(new User(), rs);
         }
         return us;
     }
@@ -245,10 +243,7 @@ public class UserDAOImp implements UserDAO {
         ResultSet rs = pstmt.executeQuery();
 
         while (rs.next()) {
-            User user = new User();
-
-            /*setting the database data inside the 'user' object*/
-            UserDAOUtility.SetResultSetWithinUserObject(user, rs);
+            User user = SetResultSetWithinUserObject(new User(), rs);
 
             list.add(user);
         }
@@ -273,5 +268,32 @@ public class UserDAOImp implements UserDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    /* utility method to reduce code duplication */
+    public User SetResultSetWithinUserObject(User user, ResultSet rs) throws SQLException {
+        user.setUserId(rs.getInt("id"));
+        user.setUserFirstname(rs.getString("firstname"));
+        user.setUserMiddlename(rs.getString("middlename"));
+        user.setUserLastname(rs.getString("lastname"));
+        user.setUserEmailID(rs.getString("emailid"));
+        user.setUserUsername(rs.getString("username"));
+        user.setUserPassword(rs.getString("password"));
+        user.setUserDOB(rs.getString("dob"));
+        user.setUserAge(rs.getInt("age"));
+        user.setUserHobbies(rs.getString("hobbies"));
+
+//            Blob blob = rs.getBlob("profile_img");
+//
+//            byte[] photo = blob.getBytes(1, (int) blob.length());
+//            String base64Image = Base64.getEncoder().encodeToString(photo);
+//            user.setBase64Image(base64Image);
+
+        return user;
     }
 }

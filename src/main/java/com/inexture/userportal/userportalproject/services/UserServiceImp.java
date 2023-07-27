@@ -28,8 +28,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User showUser(User user) throws SQLException {
-        user = userDAOobject.showUser(user);
-        return user;
+        return userDAOobject.showUser(user);
     }
 
 
@@ -84,7 +83,6 @@ public class UserServiceImp implements UserService {
      */
     @Override
     public boolean checkEmail(String emailid) {
-        boolean obj = userDAOobject.checkEmail(emailid);
-        return obj;
+        return userDAOobject.checkEmail(emailid);
     }
 }

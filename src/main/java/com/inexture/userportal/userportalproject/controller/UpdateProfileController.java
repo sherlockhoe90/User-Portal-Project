@@ -224,6 +224,7 @@ public class UpdateProfileController extends HttpServlet {
                     /*doubtful about putting userEdit on this link, check it again. 26/07/2023 today */
                 } else {
                     response.sendRedirect("adminHomePage.jsp");
+
                 }
             }
         } catch (
