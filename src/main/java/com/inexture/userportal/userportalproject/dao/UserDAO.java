@@ -38,6 +38,15 @@ public interface UserDAO {
     List<User> displayUser(User user) throws SQLException;
 
     /**
+     * @param currentPage
+     * @param recordsPerPage
+     * @return
+     * @throws SQLException
+     */
+    // display All users' details on admin side (used for server-side pagination)
+    List<User> displayUser(int currentPage, int recordsPerPage) throws SQLException;
+
+    /**
      *
      * @param userId
      * @throws SQLException
@@ -90,4 +99,8 @@ public interface UserDAO {
      */
     boolean checkEmail(String emailid);
 
+    /**
+     * @return
+     */
+    Integer getNumberOfRows();
 }

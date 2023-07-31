@@ -139,7 +139,11 @@
     $(document).ready(function () {
 
         $('#viewUsersTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "/viewuserdetails",
             "lengthMenu": [[5, 10, 25, 50, 1000000], [5, 10, 25, 50, 'All' ]]
+
         });
 
         $(document).on("click", ".delete", function () {

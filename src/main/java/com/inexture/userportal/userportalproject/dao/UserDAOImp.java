@@ -109,7 +109,7 @@ public class UserDAOImp implements UserDAO {
     }
 
 
-    // display user details on admin side
+    // display All users' details on admin side
     @Override
     public List<User> displayUser(User user) throws SQLException {
 
@@ -127,6 +127,41 @@ public class UserDAOImp implements UserDAO {
             logger.info("User Data" + user); //printing the user to check all of the information that we've received
 
             list.add(user);
+        }
+
+        return list;
+    }
+
+    /**
+     * @param currentPage
+     * @param recordsPerPage
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public List<User> displayUser(int currentPage, int recordsPerPage) throws SQLException {
+        List<User> list = new ArrayList<User>();
+        User user = null;
+        int start = currentPage * recordsPerPage - recordsPerPage;
+        try {
+            PreparedStatement pstmt = c.prepareStatement(
+                    "SELECT * FROM userportal_users LIMIT ?, ?");
+            pstmt.setInt(1, start);
+            pstmt.setInt(1, recordsPerPage);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                user = new User();
+
+                user =  SetResultSetWithinUserObject(user, rs);
+
+                list.add(user);
+            }
+
+            rs.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return list;
@@ -296,4 +331,26 @@ public class UserDAOImp implements UserDAO {
 
         return user;
     }
-}
+
+    /**
+     * @return
+     */
+    @Override
+    public Integer getNumberOfRows() {
+        Integer numOfRows = 0;
+
+        try(Statement stmt = c.createStatement()) {
+            String sql = "SELECT COUNT(id) FROM userportal_users";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                numOfRows = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage());
+        }
+
+        return numOfRows;
+    }
+    }

@@ -34,8 +34,20 @@ public class UserServiceImp implements UserService {
 
     @Override
     public List<User> displayUser(User user) throws SQLException {
+        /*displays all of the users to the Admin*/
         logger.info("inside user service imp");
         return userDAOobject.displayUser(user);
+    }
+
+    /**
+     * @param currentPage
+     * @param recordsPerPage
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public List<User> displayUser(int currentPage, int recordsPerPage) throws SQLException {
+        return userDAOobject.displayUser(currentPage, recordsPerPage);
     }
 
     @Override
@@ -84,5 +96,13 @@ public class UserServiceImp implements UserService {
     @Override
     public boolean checkEmail(String emailid) {
         return userDAOobject.checkEmail(emailid);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Integer getNumberOfRows() {
+        return userDAOobject.getNumberOfRows();
     }
 }

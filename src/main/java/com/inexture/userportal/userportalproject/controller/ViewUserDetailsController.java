@@ -17,34 +17,54 @@ public class ViewUserDetailsController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static Logger logger = LogManager.getLogger("ViewUserDetailsController");
 
+    // object of User model created
+    User user = new User();
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
+    // object of UserService created
+    UserService serviceObject = new UserServiceImp();
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // object of User model created
-        User user = new User();
+        logger.info("doPOST method called, but it shouldn't be.\nThe doGET should've been called using the new ajax setting.");
+    }
 
-        // object of UserService created
-        UserService serviceObject = new UserServiceImp();
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("text/html;charset=UTF-8");
+        List<User> list;
+        int currentPage;
+        int recordsPerPage;
+
+        currentPage = Integer.parseInt(request.getParameter("currentPage"));
+        recordsPerPage = Integer.parseInt(request.getParameter("recordsPerPage"));
 
         try {
-            List<User> list = serviceObject.displayUser(user);
-            HttpSession session = request.getSession();
-            session.setAttribute("userList", list);
-            /*
-             * using sendRedirect instead of RequestDispatcher, as the RD was enabling
-             * the user to go back to the viewUser Servlet instead of the viewUsers JSP,
-             * causing the session to get picked up again and get validated as an admin
-             */
-            response.sendRedirect("viewUsers.jsp");
+            list = serviceObject.displayUser(currentPage, recordsPerPage);
         } catch (SQLException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            throw new RuntimeException(e);
         }
+
+        request.setAttribute("userList", list);
+
+        int rows = serviceObject.getNumberOfRows();
+
+        int nOfPages = rows / recordsPerPage;
+
+        if (nOfPages % recordsPerPage > 0) {
+
+            nOfPages++;
+        }
+
+        request.setAttribute("noOfPages", nOfPages);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("recordsPerPage", recordsPerPage);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("viewUsers.jsp");
+        dispatcher.forward(request, response);
     }
 }
