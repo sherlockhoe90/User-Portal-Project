@@ -1,10 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ND
-  Date: 11/07/2023
-  Time: 13:29
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<%@ page import="com.inexture.userportal.userportalproject.model.User" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%--using this JAVA code to not let them go to the Login.jsp page when they're logged in and the session is valid--%>
 <%
     String userRole = (String) session.getAttribute("userRole");
@@ -26,10 +24,7 @@
     response.setHeader("Expires", "0"); // Proxies
 %>
 
-<%@ page import="com.inexture.userportal.userportalproject.model.User" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<jsp:include page="WEB-INF/views/header.jsp"/>
+<%@ include file="WEB-INF/views/header.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -54,39 +49,29 @@
             box-shadow: 0 0 1px #2196F3;
         }
     </style>
-
 </head>
 <body class="all_page_background">
-<%-- <jsp:include page="header.jsp" /> --%>
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                    aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="adminHomePage.jsp">Admin</a> <a
-                class="navbar-brand content-center">User Portal Project</a>
+    <!-- The rest of the navigation code -->
+</nav>
+<div class="container" id="viewUsersTableContainer">
+    <div class="row mb-2">
+        <div class="col-sm-12 col-md-6">
+            <label for="recordsPerPageSelect">Rows per page:</label>
+            <select class="form-control" id="recordsPerPageSelect">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <!-- Add more options as needed -->
+            </select>
         </div>
-        <div class="collapse navbar-collapse"
-             id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="logout">Logout</a></li>
-            </ul>
+        <div class="col-sm-12 col-md-6 text-md-right">
+            <p>Total records: <span id="totalRecords"></span></p>
         </div>
     </div>
-</nav>
-<div class="container">
-    <table id="viewUsersTable"
-           class="table table-striped table-bordered table_css">
+    <table id="viewUsersTable" class="table table-striped table-bordered table_css">
         <thead>
-        <tr>
-            <th colspan="9" style="text-align: center">User Details</th>
-        </tr>
-
         <tr>
             <th>Firstname</th>
             <th>Middlename</th>
@@ -94,36 +79,13 @@
             <th>Email</th>
             <th>Username</th>
             <th>Hobby</th>
-            <%--            <th>Profile Picture</th>--%>
             <th>Date of Birth</th>
             <th>Age</th>
             <th>Edit/Delete</th>
-            <%--here lies the extra th in root--%>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="user" items="${userList}">
-            <tr>
-                <td>${user.userFirstname}</td>
-                <td>${user.userMiddlename}</td>
-                <td>${user.userLastname}</td>
-                <td>${user.userEmailID}</td>
-                <td>${user.userUsername}</td>
-                <td>${user.userHobbies}</td>
-                    <%--                <td><img src="data:image/jpg;base64,${user.base64Image}"--%>
-                    <%--                         width="100" height="100"></td>--%>
-                <td>${user.userDOB}</td>
-                <td>${user.userAge}</td>
-                <td>
-                    <%--edit icon--%>
-                    <a href="AdminEdit?user=adminEdit&userId=${user.userId}"><i
-                        class="fa fa-pencil-square-o fa-lg " aria-hidden="true"></i></a>
-                    <%--delete icon--%>
-                    &nbsp;&nbsp;<a id="${user.userId}" class="delete"><i
-                            class="fa fa-trash fa-lg " aria-hidden="true"></i></a></td>
-                    <%--here lies the extra TD in root--%>
-            </tr>
-        </c:forEach>
+        <!-- The rows will be populated using AJAX -->
         </tbody>
     </table>
 </div>
@@ -137,41 +99,84 @@
 <%--js for cr in root--%>
 <script>
     $(document).ready(function () {
+        var currentPage = 1;
+        var recordsPerPage = 10;
 
-        $('#viewUsersTable').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": "/viewuserdetails",
-            "lengthMenu": [[5, 10, 25, 50, 1000000], [5, 10, 25, 50, 'All' ]]
+        function fetchUsers() {
+            $.ajax({
+                url: "viewuserdetails",
+                type: "GET",
+                data: {
+                    currentPage: currentPage,
+                    recordsPerPage: recordsPerPage
+                },
+                success: function (response) {
+                    // Parse the JSON response
+                    var jsonResponse = JSON.parse(response);
+                    var userList = jsonResponse.data;
+                    var totalRecords = jsonResponse.recordsTotal;
 
+                    // Update the total records based on the actual count
+                    $("#totalRecords").text(totalRecords);
+
+                    // Clear existing table rows
+                    $("#viewUsersTable tbody").empty();
+
+                    // Populate table rows with data
+                    userList.forEach(function (user) {
+                        var rowHtml = "<tr>";
+                        rowHtml += "<td>" + user.userFirstname + "</td>";
+                        rowHtml += "<td>" + user.userMiddlename + "</td>";
+                        rowHtml += "<td>" + user.userLastname + "</td>";
+                        rowHtml += "<td>" + user.userEmailID + "</td>";
+                        rowHtml += "<td>" + user.userUsername + "</td>";
+                        rowHtml += "<td>" + user.userHobbies + "</td>";
+                        rowHtml += "<td>" + user.userDOB + "</td>";
+                        rowHtml += "<td>" + user.userAge + "</td>";
+                        rowHtml += "<td>";
+                        rowHtml += '<a href="AdminEdit?user=adminEdit&userId=' + user.userId + '"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>';
+                        rowHtml += '&nbsp;&nbsp;<a id="' + user.userId + '" class="delete"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>';
+                        rowHtml += "</td>";
+                        rowHtml += "</tr>";
+                        $("#viewUsersTable tbody").append(rowHtml);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error occurred:", error);
+                }
+            });
+        }
+
+        // Fetch users on page load
+        fetchUsers();
+
+        // Handle pagination when user changes rows per page
+        $("#recordsPerPageSelect").change(function () {
+            recordsPerPage = parseInt($(this).val(), 10);
+            currentPage = 1;
+            fetchUsers();
         });
 
+        // Add the delete event listener
         $(document).on("click", ".delete", function () {
-
             var rowToDelete = this;
             var userId = +this.id;
-            //THIS CAN ALSO BE DONE WITH URL REWRITING
-            // CALLING DeleteUserController Servlet with href="DeleteUserController?userId="+userId;
-            //But using this above URL rewriting method would send the data as a GET request,
-            // and there's no hidden form for a POST method request... eg. href="DeleteUserController?userId=$ [ user.userId ]"
+
             $.ajax({
                 url: "DeleteUser",
                 type: "POST",
-                data: ({
+                data: {
                     userId: userId,
-                }),
+                },
                 success: function (data) {
-                    alert("deleted successfully..");
-                    $(rowToDelete).closest('tr').fadeOut(100, function () {
-                        $(this).remove();
-                    });
+                    alert("Deleted successfully.");
+                    fetchUsers();
                 }
             });
         });
-
     });
 </script>
 
-<jsp:include page="WEB-INF/views/footer.jsp"/>
+<%@ include file="WEB-INF/views/footer.jsp" %>
 </body>
 </html>

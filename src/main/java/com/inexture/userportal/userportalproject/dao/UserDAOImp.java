@@ -147,7 +147,7 @@ public class UserDAOImp implements UserDAO {
             PreparedStatement pstmt = c.prepareStatement(
                     "SELECT * FROM userportal_users LIMIT ?, ?");
             pstmt.setInt(1, start);
-            pstmt.setInt(1, recordsPerPage);
+            pstmt.setInt(2, recordsPerPage);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {

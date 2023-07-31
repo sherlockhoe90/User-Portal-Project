@@ -1,70 +1,55 @@
 package com.inexture.userportal.userportalproject.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.inexture.userportal.userportalproject.dao.UserDAO;
+import com.inexture.userportal.userportalproject.dao.UserDAOImp;
 import com.inexture.userportal.userportalproject.model.User;
-import com.inexture.userportal.userportalproject.services.UserService;
-import com.inexture.userportal.userportalproject.services.UserServiceImp;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ViewUserDetailsController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private static Logger logger = LogManager.getLogger("ViewUserDetailsController");
+    private static Logger logger = LogManager.getLogger("UserLoginController");
 
-    // object of User model created
-    User user = new User();
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            int currentPage = 1;
+            int recordsPerPage = 10;
 
-    // object of UserService created
-    UserService serviceObject = new UserServiceImp();
+            // Call the DAO method to get paginated user data
+            UserDAO userDAO = new UserDAOImp();
+            List<User> userList = userDAO.displayUser(currentPage, recordsPerPage);
+            int totalRecords = userDAO.getNumberOfRows();
 
+            // Create a JSON response
+            JsonObject jsonResponse = new JsonObject();
+            jsonResponse.addProperty("recordsFiltered", totalRecords);
+            jsonResponse.addProperty("data", new Gson().toJson(userList));
+            jsonResponse.addProperty("totalPages", (totalRecords + recordsPerPage - 1) / recordsPerPage);
+            jsonResponse.addProperty("currentPage", currentPage);
+            jsonResponse.addProperty("recordsTotal", totalRecords);
+
+            response.setContentType("application/json");
+            response.getWriter().write(jsonResponse.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         logger.info("doPOST method called, but it shouldn't be.\nThe doGET should've been called using the new ajax setting.");
-    }
-
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        response.setContentType("text/html;charset=UTF-8");
-        List<User> list;
-        int currentPage;
-        int recordsPerPage;
-
-        currentPage = Integer.parseInt(request.getParameter("currentPage"));
-        recordsPerPage = Integer.parseInt(request.getParameter("recordsPerPage"));
-
-        try {
-            list = serviceObject.displayUser(currentPage, recordsPerPage);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        request.setAttribute("userList", list);
-
-        int rows = serviceObject.getNumberOfRows();
-
-        int nOfPages = rows / recordsPerPage;
-
-        if (nOfPages % recordsPerPage > 0) {
-
-            nOfPages++;
-        }
-
-        request.setAttribute("noOfPages", nOfPages);
-        request.setAttribute("currentPage", currentPage);
-        request.setAttribute("recordsPerPage", recordsPerPage);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("viewUsers.jsp");
-        dispatcher.forward(request, response);
     }
 }
