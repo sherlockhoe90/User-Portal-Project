@@ -128,8 +128,8 @@
 	margin-bottom: 30px;
 }
 
-.viewUsersTable {
-	margin-bottom: 500px;
+.viewUsersTable, #viewUsersTableContainer { /*targetting the table didnt work, targetting its parent Div did*/
+	margin-bottom: 50px;
 }
 
 .userSpecificHomeLinkOnHeader {

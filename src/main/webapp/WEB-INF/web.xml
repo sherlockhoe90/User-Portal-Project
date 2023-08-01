@@ -49,6 +49,18 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+    <!--ViewPageController calls a servlet that merely redirects the user to viewUsers.jsp, which uses ajax to call viewUserDetailsController.java-->
+    <servlet>
+        <display-name>ViewPageController</display-name>
+        <servlet-name>ViewPageController</servlet-name>
+        <servlet-class>com.inexture.userportal.userportalproject.controller.ViewPageController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewPageController</servlet-name>
+        <url-pattern>/viewPageController</url-pattern>
+    </servlet-mapping>
+
+    <!--ViewUserDetails fetches the userList data from the database and provides viewUsers.jsp with the data upon an ajax call-->
     <servlet>
         <display-name>ViewUserDetails</display-name>
         <servlet-name>ViewUserDetails</servlet-name>

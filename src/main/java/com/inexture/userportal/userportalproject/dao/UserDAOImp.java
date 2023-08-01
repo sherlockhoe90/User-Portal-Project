@@ -166,7 +166,15 @@ public class UserDAOImp implements UserDAO {
 
         return list;
     }
-
+//method 1 for pagination
+    /*SELECT * FROM userportal_users LIMIT 20, 10  and   SELECT * FROM userportal_users LIMIT 10, 10*/
+    /*the above statement means, show me 10 rows, starting after the 20th row (so, 21 to 30)*/
+//method 2 for pagination
+    /*SELECT * FROM userportal_users LIMIT 10 OFFSET 20;
+    the above statement gives us 10 rows, starting after the 20th row (21 to 30)
+    LIMIT = number of ROWS
+    OFFSET number of ROW * pagenumber-1
+*/
     @Override
     public void deleteUser(String userId) throws SQLException {
         PreparedStatement pstmt = c.prepareStatement("delete from userportal_users where id=?");

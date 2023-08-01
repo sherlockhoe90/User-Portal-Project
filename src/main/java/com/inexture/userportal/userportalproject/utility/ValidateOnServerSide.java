@@ -64,7 +64,7 @@ public class ValidateOnServerSide {
         // encrypting the password before setting it and saving it into the database
         if (user.getUserPassword() == null || user.getUserPassword().trim().isEmpty()) {
             validationErrorsArrayListForUser.add("Password is required.");
-        } else if (user.getUserPassword().length() > 30) {
+        } else if (user.getUserPassword().length() > 80) {
             validationErrorsArrayListForUser.add("Password cannot be longer than 30 characters.");
         }
         if (user.getUserConfirmPassword() == null || user.getUserConfirmPassword().trim().isEmpty() || !user.getUserConfirmPassword().equals(user.getUserPassword())) {

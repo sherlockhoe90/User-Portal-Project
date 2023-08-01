@@ -73,7 +73,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="registration.jsp?user=admin">Edit My Profile<span
                             class="sr-only">(Edit My Profile)</span></a>
-                    <li><a href="viewuserdetails">View All Users<span
+                    <li><a href="viewPageController">View All Users<span
                             class="sr-only">(View All of the Users)</span></a>
                     <li><a href="registration.jsp?user=ADD" id="addLink">Add User<span
                         class="sr-only">(Add Another User)</span>
