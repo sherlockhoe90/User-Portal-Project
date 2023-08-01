@@ -49,8 +49,8 @@ public class UserRegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession sessionInvalidate = request.getSession();
-        sessionInvalidate.invalidate();
+//        HttpSession sessionInvalidate = request.getSession();
+//        sessionInvalidate.invalidate();
 
         int id = 0;
 

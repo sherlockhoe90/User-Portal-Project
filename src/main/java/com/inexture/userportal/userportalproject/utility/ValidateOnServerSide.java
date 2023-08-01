@@ -106,7 +106,7 @@ public class ValidateOnServerSide {
     }
 
     public static List<String> validateAddress(Address address) {
-        /* creating a new ArrayList as it was causing duplicate references after this validation arraylist is added to the
+        /* creating a new ArrayList called 'validationErrorsArrayListForAddress' as it was causing duplicate references after this validation arraylist is added to the
          * main (and same) validation arraylist. this line to be exact- UserRegisterController:validationErrorsArrayList.addAll(ValidateOnServerSide.validateAddress(addobj));
          * and hence displaying the errors twice on the frontend */
 
