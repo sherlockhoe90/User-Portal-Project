@@ -35,7 +35,7 @@ public class UserRegisterController extends HttpServlet {
         super();
     }
 
-    Connection c;
+    transient Connection c; //made them transient as they were non-transient 'non-serializable instances' in a serializable class
 
     public void init(ServletConfig config) throws ServletException {
         // create connection if one hasn't already been made before
@@ -59,7 +59,7 @@ public class UserRegisterController extends HttpServlet {
         User user = new User();
         Map<String, String> messages = new HashMap<String, String>();
         request.setAttribute("messages", messages);
-        List<String> validationErrorsArrayList = new ArrayList<>(); // to be shown on registration.jsp
+        List<String> validationErrorsArrayList; // to be shown on registration.jsp
 
         user.setUserFirstname(request.getParameter("firstname"));
         user.setUserMiddlename(request.getParameter("middlename"));
@@ -83,7 +83,7 @@ public class UserRegisterController extends HttpServlet {
         }
 
         //printing the user details that i've got
-        user.toString();
+        logger.info(user.toString());
 
         // Check if there are validation errors
         if (validationErrorsArrayList.isEmpty()) {
@@ -142,7 +142,7 @@ public class UserRegisterController extends HttpServlet {
 
         //printing the address(es) that i've got
         Address addModel = new Address();
-        addModel.toString();
+        logger.info(addModel.toString());
 
         HttpSession session = request.getSession();
         String uName = (String) session.getAttribute("userFirstname");

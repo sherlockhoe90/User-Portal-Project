@@ -50,7 +50,7 @@ public class UpdateProfileController extends HttpServlet {
             // User user = new User();
             User user = (User) session.getAttribute("CurrentUser");
             Address address = new Address();
-            List<String> validationErrorsArrayList = new ArrayList<>(); // to be shown on registration.jsp
+            List<String> validationErrorsArrayList; // to be shown on registration.jsp
             int id = 0;
 
 //            Part file = request.getPart("img");
@@ -98,12 +98,13 @@ public class UpdateProfileController extends HttpServlet {
             List<String> addressIdListFromFrontend = Arrays.asList(addressId);
             // takes the addresses from the frontend, and checks if it consists of the addresses present in the database,
             //if not, it removes those addresses from the database, that are not found in the frontend
-            String remove = "";
+            StringBuilder removeBuilder = new StringBuilder(); //using a String builder as suggested by SpotBugs, cuz String is immutable and hence quadruples the cost with each for loop
             for (int i = 0; i < addressIdFromDatabase.length; i++) {
                 if (!addressIdListFromFrontend.contains(addressIdFromDatabase[i])) {
-                    remove += addressIdFromDatabase[i] + " ";
+                    removeBuilder.append(addressIdFromDatabase[i]).append(" ");
                 }
             }
+            String remove = removeBuilder.toString();
 
             // deleted the commented code for adding the new addresses that were added along with editing and removing addresses
             // from registration.jsp?adminEdit or userEdit, etc

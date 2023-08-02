@@ -102,7 +102,11 @@ public class ValidateOnServerSide {
             validationErrorsArrayListForUser.add("Hobbies cannot be longer than 50 characters.");
         }
 
-        return validationErrorsArrayListForUser;
+        //returning a new list with elements from the original list, so that no external changes may affect the program
+        //this is cuz when we return the arraylist itself, we are returning a reference to it, and not a separate arraylist,
+        // so any and all modifications to this arraylist (the reference in this case, if we send the original arraylist)
+        // by external code, classes and methods, will affect the original arraylist. But his won't happen if we return a new arraylist.
+        return new ArrayList<>(validationErrorsArrayListForUser);
     }
 
     public static List<String> validateAddress(Address address) {
@@ -158,7 +162,11 @@ public class ValidateOnServerSide {
             validationErrorsArrayListForAddress.add("Postal Address cannot be longer than 250 characters.");
         }
 
-        return validationErrorsArrayListForAddress;
+        //returning a new list with elements from the original list, so that no external changes may affect the program
+        //this is cuz when we return the arraylist itself, we are returning a reference to it, and not a separate arraylist,
+        // so any and all modifications to this arraylist (the reference in this case, if we send the original arraylist)
+        // by external code, classes and methods, will affect the original arraylist. But his won't happen if we return a new arraylist.
+        return new ArrayList<>(validationErrorsArrayListForAddress);
 
     }
 }

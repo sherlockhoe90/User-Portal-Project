@@ -51,6 +51,8 @@ public class AddressDAOImp implements AddressDAO {
             pstmt.setString(10, address.getAddPostalAdd());
             pstmt.executeUpdate();
 
+            pstmt.close();
+            c.close();
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error(e.getMessage());
@@ -64,27 +66,31 @@ public class AddressDAOImp implements AddressDAO {
     public List<Address> getAllAddress(int userId) throws SQLException {
         List<Address> list = new ArrayList<>();
 
-        pstmt = c.prepareStatement("select * from userportal_addresses where userid = ?");
+        try(PreparedStatement pstmt = c.prepareStatement("select * from userportal_addresses where userid = ?")) {
+            pstmt.setInt(1, userId);
 
-        pstmt.setInt(1, userId);
-        ResultSet rs = pstmt.executeQuery();
+            try(ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Address address = new Address();
+                    address.setAddUserID(rs.getInt("userid"));
+                    address.setAddId(rs.getString("addressid"));
+                    address.setAddHouseNo(rs.getString("houseno"));
+                    address.setAddStreet(rs.getString("street"));
+                    address.setAddLandmark(rs.getString("landmark"));
+                    address.setAddZipcode(rs.getString("zipcode"));
+                    address.setAddCity(rs.getString("city"));
+                    address.setAddState(rs.getString("state"));
+                    address.setAddCountry(rs.getString("country"));
+                    address.setAddPostalAdd(rs.getString("postaladdress"));
 
-        while (rs.next()) {
-            Address address = new Address();
-            address.setAddUserID(rs.getInt("userid"));
-            address.setAddId(rs.getString("addressid"));
-            address.setAddHouseNo(rs.getString("houseno"));
-            address.setAddStreet(rs.getString("street"));
-            address.setAddLandmark(rs.getString("landmark"));
-            address.setAddZipcode(rs.getString("zipcode"));
-            address.setAddCity(rs.getString("city"));
-            address.setAddState(rs.getString("state"));
-            address.setAddCountry(rs.getString("country"));
-            address.setAddPostalAdd(rs.getString("postaladdress"));
-
-            list.add(address);
+                    list.add(address);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
         return list;
 
     }
@@ -122,17 +128,19 @@ public class AddressDAOImp implements AddressDAO {
 
         pstmt.executeUpdate();
 
+        pstmt.close();
+        c.close();
     }
 
     // To delete address
     public void deleteAddress(String addressId[]) {
-        try {
+        try(PreparedStatement pstmt = c.prepareStatement("delete from userportal_addresses where addressid=?")){
             for (int counter = 0; counter < addressId.length; counter++) {
-                pstmt = c.prepareStatement("delete from userportal_addresses where addressid=?");
                 pstmt.setString(1, addressId[counter]);
                 pstmt.executeUpdate();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error(e.toString());
         }
 

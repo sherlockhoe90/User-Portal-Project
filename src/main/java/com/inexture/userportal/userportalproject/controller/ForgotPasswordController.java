@@ -18,12 +18,14 @@ import java.sql.SQLException;
 
 public class ForgotPasswordController extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
     private static Logger logger = LogManager.getLogger("ForgotPasswordController");
 
-    UserService service = new UserServiceImp();
+    //made them transient as they were non-transient 'non-serializable instances' in a serializable class
+    transient UserService service = new UserServiceImp();
     User user = new User();
-    HttpSession session;
-    int RandomNumber;
+    transient HttpSession session;
+    int randomNumber;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,8 +36,8 @@ public class ForgotPasswordController extends HttpServlet {
             session = request.getSession(); //basically the same as request.getSession() or rq.getSess(true)
         }
         //random number between 0 and 1 is generated, then multiplied manually by 10^6 to get a six digit number
-        if (RandomNumber == 0) {
-            RandomNumber = (int) Math.floor((Math.random()) * Math.pow(10, 6)); //for verification code
+        if (randomNumber == 0) {
+            randomNumber = (int) Math.floor((Math.random()) * Math.pow(10, 6)); //for verification code
         }
         String emailid = request.getParameter("emailid");
         String pageIdentification = request.getParameter("pageIdentification"); /* hidden field */
@@ -45,7 +47,20 @@ public class ForgotPasswordController extends HttpServlet {
             if (service.checkEmail(emailid)) { //if emailid EXISTS in the database
                 user.setUserEmailID(emailid);
                 session.setAttribute("CurrentUser", user);
-                session.setAttribute("VerificationCode", RandomNumber);
+        /* For the above User class' 'user' object being stored in the session... the error you're encountering, "Store of non serializable object into HttpSession," is related to storing
+        non-serializable objects in an HttpSession. This can potentially cause issues when the session needs to be
+        serialized and persisted, such as when the server restarts or when sessions are migrated between different instances.
+        Let's break down the issue and discuss how to address it: CurrentUser, and AddressList
+
+        * In your UserLoginController servlet, you are storing the User and List<Address> objects in the session:
+
+        * By implementing the Serializable interface, you are telling Java that instances of these classes can be
+         safely serialized and deserialized, which prevents potential issues when storing them in the session.
+
+        * Additionally, make sure that any other classes you use in your servlet that are stored in the session also
+         implement Serializable if they are part of the session attributes.
+        */
+                session.setAttribute("VerificationCode", randomNumber);
 
                 logger.info("the Verification Code is : " + session.getAttribute("VerificationCode"));
                 //response.sendRedirect(request.getContextPath() + "/forgotPassword.jsp?emailExists=exists");
@@ -82,18 +97,18 @@ public class ForgotPasswordController extends HttpServlet {
         String pageIdentification = request.getParameter("pageIdentification");
 
         try {
-        if (pageIdentification.equals("sendingNewPassword")) {
-            /*getting the new password from frontend*/
-            String newPassword = request.getParameter("newpassword");
-            user.setUserPassword(newPassword);
-            service.updatePassword(user);
+            if (pageIdentification.equals("sendingNewPassword")) {
+                /*getting the new password from frontend*/
+                String newPassword = request.getParameter("newpassword");
+                user.setUserPassword(newPassword);
+                service.updatePassword(user);
 
-            RequestDispatcher rd = request.getRequestDispatcher("forgotPassword.jsp?emailExists=passwordChangedSuccessfully");
-            rd.forward(request, response);
-            session.invalidate();
-        }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+                RequestDispatcher rd = request.getRequestDispatcher("forgotPassword.jsp?emailExists=passwordChangedSuccessfully");
+                rd.forward(request, response);
+                session.invalidate();
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

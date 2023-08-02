@@ -48,6 +48,21 @@ public class UserLoginController extends HttpServlet {
         // checking if the encrypted password matches with the encrypted password in the databsse
         boolean isValid = service.compareUserLogin(user);
 
+        /* The error you're encountering, "Store of non serializable object into HttpSession," is related to storing
+        non-serializable objects in an HttpSession. This can potentially cause issues when the session needs to be
+        serialized and persisted, such as when the server restarts or when sessions are migrated between different instances.
+        Let's break down the issue and discuss how to address it: CurrentUser, and AddressList
+
+         * In your UserLoginController servlet, you are storing the User and List<Address> objects in the session:
+
+         * By implementing the Serializable interface, you are telling Java that instances of these classes can be
+         safely serialized and deserialized, which prevents potential issues when storing them in the session.
+
+         * Additionally, make sure that any other classes you use in your servlet that are stored in the session also
+         implement Serializable if they are part of the session attributes.
+
+        */
+
         List<User> list1; /*for admin*/
         // List<User> list2; /*for user*/ declared
         List<Address> listAddress;

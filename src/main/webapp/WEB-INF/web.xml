@@ -138,9 +138,9 @@
 <!--    </filter-mapping>-->
 
 
-<!--    <error-page>-->
-<!--        &lt;!&ndash; <error-code>500</error-code> &ndash;&gt;-->
-<!--        &lt;!&ndash; <exception-type>java.lang.Exception</exception-type> &ndash;&gt;-->
-<!--        <location>/errorPage.jsp</location>-->
-<!--    </error-page>-->
+    <error-page>
+        <!-- <error-code>500</error-code> -->
+        <!-- <exception-type>java.lang.Exception</exception-type> -->
+        <location>/errorPage.jsp</location>
+    </error-page>
 </web-app>

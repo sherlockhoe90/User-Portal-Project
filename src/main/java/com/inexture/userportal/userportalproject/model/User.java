@@ -2,9 +2,17 @@ package com.inexture.userportal.userportalproject.model;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
+    /** By implementing the Serializable interface, you are telling Java that instances of these classes can be
+     safely serialized and deserialized, which prevents potential issues when storing them in the session.
 
+     * Additionally, make sure that any other classes you use in your servlet that are stored in the session also
+     implement Serializable if they are part of the session attributes.
+     */
+
+    private static final long serialVersionUID = 1L;
     private int userId;
     private String userRole;
     private String userFirstname;
@@ -19,11 +27,11 @@ public class User {
     private String userDOB;
     private String userHobbies;
 
-    private InputStream userProfile;
+    private transient InputStream userProfile;
 
     private String base64Image;
 
-    private FileInputStream defaultProfile;
+    private transient FileInputStream defaultProfile;
     private Boolean userStatus;
 
 
@@ -162,4 +170,3 @@ public class User {
                 + defaultProfile + ", userStatus=" + userStatus + "]";
     }
 }
-
