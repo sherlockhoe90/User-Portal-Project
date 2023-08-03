@@ -9,7 +9,6 @@ import com.inexture.userportal.userportalproject.services.UserServiceImp;
 import com.inexture.userportal.userportalproject.utility.PasswordEncryption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sun.security.krb5.EncryptedData;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

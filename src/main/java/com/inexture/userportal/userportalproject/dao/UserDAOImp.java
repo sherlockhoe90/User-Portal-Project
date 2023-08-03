@@ -262,7 +262,7 @@ public class UserDAOImp implements UserDAO {
         try (PreparedStatement pstmt = c.prepareStatement("select emailid from userportal_users where emailid=?")) {
             pstmt.setString(1, emailid);
             try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
+                if(rs.next()) {
                     return true;
                 }
             }

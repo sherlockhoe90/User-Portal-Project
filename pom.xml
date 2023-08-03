@@ -146,6 +146,61 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.7.2.1</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.21.0</version>
+            </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.21.0</version>
+                <configuration>
+                    <linkXref>true</linkXref>
+                    <inputEncoding>utf-8</inputEncoding>
+                    <minimumTokens>100</minimumTokens><!--for CPD (Copy Paster Detector). 100 tokens corresponds to around 5-10 lines of code.-->
+                    <targetJdk>1.5</targetJdk>
+                    <excludes>
+                        <exclude>**/*Bean.java</exclude>
+                        <exclude>**/generated/*.java</exclude>
+                    </excludes>
+                    <excludeRoots>
+                        <excludeRoot>target/generated-sources/stubs</excludeRoot>
+                    </excludeRoots>
+                    <rulesets>
+                        <!-- A rule set, that comes bundled with PMD -->
+                        <ruleset>/category/java/bestpractices.xml</ruleset>
+                        <!-- Custom local file system rule set -->
+<!--                        <ruleset>d:\rulesets\strings.xml</ruleset>-->
+                        <ruleset>C:\Users\ND\Downloads\customPMDRuleSet.xml</ruleset>
+                        <!-- Custom remote rule set accessed via a URL -->
+<!--                        <ruleset>http://localhost/design.xml</ruleset>-->
+                    </rulesets>
+                </configuration>
+
+                <reportSets>
+                    <reportSet><!-- by default, id = "default" -->
+                        <reports><!-- select non-aggregate reports -->
+                            <report>pmd</report>
+                            <report>cpd</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet><!-- aggregate reportSet, to define in poms having modules -->
+                        <id>aggregate</id>
+                        <inherited>false</inherited> <!-- don't run aggregate in child modules -->
+                        <reports>
+                            <report>aggregate-pmd</report>
+                            <report>aggregate-cpd</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

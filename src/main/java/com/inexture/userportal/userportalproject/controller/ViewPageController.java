@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 import java.io.IOException;
 
 public class ViewPageController extends HttpServlet {
@@ -18,5 +17,6 @@ public class ViewPageController extends HttpServlet {
 
         RequestDispatcher rd = req.getRequestDispatcher("/viewUsers.jsp");
         rd.forward(req, res);
+        logger.info("Forwarded the flow to the 'viewUsers.jsp' page.");
     }
 }

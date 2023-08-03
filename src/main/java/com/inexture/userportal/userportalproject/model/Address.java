@@ -2,6 +2,7 @@ package com.inexture.userportal.userportalproject.model;
 
 import java.io.Serializable;
 
+
 public class Address implements Serializable {
     /* By implementing the Serializable interface, you are telling Java that instances of these classes can be
      safely serialized and deserialized, which prevents potential issues when storing them in the session.

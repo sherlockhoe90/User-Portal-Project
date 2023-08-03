@@ -5,11 +5,9 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import com.inexture.userportal.userportalproject.utility.PasswordEncryption;
 import com.inexture.userportal.userportalproject.utility.ValidateOnServerSide;
