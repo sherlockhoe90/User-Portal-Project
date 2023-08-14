@@ -162,7 +162,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.21.0</version>
                 <configuration>
-                    <linkXref>true</linkXref>
+                    <linkXRef>true</linkXRef>
                     <inputEncoding>utf-8</inputEncoding>
                     <minimumTokens>100</minimumTokens><!--for CPD (Copy Paster Detector). 100 tokens corresponds to around 5-10 lines of code.-->
                     <targetJdk>1.5</targetJdk>

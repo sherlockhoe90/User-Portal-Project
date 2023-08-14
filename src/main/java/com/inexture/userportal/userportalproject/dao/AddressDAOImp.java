@@ -16,9 +16,13 @@ public class AddressDAOImp implements AddressDAO {
 
     private static Logger logger = LogManager.getLogger("AddressDAOImp");
 
-    Connection c;
+    static Connection c;
 
     public AddressDAOImp() {
+//        c = DatabaseManager.getConnection();
+    }
+
+    static {
         c = DatabaseManager.getConnection();
     }
 
@@ -35,7 +39,7 @@ public class AddressDAOImp implements AddressDAO {
 //        System.out.println("yet to make the AddressDAOImp addAddress method function");
         try {
             logger.info("printing the value of the current user id in AddressDAOImp : " + userId);
-            pstmt = c.prepareStatement(
+            pstmt = DatabaseManager.getConnection().prepareStatement(
                     "insert into userportal_addresses(addressid, userid, houseno, street, city, state, country, zipcode, landmark, postaladdress) values(?,?,?,?,?,?,?,?,?,?)");
 
             pstmt.setInt(1, Integer.parseInt(address.getAddId())); //only one address for each user as of now... im yet to add the multiple address feature
@@ -65,7 +69,7 @@ public class AddressDAOImp implements AddressDAO {
     public List<Address> getAllAddress(int userId) throws SQLException {
         List<Address> list = new ArrayList<>();
 
-        try(PreparedStatement pstmt = c.prepareStatement("select * from userportal_addresses where userid = ?")) {
+        try(PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("select * from userportal_addresses where userid = ?")) {
             pstmt.setInt(1, userId);
 
             try(ResultSet rs = pstmt.executeQuery()) {
@@ -112,7 +116,7 @@ public class AddressDAOImp implements AddressDAO {
             deleteAddress(removeId);
         }
 
-        pstmt = c.prepareStatement(
+        pstmt = DatabaseManager.getConnection().prepareStatement(
                 "UPDATE userportal_addresses SET houseno = ?, street = ?, city = ?, state = ?, country = ?, zipcode = ?, landmark = ?, postaladdress = ? WHERE userid = ? and addressid=?");
         pstmt.setString(1, address.getAddHouseNo());
         pstmt.setString(2, address.getAddStreet());
@@ -133,7 +137,7 @@ public class AddressDAOImp implements AddressDAO {
 
     // To delete address
     public void deleteAddress(String addressId[]) {
-        try(PreparedStatement pstmt = c.prepareStatement("delete from userportal_addresses where addressid=?")){
+        try(PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("delete from userportal_addresses where addressid=?")){
             for (int counter = 0; counter < addressId.length; counter++) {
                 pstmt.setString(1, addressId[counter]);
                 pstmt.executeUpdate();

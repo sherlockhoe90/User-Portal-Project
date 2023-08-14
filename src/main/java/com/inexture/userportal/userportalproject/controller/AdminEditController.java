@@ -32,12 +32,13 @@ public class AdminEditController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         // String uName = (String) session.getAttribute("userName");
+        try {
         UserService service = new UserServiceImp();
         AddressService addService = new AddressServiceImp();
 
         String userId = request.getParameter("userId");
 
-        try {
+
             // to get details of a particular user
             List<User> userData = service.getUserDetails(userId);
             User user = userData.get(0); //getting the details of the user in the object

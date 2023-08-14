@@ -5,6 +5,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,12 @@ public class UserRegisterController extends HttpServlet {
 
         int id = 0;
 
-        UserService service = new UserServiceImp();
+        UserService service = null;
+        try {
+            service = new UserServiceImp();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         AddressService addservice = new AddressServiceImp();
         User user = new User();
         Map<String, String> messages = new HashMap<String, String>();

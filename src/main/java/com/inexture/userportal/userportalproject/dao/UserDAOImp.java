@@ -14,10 +14,10 @@ public class UserDAOImp implements UserDAO {
 
     private static Logger logger = LogManager.getLogger("UserDAOImp");
 
-    Connection c = null;
+    Connection c;
 
-    public UserDAOImp() {
-        if (c == null) {
+    public UserDAOImp() throws SQLException {
+        if (c == null || c.isClosed()) {
             c = DatabaseManager.getConnection();
         }
     }
@@ -27,7 +27,7 @@ public class UserDAOImp implements UserDAO {
     public boolean compareUserLogin(User user) {
         // logger.info("User Data" + user.toString());
         try {
-            try (PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where emailid=? and password = ?")) {
+            try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("select * from userportal_users where emailid=? and password = ?")) {
                 pstmt.setString(1, user.getUserEmailID());
                 pstmt.setString(2, user.getUserPassword());
                 try (ResultSet rs = pstmt.executeQuery()) {
@@ -61,7 +61,7 @@ public class UserDAOImp implements UserDAO {
     public int userRegister(User user) {
         int id = 0;
         try {
-            try (PreparedStatement pstmt = c.prepareStatement(
+            try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement(
                     "insert into userportal_users(role, firstname, middlename, lastname, emailid, username, password, age, dob, hobbies) values(?,?,?,?,?,?,?,?,?,?)")) {
                 pstmt.setString(1, "user");
                 pstmt.setString(2, user.getUserFirstname());
@@ -95,7 +95,7 @@ public class UserDAOImp implements UserDAO {
 
     @Override
     public User showUser(User user) throws SQLException {
-        try (PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where emailid=?")) {
+        try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("select * from userportal_users where emailid=?")) {
             pstmt.setString(1, user.getUserEmailID());
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -116,7 +116,7 @@ public class UserDAOImp implements UserDAO {
     @Override
     public List<User> displayUser(User user) throws SQLException {
         List<User> list = new ArrayList<>();
-        try (PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where isAdmin=0")) {
+        try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("select * from userportal_users where isAdmin=0")) {
             logger.info("User Data" + user.toString());
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -143,7 +143,7 @@ public class UserDAOImp implements UserDAO {
         User user = null;
         int start = currentPage * recordsPerPage - recordsPerPage;
         try {
-            try (PreparedStatement pstmt = c.prepareStatement("SELECT * FROM userportal_users LIMIT ?, ?")) {
+            try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("SELECT * FROM userportal_users LIMIT ?, ?")) {
                 pstmt.setInt(1, start);
                 pstmt.setInt(2, recordsPerPage);
                 try (ResultSet rs = pstmt.executeQuery()) {
@@ -162,7 +162,7 @@ public class UserDAOImp implements UserDAO {
 
     @Override
     public void deleteUser(String userId) throws SQLException {
-        try (PreparedStatement pstmt = c.prepareStatement("delete from userportal_users where id=?")) {
+        try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("delete from userportal_users where id=?")) {
             pstmt.setInt(1, Integer.parseInt(userId));
             pstmt.execute();
         }
@@ -171,7 +171,7 @@ public class UserDAOImp implements UserDAO {
     @Override
     public List<User> displayAdmin(User user) throws SQLException {
         List<User> list = new ArrayList<>();
-        try (PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where emailid = ?")) {
+        try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("select * from userportal_users where emailid = ?")) {
             pstmt.setString(1, user.getUserEmailID());
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -185,7 +185,7 @@ public class UserDAOImp implements UserDAO {
 
     @Override
     public void updatePassword(User user) throws SQLException {
-        try (PreparedStatement pstmt = c.prepareStatement("UPDATE userportal_users SET password = ? WHERE emailid = ?")) {
+        try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("UPDATE userportal_users SET password = ? WHERE emailid = ?")) {
             user.setUserPassword(PasswordEncryption.encrypt(user.getUserPassword())); // encrypt the password before storing in the db
             pstmt.setString(1, user.getUserPassword());
             pstmt.setString(2, user.getUserEmailID());
@@ -195,7 +195,7 @@ public class UserDAOImp implements UserDAO {
 
     @Override
     public User displaySpecificUser(User user) throws SQLException {
-        try (PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where emailid = ?")) {
+        try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("select * from userportal_users where emailid = ?")) {
             pstmt.setString(1, user.getUserEmailID());
             try (ResultSet rs = pstmt.executeQuery()) {
                 User us = null;
@@ -211,7 +211,7 @@ public class UserDAOImp implements UserDAO {
     public int updateProfile(User user) {
         int id = 0;
         try {
-            try (PreparedStatement pstmt = c.prepareStatement(
+            try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement(
                     "UPDATE userportal_users SET firstname = ?, middlename = ?, lastname = ?, hobbies = ?, username = ?, dob = ?, age = ? WHERE emailid = ?")) {
                 pstmt.setString(1, user.getUserFirstname());
                 pstmt.setString(2, user.getUserMiddlename());
@@ -241,7 +241,7 @@ public class UserDAOImp implements UserDAO {
     @Override
     public List<User> getUserDetails(String userId) throws SQLException {
         List<User> list = new ArrayList<User>();
-        try (PreparedStatement pstmt = c.prepareStatement("select * from userportal_users where id = ?")) {
+        try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("select * from userportal_users where id = ?")) {
             pstmt.setString(1, userId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -259,7 +259,7 @@ public class UserDAOImp implements UserDAO {
      */
     @Override
     public boolean checkEmail(String emailid) {
-        try (PreparedStatement pstmt = c.prepareStatement("select emailid from userportal_users where emailid=?")) {
+        try (PreparedStatement pstmt = DatabaseManager.getConnection().prepareStatement("select emailid from userportal_users where emailid=?")) {
             pstmt.setString(1, emailid);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if(rs.next()) {
@@ -297,7 +297,7 @@ public class UserDAOImp implements UserDAO {
     @Override
     public Integer getNumberOfRows() {
         Integer numOfRows = 0;
-        try (Statement stmt = c.createStatement()) {
+        try (Statement stmt = DatabaseManager.getConnection().createStatement()) {
             String sql = "SELECT COUNT(id) FROM userportal_users";
             try (ResultSet rs = stmt.executeQuery(sql)) {
                 while (rs.next()) {

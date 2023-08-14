@@ -27,7 +27,12 @@ public class DeleteUserController extends HttpServlet {
             throws ServletException, IOException {
         String userId = request.getParameter("userId");
 //        doGet(request, response);
-        UserService serviceobj = new UserServiceImp();
+        UserService serviceobj = null;
+        try {
+            serviceobj = new UserServiceImp();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         try {
             // to delete the user
             serviceobj.deleteUser(userId);

@@ -15,6 +15,11 @@ public class UserServiceImp implements UserService {
 
     UserDAO userDAOobject = new UserDAOImp();
 
+    public UserServiceImp() throws SQLException {
+        //making a default constructor that throws Exception
+        //had to.. cuz it was showing an error
+    }
+
     @Override
     public boolean compareUserLogin(User user) {
         return userDAOobject.compareUserLogin(user);

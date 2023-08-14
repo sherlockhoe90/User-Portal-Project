@@ -33,9 +33,10 @@ public class UserLoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        try {
         HttpSession session = request.getSession();
         UserService service = new UserServiceImp();
+
         AddressService addservice = new AddressServiceImp();
         // User user = (User) session.getAttribute("CurrentUser");
         User user = new User();
@@ -164,6 +165,9 @@ public class UserLoginController extends HttpServlet {
 //            req.forward(request, response);
 //            System.out.println("UserLoginController: wrong emailid or password");
 //        }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

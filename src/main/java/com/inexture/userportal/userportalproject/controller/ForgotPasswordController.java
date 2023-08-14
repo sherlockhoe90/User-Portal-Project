@@ -27,6 +27,9 @@ public class ForgotPasswordController extends HttpServlet {
     transient HttpSession session;
     int randomNumber;
 
+    public ForgotPasswordController() throws SQLException {
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

@@ -7,15 +7,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 
 public class DatabaseManager {
 
     /*important information at the end of this file's code */
 
     private static Logger logger = LogManager.getLogger("AgeCalculatorUtility");
-    private static final String url = "jdbc:mysql://localhost:3306/inexturesolutionstraining_27_06_23";
-    private static final String username = "root";
-    private static final String password = "root";
+    //    private static final String url = "jdbc:mysql://localhost:3306/inexturesolutionstraining_27_06_23";
+    //    private static final String username = "root";
+    //    private static final String password = "root";
+    static ResourceBundle bundle = ResourceBundle.getBundle("config");
+    private static final String url = bundle.getString("url");
+    private static final String username = bundle.getString("username");
+    private static final String password = bundle.getString("password");
     private static Connection connection;
 
     static {
@@ -23,13 +28,14 @@ public class DatabaseManager {
             Class.forName("com.mysql.jdbc.Driver");
             // only creates a new connection if one doesn't exist, or is closed
             // singleton patter design pattern
-            if (connection == null || connection.isClosed()) {
-                //using the encryption and decryption in password, as its not good practice or safe to enter hardcoded password into it
-                connection = DriverManager.getConnection(url, username, PasswordEncryption.decrypt(PasswordEncryption.encrypt(password)));
-            }
+//            if (connection == null || connection.isClosed()) {
+            //using the encryption and decryption in password, as its not good practice or safe to enter hardcoded password into it
+            connection = DriverManager.getConnection(url, username, password);
+            logger.debug("Static Block Accessed.");
+//            }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            logger.error("class not found exception has occurred.");
+            logger.error("Could not connect, class not found exception has occurred.");
         }
     }
 
@@ -40,14 +46,27 @@ public class DatabaseManager {
 
     // Method to get a connection to the database
     public static Connection getConnection() {
+//        try {
+        //checks if a valid connection exists (with a timeout of 5 seconds), if yes, returns the existing connection
+        //if not, creates a new one and returns it
+//            return connection.isValid(5) ? connection : DriverManager.getConnection(url, username, PasswordEncryption.decrypt(PasswordEncryption.encrypt(password)));
+
+
         try {
-            //checks if a valid connection exists (with a timeout of 5 seconds), if yes, returns the existing connection
-            //if not, creates a new one and returns it
-            return connection.isValid(5) ? connection : DriverManager.getConnection(url, username, PasswordEncryption.decrypt(PasswordEncryption.encrypt(password)));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            Class.forName("com.mysql.jdbc.Driver");
+
+            connection = DriverManager.getConnection(url, username, password);
+            System.out.println(connection);
+            return connection;
+
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
         }
+
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
     }
 
     public static Statement getStatement() throws SQLException {
@@ -56,6 +75,7 @@ public class DatabaseManager {
 
 }
 
+//fixed this thing by using the Config.
 /*
 * The SpotBugs error was pointing out that a public static method in your class returns a reference to an internal array
 * (in this case, the connection array). This means that external code could potentially modify the contents of the
